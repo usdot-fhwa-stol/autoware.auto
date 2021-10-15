@@ -1,0 +1,38 @@
+version: 2
+
+#  Copyright (C) 2018-2021 LEIDOS.
+# 
+#  Licensed under the Apache License, Version 2.0 (the "License"); you may not
+#  use this file except in compliance with the License. You may obtain a copy of
+#  the License at
+# 
+#  http://www.apache.org/licenses/LICENSE-2.0
+# 
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+#  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+#  License for the specific language governing permissions and limitations under
+#  the License.
+# 
+
+# Configuration file for Circle CI 
+# CI will report failure if any executed command returns and error status
+# Operations performed are as follows
+# Build source code
+# Run unit tests for C++
+# Run static code analyzer for SourceCloud
+# Upload test results
+# Every run command should start with source ${INIT_ENV} to ensure all default dependancies are available
+jobs:
+  build:
+    # Pull docker image from docker hub
+    # XTERM used for better catkin_make output
+    docker:
+      - image: usdotfhwastoldev/carma-base:develop
+        user: carma
+        environment:
+          TERM: xterm
+          INIT_ENV: /home/carma/.base-image/init-env.sh
+          COVERAGE_FLAGS: -g --coverage -fprofile-arcs -ftest-coverage -Wall
+    # Set working directory
+    working_directory: "/opt/carma/"
