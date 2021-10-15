@@ -21,18 +21,6 @@ This repository consists of multiple git subtrees to combine the multi-repo stru
 
 # NOTICE: When working with subtrees please ensure that individual commits only change files in *ONE-AND-ONLY-ONE* subtree.
 If your branch must change multiple subtrees please make those changes in separate commits. Do not squash commits that change multiple subtrees, even when merging via Github.
-
-### Local CARMA mods to this readme file:
-- Added notice section describing fork status and providing instructions for developers
-  - 5/10/2019
-  - Kyle Rush
-- Added several intro sections to provide consistency in appearance among all CARMA repos
-  - 10/11/2019
-  - John Stark
-- Added section describing new fork structure via `git subtree`
-  - 10/30/2019
-  - Kyle Rush
-
 # CARMAPlatform
 The primary CARMAPlatform repository can be found [here](https://github.com/usdot-fhwa-stol/carma-platform) and is part of the [USDOT FHWA STOL](https://github.com/usdot-fhwa-stol/)
 github organization. Documentation on how the CARMAPlatform functions, how it will evolve over time, and how you can contribute can be found at the above links as well
@@ -53,7 +41,6 @@ By contributing to the Federal Highway Administration (FHWA) Connected Automated
 Please click on the CARMA logo below to visit the Federal Highway Adminstration(FHWA) CARMA website.
 
 [![CARMA Image](https://raw.githubusercontent.com/usdot-fhwa-stol/carma-platform/develop/docs/image/CARMA_icon.png)](https://highways.dot.gov/research/research-programs/operations/CARMA)
-
 
 
 ## Autoware
