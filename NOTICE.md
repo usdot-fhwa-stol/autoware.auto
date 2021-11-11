@@ -19,7 +19,9 @@ For any modified file please follow these steps to ensure proper documentation o
   - 11/11/2021
   - Michael McConnell
 
-- autoware_set_compile_options_reduced_warning function created in autoware_auto_cmake to reduce error warning levels in come packages where external deps were tripping error checks. 
+- autoware_set_compile_options_reduced_warning function created in autoware_auto_cmake to reduce error warning levels in come packages where external deps were tripping error checks.
   - 11/11/2021
   - Michael McConnell
-- Multiple packages updated to use autoware_set_compile_options_reduced_warning allowing them to build in carma-base docker iamges. 
+- Multiple packages updated to use autoware_set_compile_options_reduced_warning allowing them to build in carma-base docker images.
+  - 11/11/2021
+  - Michael McConnell
