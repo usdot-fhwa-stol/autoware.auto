@@ -18,6 +18,8 @@ cmake_minimum_required(VERSION 3.5)
 
 ### Build the nodes
 project(spinnaker_camera_nodes)
+find_package(carma_cmake_common REQUIRED)
+carma_check_ros_version(2)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 

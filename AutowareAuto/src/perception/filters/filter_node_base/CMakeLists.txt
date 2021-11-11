@@ -15,6 +15,8 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(filter_node_base)
+find_package(carma_cmake_common REQUIRED)
+carma_check_ros_version(2)
 
 find_package(ament_cmake_auto REQUIRED)
 find_package(PCL REQUIRED)

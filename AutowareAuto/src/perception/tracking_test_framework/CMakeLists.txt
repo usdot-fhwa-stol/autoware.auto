@@ -17,6 +17,8 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(tracking_test_framework)
+find_package(carma_cmake_common REQUIRED)
+carma_check_ros_version(2)
 
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 14)

@@ -9,6 +9,8 @@ cmake_minimum_required(VERSION 3.5)
 
 ### Export headers
 project(had_map_utils)
+find_package(carma_cmake_common REQUIRED)
+carma_check_ros_version(2)
 
 find_package(ament_cmake_auto REQUIRED)
 find_package(CGAL REQUIRED COMPONENTS Core)
