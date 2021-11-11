@@ -1,3 +1,8 @@
+
+#
+# Modifications copyright (C) 2021 Leidos
+#
+
 cmake_minimum_required(VERSION 3.5)
 project(lanelet2_global_planner)
 
@@ -13,7 +18,7 @@ ament_auto_add_library(${GB_PLANNER_LIB} SHARED
   src/lanelet2_global_planner.cpp
   include/lanelet2_global_planner/visibility_control.hpp
 )
-autoware_set_compile_options(${GB_PLANNER_LIB})
+autoware_set_compile_options_reduced_warning(${GB_PLANNER_LIB})
 
 if(BUILD_TESTING)
   # run linters
@@ -33,9 +38,7 @@ if(BUILD_TESTING)
           include/lanelet2_global_planner/lanelet2_global_planner.hpp
           src/lanelet2_global_planner.cpp)
   ament_target_dependencies(${GB_PLANNER_GTEST} "ament_index_cpp")
-  autoware_set_compile_options(${GB_PLANNER_GTEST})
-  target_compile_options(${GB_PLANNER_GTEST} PRIVATE -Wno-sign-conversion -Wno-conversion
-    -Wno-useless-cast -Wno-double-promotion)
+  autoware_set_compile_options_reduced_warning(${GB_PLANNER_GTEST})
   target_link_libraries(${GB_PLANNER_GTEST} ${GB_PLANNER_LIB})
   target_include_directories(${GB_PLANNER_GTEST} PRIVATE "test/include" "include")
 endif()

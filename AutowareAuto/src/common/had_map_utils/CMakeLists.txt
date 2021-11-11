@@ -1,5 +1,10 @@
 # Copyright 2020 TierIV, Inc.
 # All rights reserved.
+
+#
+# Modifications copyright (C) 2021 Leidos
+#
+
 cmake_minimum_required(VERSION 3.5)
 
 ### Export headers
@@ -28,7 +33,7 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
 
 set(CGAL_DO_NOT_WARN_ABOUT_CMAKE_BUILD_TYPE TRUE)
 target_link_libraries(${PROJECT_NAME} CGAL CGAL::CGAL CGAL::CGAL_Core)
-autoware_set_compile_options(${PROJECT_NAME})
+autoware_set_compile_options_reduced_warning(${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

@@ -1,3 +1,8 @@
+
+#
+# Modifications copyright (C) 2021 Leidos
+#
+
 cmake_minimum_required(VERSION 3.5)
 project(lanelet2_global_planner_nodes)
 
@@ -12,7 +17,7 @@ ament_auto_add_library(${GB_PLANNER_NODE_LIB} SHARED
   include/lanelet2_global_planner_nodes/visibility_control.hpp
   src/lanelet2_global_planner_node.cpp
 )
-autoware_set_compile_options(${GB_PLANNER_NODE_LIB})
+autoware_set_compile_options_reduced_warning(${GB_PLANNER_NODE_LIB})
 
 set(GB_PLANNER_NODE_EXE ${GB_PLANNER_NODE_LIB}_exe)
 rclcpp_components_register_node(${GB_PLANNER_NODE_LIB}

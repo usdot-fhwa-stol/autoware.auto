@@ -13,6 +13,11 @@
 # limitations under the License.
 #
 # Co-developed by Tier IV, Inc. and Apex.AI, Inc.
+
+#
+# Modifications copyright (C) 2021 Leidos
+#
+
 cmake_minimum_required(VERSION 3.5)
 
 ### Build the nodes
@@ -56,7 +61,7 @@ if(BUILD_TESTING)
 
     autoware_set_compile_options(${VELODYNE_NODE_GTEST})
     target_include_directories(${VELODYNE_NODE_GTEST} PRIVATE include)
-    target_link_libraries(${VELODYNE_NODE_GTEST} ${CLOUD_LIB} ${BLOCK_LIB})
+    target_link_libraries(${VELODYNE_NODE_GTEST} ${CLOUD_LIB} ${BLOCK_LIB} ${udp_driver_LIBRARIES})
     ament_target_dependencies(${VELODYNE_NODE_GTEST} "lidar_integration")
 
     add_ros_test(

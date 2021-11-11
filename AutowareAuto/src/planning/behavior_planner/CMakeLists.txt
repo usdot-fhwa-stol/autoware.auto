@@ -11,6 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+#
+# Modifications copyright (C) 2021 Leidos
+#
+
 cmake_minimum_required(VERSION 3.5)
 
 project(behavior_planner)
@@ -35,7 +40,7 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
   ${BEHAVIOR_PLANNER_LIB_SRC}
   ${BEHAVIOR_PLANNER_LIB_HEADERS}
 )
-autoware_set_compile_options(${PROJECT_NAME})
+autoware_set_compile_options_reduced_warning(${PROJECT_NAME})
 
 # Testing
 if(BUILD_TESTING)
@@ -46,7 +51,7 @@ if(BUILD_TESTING)
   set(TEST_SOURCES test/test_behavior_planner.cpp)
   set(TEST_BEHAVIOR_PLANNER_EXE test_behavior_planner)
   ament_add_gtest(${TEST_BEHAVIOR_PLANNER_EXE} ${TEST_SOURCES})
-  autoware_set_compile_options(${TEST_BEHAVIOR_PLANNER_EXE})
+  autoware_set_compile_options_reduced_warning(${TEST_BEHAVIOR_PLANNER_EXE})
   target_link_libraries(${TEST_BEHAVIOR_PLANNER_EXE} ${PROJECT_NAME})
 endif()
 

@@ -11,6 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+#
+# Modifications copyright (C) 2021 Leidos
+#
+
 cmake_minimum_required(VERSION 3.5)
 
 project(behavior_planner_nodes)
@@ -34,7 +39,7 @@ ament_auto_add_library(behavior_planner_node SHARED
   ${BEHAVIOR_PLANNER_NODE_HEADERS}
 )
 set(NODE_NAME behavior_planner_node_exe)
-autoware_set_compile_options(behavior_planner_node)
+autoware_set_compile_options_reduced_warning(behavior_planner_node)
 rclcpp_components_register_node(behavior_planner_node
   PLUGIN "autoware::behavior_planner_nodes::BehaviorPlannerNode"
   EXECUTABLE ${NODE_NAME}
@@ -52,7 +57,7 @@ if(BUILD_TESTING)
   set(TEST_SOURCES test/test_behavior_planner_node.cpp)
   set(TEST_BEHAVIOR_PLANNER_NODE_EXE test_behavior_planner_node)
   ament_add_gtest(${TEST_BEHAVIOR_PLANNER_NODE_EXE} ${TEST_SOURCES})
-  autoware_set_compile_options(${TEST_BEHAVIOR_PLANNER_NODE_EXE})
+  autoware_set_compile_options_reduced_warning(${TEST_BEHAVIOR_PLANNER_NODE_EXE})
   target_link_libraries(${TEST_BEHAVIOR_PLANNER_NODE_EXE} behavior_planner_node)
 endif()
 

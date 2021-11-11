@@ -14,6 +14,11 @@
 #
 # Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
+#
+# Modifications copyright (C) 2021 Leidos
+#
+
+
 cmake_minimum_required(VERSION 3.5)
 
 project(off_map_obstacles_filter_nodes)
@@ -38,7 +43,7 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
   ${OFF_MAP_OBSTACLES_FILTER_NODE_SRC}
   ${OFF_MAP_OBSTACLES_FILTER_NODE_HEADERS}
 )
-autoware_set_compile_options(${PROJECT_NAME})
+autoware_set_compile_options_reduced_warning(${PROJECT_NAME})
 rclcpp_components_register_node(${PROJECT_NAME}
   PLUGIN "autoware::off_map_obstacles_filter_nodes::OffMapObstaclesFilterNode"
   EXECUTABLE ${PROJECT_NAME}_exe
@@ -53,7 +58,7 @@ if(BUILD_TESTING)
   set(TEST_SOURCES test/test_off_map_obstacles_filter_nodes.cpp)
   set(TEST_OFF_MAP_OBSTACLES_FILTER_NODES_EXE test_off_map_obstacles_filter_nodes)
   ament_add_gtest(${TEST_OFF_MAP_OBSTACLES_FILTER_NODES_EXE} ${TEST_SOURCES})
-  autoware_set_compile_options(${TEST_OFF_MAP_OBSTACLES_FILTER_NODES_EXE})
+  autoware_set_compile_options_reduced_warning(${TEST_OFF_MAP_OBSTACLES_FILTER_NODES_EXE})
   target_link_libraries(${TEST_OFF_MAP_OBSTACLES_FILTER_NODES_EXE} ${PROJECT_NAME})
 endif()
 

@@ -11,6 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+#
+# Modifications copyright (C) 2021 Leidos
+#
+
 cmake_minimum_required(VERSION 3.5)
 
 project(lane_planner_nodes)
@@ -34,7 +39,7 @@ ament_auto_add_library(lane_planner_node SHARED
   ${LANE_PLANNER_NODES_NODE_HEADERS}
 )
 
-autoware_set_compile_options(lane_planner_node)
+autoware_set_compile_options_reduced_warning(lane_planner_node)
 set(NODE_NAME lane_planner_node_exe)
 rclcpp_components_register_node(lane_planner_node
   PLUGIN "autoware::lane_planner_nodes::LanePlannerNode"
@@ -53,7 +58,7 @@ if(BUILD_TESTING)
   set(TEST_SOURCES test/test_lane_planner_node.cpp)
   set(TEST_LANE_PLANNER_NODE_EXE test_lane_planner_node)
   ament_add_gtest(${TEST_LANE_PLANNER_NODE_EXE} ${TEST_SOURCES})
-  autoware_set_compile_options(${TEST_LANE_PLANNER_NODE_EXE})
+  autoware_set_compile_options_reduced_warning(${TEST_LANE_PLANNER_NODE_EXE})
   target_link_libraries(${TEST_LANE_PLANNER_NODE_EXE} lane_planner_node)
 endif()
 

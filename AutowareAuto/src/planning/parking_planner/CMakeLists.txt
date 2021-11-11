@@ -11,6 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+#
+# Modifications copyright (C) 2021 Leidos
+#
+
 cmake_minimum_required(VERSION 3.5)
 
 ### Export headers
@@ -37,7 +42,7 @@ ament_auto_add_executable(${PROJECT_NAME}_solver_generator
     src/generate_nlp_planner_solver.cpp)
 target_include_directories(${PROJECT_NAME}_solver_generator PRIVATE "include")
 target_link_libraries(${PROJECT_NAME}_solver_generator casadi)
-autoware_set_compile_options(${PROJECT_NAME}_solver_generator)
+autoware_set_compile_options_reduced_warning(${PROJECT_NAME}_solver_generator)
 
 # --- Add a post-build command to run the solver generator
 # We store the generation results in the directory given in the variable
@@ -71,7 +76,7 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
 target_link_libraries(${PROJECT_NAME} casadi gmp mpfr)
 target_include_directories(${PROJECT_NAME} PRIVATE ${GENERATED_PATH})
 add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_solver_generator)
-autoware_set_compile_options(${PROJECT_NAME})
+autoware_set_compile_options_reduced_warning(${PROJECT_NAME})
 
 if(BUILD_TESTING)
   # run common linters
@@ -100,7 +105,7 @@ if(BUILD_TESTING)
       test/test_geometry.cpp
       test/test_integration.cpp
       test/test_nlp.cpp)
-  autoware_set_compile_options(${PROJECT_NAME}_test)
+    autoware_set_compile_options_reduced_warning(${PROJECT_NAME}_test)
   target_compile_options(${PROJECT_NAME}_test PRIVATE -Wno-conversion)
   target_include_directories(${PROJECT_NAME}_test PRIVATE "include")
   target_link_libraries(${PROJECT_NAME}_test ${PROJECT_NAME})
