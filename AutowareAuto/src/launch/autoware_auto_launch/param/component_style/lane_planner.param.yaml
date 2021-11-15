@@ -1,0 +1,6 @@
+heading_weight: 0.1
+
+lane_planner.trajectory_resolution: 0.5
+
+gaussian_smoother.standard_deviation: 5.0
+gaussian_smoother.kernel_size: 3

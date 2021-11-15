@@ -1,0 +1,18 @@
+map_pcd_file: "/opt/AutowareAuto/share/autoware_demos/data/autonomoustuff_parking_lot_lgsvl.pcd"
+map_yaml_file: "/opt/AutowareAuto/share/autoware_demos/data/autonomoustuff_parking_lot_lgsvl.yaml"
+map_frame: "map"
+map_config:
+map_config.capacity: 1000000
+
+map_config.min_point.x: -1000.0
+map_config.min_point.y: -1000.0
+map_config.min_point.z: -3.0
+
+map_config.max_point.x: 1000.0
+map_config.max_point.y: 1000.0
+map_config.max_point.z: 3.0
+
+map_config.voxel_size.x: 3.5
+map_config.voxel_size.y: 3.5
+map_config.voxel_size.z: 3.5
+viz_map: True

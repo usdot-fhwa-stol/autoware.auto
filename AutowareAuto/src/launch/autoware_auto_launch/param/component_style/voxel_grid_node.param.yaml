@@ -1,0 +1,15 @@
+is_approximate: false
+config:
+config.capacity: 55000
+
+config.min_point.x: -130.0
+config.min_point.y: -130.0
+config.min_point.z: -3.0
+
+config.max_point.x: 130.0
+config.max_point.y: 130.0
+config.max_point.z: 3.0
+
+config.voxel_size.x: 1.0
+config.voxel_size.y: 1.0
+config.voxel_size.z: 1.0

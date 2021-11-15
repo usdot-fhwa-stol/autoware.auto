@@ -1,0 +1,51 @@
+command_topic: "/vehicle/vehicle_command"
+state_topic: "/vehicle/vehicle_kinematic_state"
+trajectory_topic: "/planning/trajectory"
+tf_topic: "/tf"
+static_tf_topic: "/tf_static"
+diagnostic_topic: "control_diagnostic"
+debug_trajectory_publish_period_ms: 100  # if 0 or missing, no publishing happens
+
+controller.interpolation: true
+controller.sample_tolerance_ms: 20
+controller.control_lookahead_ms: 100
+controller.limits:
+controller.limits.min_longitudinal_velocity_mps: -5.00
+controller.limits.max_longitudinal_velocity_mps: 35.0
+controller.limits.min_lateral_velocity_mps: -3.0
+controller.limits.max_lateral_velocity_mps: 3.0
+controller.limits.min_acceleration_mps2: -3.0
+controller.limits.max_acceleration_mps2: 3.0
+controller.limits.min_yaw_rate_rps: -3.0
+controller.limits.max_yaw_rate_rps: 3.0
+controller.limits.min_jerk_mps3: -10.0
+controller.limits.max_jerk_mps3: 10.0
+controller.limits.min_steer_angle_rad: -0.67
+controller.limits.max_steer_angle_rad: 0.67
+controller.limits.min_steer_angle_rate_rps: -0.6
+controller.limits.max_steer_angle_rate_rps: 0.6
+
+controller.behavior.stop_rate_mps2: 3.0
+controller.behavior.time_step_ms: 100
+controller.behavior.is_temporal_reference: true
+
+controller.weights.nominal.pose: 1000.0
+controller.weights.nominal.heading: 10.0
+controller.weights.nominal.longitudinal_velocity: 10.0
+controller.weights.nominal.lateral_velocity: 10.0
+controller.weights.nominal.yaw_rate: 10.0
+controller.weights.nominal.acceleration: 10.0
+controller.weights.nominal.jerk: 10.0
+controller.weights.nominal.steer_angle: 10.0
+controller.weights.nominal.steer_angle_rate: 10.0
+
+controller.weights.terminal:
+controller.weights.terminal.pose: 10000.0
+controller.weights.terminal.heading: 10000.0
+controller.weights.terminal.longitudinal_velocity: 100.0
+controller.weights.terminal.lateral_velocity: 10.0
+controller.weights.terminal.yaw_rate: 10.0
+controller.weights.terminal.acceleration: 0.0
+controller.weights.terminal.jerk: 0.0
+controller.weights.terminal.steer_angle: 0.0
+controller.weights.terminal.steer_angle_rate: 0.0

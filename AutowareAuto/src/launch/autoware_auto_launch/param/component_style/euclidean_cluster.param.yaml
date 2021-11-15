@@ -1,0 +1,32 @@
+use_detected_objects: False  
+use_cluster: True
+use_box: True
+max_cloud_size: 55000
+downsample: False
+use_lfit: True
+use_z: True
+
+cluster.frame_id: "base_link"
+cluster.min_cluster_size: 10
+cluster.max_num_clusters: 256
+cluster.min_cluster_threshold_m: 0.5
+cluster.max_cluster_threshold_m: 1.5
+cluster.threshold_saturation_distance_m: 60.0
+
+hash.min_x: -130.0
+hash.max_x:  130.0
+hash.min_y: -130.0
+hash.max_y:  130.0
+hash.side_length: 0.7
+
+voxel.min_point.x: -130.0
+voxel.min_point.y: -130.0
+voxel.min_point.z: -130.0
+
+voxel.max_point.x: 130.0
+voxel.max_point.y: 130.0
+voxel.max_point.z: 130.0
+
+voxel.voxel_size.x: 0.2
+voxel.voxel_size.y: 0.2
+voxel.voxel_size.z: 0.2
