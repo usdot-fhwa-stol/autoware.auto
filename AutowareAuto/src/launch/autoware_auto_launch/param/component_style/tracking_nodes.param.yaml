@@ -1,0 +1,47 @@
+
+###
+# NOTE: These parameters have not been tuned in an official Autoware.Auto release as of 11/15/2021.
+#       They are taken from autoware.auto/AutowareAuto/src/perception/tracking_nodes/param/test.param.yaml
+###
+
+# Default variance for position and velocity variables in the filters
+ekf_default_variance: 1.0
+# Variance for the noise model in the filters
+ekf_noise_variance: 3.0
+# Time after which to remove unseen tracks.
+# Note also the pruning_ticks_threshold – only one threshold is necessary for removal.
+pruning_time_threshold_ms: 500
+# Number of observations to remove unseen tracks.
+# Note also the pruning_time_threshold_ms – only one threshold is necessary for removal.
+pruning_ticks_threshold: 10
+# True will use odometry from NDT. False will use Pose from lgsvl_interface
+use_ndt: False
+# Parameters for associating the lidar detections
+  # Gate parameter: Objects farther apart than this distance are not matched.
+object_association.max_distance: 2.0
+  # Gate parameter: Objects whose size differs by more than this factor are not matched.
+object_association.max_area_ratio: 2.5
+  # When true, the shortest edge of the detection will be used as the max distance threshold if it is greater than the configured threshold
+object_association.consider_edge_for_big_detection: True
+
+# Parameter to allow the tracker to use vision detections for improving tracking.
+use_vision: False
+# Number of vision topics to subscribe to.
+num_vision_topics: 1
+# Parameter to allow the tracker to visualize the 2d-3d associations during track creation
+visualize_track_creation: True
+
+# Parameters for associating the vision detections:
+  # The IoU threshold for a RoI and projection of another detection to be considered matches
+vision_association.iou_threshold: 0.5
+  # Intrinsics of the camera that is generating the vision detections
+  # TODO: Set these values based on actual camera
+vision_association.intrinsics.width: 1920
+vision_association.intrinsics.height: 1080
+vision_association.intrinsics.fx: 1158.0337
+vision_association.intrinsics.fy: 1158.0337
+vision_association.intrinsics.ox: 960.0
+vision_association.intrinsics.oy: 540.0
+vision_association.intrinsics.skew: 0.0
+  # Max acceptable timestamp difference between lidar cluster and vision RoI msg
+vision_association.timestamp_diff_ms: 20
