@@ -29,7 +29,7 @@ use_vision: False
 # Number of vision topics to subscribe to.
 num_vision_topics: 1
 # Parameter to allow the tracker to visualize the 2d-3d associations during track creation
-visualize_track_creation: True
+visualize_track_creation: False
 
 # Parameters for associating the vision detections:
   # The IoU threshold for a RoI and projection of another detection to be considered matches
