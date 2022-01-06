@@ -1,4 +1,4 @@
-use_detected_objects: False  
+use_detected_objects: True  
 use_cluster: True
 use_box: True
 max_cloud_size: 55000
