@@ -29,6 +29,7 @@
 #include <kdl/frames.hpp>
 #include <common/types.hpp>
 #include <string>
+#include "tf2_autoware_auto_msgs_extension.hpp"
 
 
 using autoware::common::types::float32_t;
