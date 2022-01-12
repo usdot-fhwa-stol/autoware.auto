@@ -14,11 +14,13 @@
  * the License.
  */
 /// \file
-/// \brief This file includes extensions for the common transform functionality for autoware_auto_msgs
-///        This file is created seperately from tf2_autoware_auto_msgs.hpp to preserve seperation of carma-platform changes from autoware.auto
+/// \brief This file includes extensions for the common transform 
+///        functionality for autoware_auto_msgs
+///        This file is created seperately from tf2_autoware_auto_msgs.hpp to preserve seperation
+///        of carma-platform changes from autoware.auto
 
-#ifndef AUTOWARE_AUTO_TF2__TF2_AUTOWARE_AUTO_MSGS_EXTENSIONS_HPP_
-#define AUTOWARE_AUTO_TF2__TF2_AUTOWARE_AUTO_MSGS_EXTENSIONS_HPP_
+#ifndef AUTOWARE_AUTO_TF2__TF2_AUTOWARE_AUTO_MSGS_EXTENSION_HPP_
+#define AUTOWARE_AUTO_TF2__TF2_AUTOWARE_AUTO_MSGS_EXTENSION_HPP_
 
 #include <tf2/convert.h>
 #include <tf2/time.h>
@@ -34,13 +36,6 @@
 #include <limits>
 #include "tf2_autoware_auto_msgs.hpp"
 #include "tf2_geometry_msgs_extension.hpp"
-
-
-using DetectedObject = autoware_auto_msgs::msg::DetectedObject;
-using DetectedObjects = autoware_auto_msgs::msg::DetectedObjects;
-using DetectedObjectKinematics = autoware_auto_msgs::msg::DetectedObjectKinematics;
-using Shape = autoware_auto_msgs::msg::Shape;
-
 
 namespace tf2
 {
@@ -58,7 +53,7 @@ namespace tf2
 template<>
 inline
 void doTransform(
-  const Shape & t_in, Shape & t_out,
+  const autoware_auto_msgs::msg::Shape & t_in, autoware_auto_msgs::msg::Shape & t_out,
   const geometry_msgs::msg::TransformStamped & transform)
 {
   t_out = t_in; // Copy un-transformable fields
@@ -99,7 +94,7 @@ void doTransform(
 template<>
 inline
 void doTransform(
-  const DetectedObjectKinematics & t_in, DetectedObjectKinematics & t_out,
+  const autoware_auto_msgs::msg::DetectedObjectKinematics & t_in, autoware_auto_msgs::msg::DetectedObjectKinematics & t_out,
   const geometry_msgs::msg::TransformStamped & transform)
 {
   t_out = t_in; // Copy un-transformable fields
@@ -167,7 +162,7 @@ void doTransform(
 template<>
 inline
 void doTransform(
-  const DetectedObject & t_in, DetectedObject & t_out,
+  const autoware_auto_msgs::msg::DetectedObject & t_in, autoware_auto_msgs::msg::DetectedObject & t_out,
   const geometry_msgs::msg::TransformStamped & transform)
 {
   t_out = t_in;
@@ -186,7 +181,7 @@ void doTransform(
  */
 template<>
 inline
-tf2::TimePoint getTimestamp(const DetectedObjects & t)
+tf2::TimePoint getTimestamp(const autoware_auto_msgs::msg::DetectedObjects & t)
 {
   return tf2_ros::fromMsg(t.header.stamp);
 }
@@ -198,7 +193,7 @@ tf2::TimePoint getTimestamp(const DetectedObjects & t)
  */
 template<>
 inline
-std::string getFrameId(const DetectedObjects & t) {return t.header.frame_id;}
+std::string getFrameId(const autoware_auto_msgs::msg::DetectedObjects & t) {return t.header.frame_id;}
 
 /** \brief Apply a geometry_msgs TransformStamped to an autoware_auto_msgs DetectedObjects type.
  * This function is a specialization of the doTransform template defined in tf2/convert.h.
@@ -209,7 +204,7 @@ std::string getFrameId(const DetectedObjects & t) {return t.header.frame_id;}
 template<>
 inline
 void doTransform(
-  const DetectedObjects & t_in, DetectedObjects & t_out,
+  const autoware_auto_msgs::msg::DetectedObjects & t_in, autoware_auto_msgs::msg::DetectedObjects & t_out,
   const geometry_msgs::msg::TransformStamped & transform)
 {
   t_out = t_in;
@@ -224,4 +219,4 @@ void doTransform(
 
 }  // namespace tf2
 
-#endif  // AUTOWARE_AUTO_TF2__TF2_AUTOWARE_AUTO_MSGS_EXTENSIONS_HPP_
+#endif  // AUTOWARE_AUTO_TF2__TF2_AUTOWARE_AUTO_MSGS_EXTENSION_HPP_
