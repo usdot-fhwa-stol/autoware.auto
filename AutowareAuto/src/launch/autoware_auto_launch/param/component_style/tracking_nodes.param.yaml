@@ -24,6 +24,9 @@ object_association.max_area_ratio: 2.5
   # When true, the shortest edge of the detection will be used as the max distance threshold if it is greater than the configured threshold
 object_association.consider_edge_for_big_detection: True
 
+# The frame in which to do tracking.
+track_frame_id: 'map'
+
 # Parameter to allow the tracker to use vision detections for improving tracking.
 use_vision: False
 # Number of vision topics to subscribe to.
