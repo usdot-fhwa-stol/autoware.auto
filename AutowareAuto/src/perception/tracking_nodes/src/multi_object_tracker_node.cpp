@@ -14,6 +14,11 @@
 //
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
+/**
+ * Modification Copyright (C) Leidos 2022
+ *  - Removed && result.maybe_roi_stamps check from detected objects callback as it was never being set
+ */ 
+
 #include <tracking_nodes/multi_object_tracker_node.hpp>
 
 #include <rclcpp_components/register_node_macro.hpp>
@@ -247,7 +252,7 @@ void MultiObjectTrackerNode::detected_objects_callback(const DetectedObjects::Co
   }
   const auto result = m_tracker.update(
     *objs, *get_closest_match(matched_msgs, objs->header.stamp));
-  if (result.status == TrackerUpdateStatus::Ok && result.maybe_roi_stamps) {
+  if (result.status == TrackerUpdateStatus::Ok) {
     m_track_publisher->publish(result.tracks);
     m_leftover_publisher->publish(result.unassigned_clusters);
     maybe_visualize(*(result.maybe_roi_stamps), *objs);
