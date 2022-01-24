@@ -233,6 +233,21 @@ MultiObjectTracker::DetectedObjectsMsg MultiObjectTracker::transform(
     tf2::fromMsg(detection.kinematics.centroid_position, centroid_detection);
     const Eigen::Vector3d centroid_tracking = tf__tracking__detection * centroid_detection;
     detection.kinematics.centroid_position = tf2::toMsg(centroid_tracking);
+
+    // TODO taken from autoware.auto commit 670f0fae65c34280418bb6adf51fd7cca21b0baf 
+    // This if block can be removed when the whole autoware.auto fork is updated to the latest version
+    if (detection.kinematics.orientation_availability != autoware_auto_msgs::msg::DetectedObjectKinematics::UNAVAILABLE) {
+      geometry_msgs::msg::QuaternionStamped q_out;
+      // Use quaternion stamped because there is no doTransform for quaternion even though
+      // stamp of QuaternionStamped is not being used for anything
+      tf2::doTransform(
+        geometry_msgs::msg::QuaternionStamped{}.set__quaternion(
+          detection.kinematics.orientation),
+        q_out,
+        tf_msg__tracking__detection);
+      detection.kinematics.orientation = q_out.quaternion;
+    }
+
     if (detection.kinematics.has_position_covariance) {
       // Doing this properly is difficult. We'll ignore the rotational part. This is a practical
       // solution since only the yaw covariance is relevant, and the yaw covariance is
