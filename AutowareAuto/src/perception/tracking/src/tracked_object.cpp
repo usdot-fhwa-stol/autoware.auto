@@ -213,7 +213,7 @@ const TrackedObject::TrackedObjectMsg & TrackedObject::msg()
   m_msg.classification = m_classifier.object_classification_vector();
   // TODO(nikolai.morin): Set is_stationary etc.
 
-  m_msg.kinematics.orientation = track.
+  m_msg.kinematics.orientation = unfiltered_orientation;
 
   return m_msg;
 }
