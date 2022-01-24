@@ -127,6 +127,7 @@ DetectedObjectsUpdateResult MultiObjectTracker::update(
       continue;
     }
     const auto & detection = detection_in_tracker_frame.objects[detection_idx];
+    m_tracks.objects[track_idx].unfiltered_orientation = detection.kinematics.orientation;
     m_tracks.objects[track_idx].update(detection);
   }
   for (const size_t track_idx : association.unassigned_track_indices) {
