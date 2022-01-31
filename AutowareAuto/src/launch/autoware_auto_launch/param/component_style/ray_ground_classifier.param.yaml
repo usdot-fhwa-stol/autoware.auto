@@ -2,8 +2,8 @@ timeout_ms:       10
 cloud_timeout_ms: 110
 pcl_size:         55000
 frame_id:        "base_link"
-is_structured:    true
-classifier.sensor_height_m:                     0.368
+is_structured:    false
+classifier.sensor_height_m:                     0.0
 classifier.max_local_slope_deg:                 20.0
 classifier.max_global_slope_deg:                7.0
 classifier.nonground_retro_thresh_deg:          70.0
