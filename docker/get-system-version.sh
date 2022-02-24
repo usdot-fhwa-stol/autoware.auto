@@ -1,4 +1,6 @@
-#  Copyright (C) 2018-2021 LEIDOS.
+#!/bin/bash
+
+#  Copyright (C) 2018-2022 LEIDOS.
 # 
 #  Licensed under the Apache License, Version 2.0 (the "License"); you may not
 #  use this file except in compliance with the License. You may obtain a copy of
@@ -12,14 +14,6 @@
 #  License for the specific language governing permissions and limitations under
 #  the License.
 
-# Configuration file for Sonar Scanner used for CI 
+SYSTEM_TAG_PREFIX="carma-system"
 
-sonar.projectKey=usdot-fhwa-stol_autoware.auto
-sonar.organization=usdot-fhwa-stol
-sonar.cfamily.build-wrapper-output=/opt/carma/bw-output
-sonar.host.url=https://sonarcloud.io
-sonar.cfamily.gcov.reportsPath=/opt/carma/coverage_reports/gcov
-# Set Git as SCM sensor
-sonar.scm.disabled=false
-sonar.scm.enabled=true
-sonar.scm.provider=git
+git describe --all --match="$SYSTEM_TAG_PREFIX*" --always --dirty="-SNAPSHOT" | awk -F "/" '{print $NF}'
