@@ -34,7 +34,11 @@
 // In order to follow what's going on in the code here, it is advised to look at the
 // main() function first, then at sub-functions when they are used.
 
+#pragma GCC diagnostic push // save diagnostic state
+#pragma GCC diagnostic ignored "-Wall" // turn off warnings for package we do not manage
 #include <casadi/casadi.hpp>
+#pragma GCC diagnostic pop // turn the warnings back on
+
 #include <common/types.hpp>
 
 #include <vector>

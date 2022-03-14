@@ -19,8 +19,10 @@
 // The code here then loads those callbacks from the shared library and uses them with
 // IPOPT to solve the problem numerically.
 
-
+#pragma GCC diagnostic push // save diagnostic state
+#pragma GCC diagnostic ignored "-Wall" // turn off warnings for package we do not manage
 #include <casadi/casadi.hpp>
+#pragma GCC diagnostic pop // turn the warnings back on
 
 #include <iostream>
 #include <vector>

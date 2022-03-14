@@ -15,7 +15,12 @@
 #ifndef PARKING_PLANNER__NLP_PATH_PLANNER_HPP_
 #define PARKING_PLANNER__NLP_PATH_PLANNER_HPP_
 
+
+#pragma GCC diagnostic push // save diagnostic state
+#pragma GCC diagnostic ignored "-Wall" // turn off warnings for package we do not manage
 #include <casadi/casadi.hpp>
+#pragma GCC diagnostic pop // turn the warnings back on
+
 #include <common/types.hpp>
 #include <vector>
 
