@@ -1,0 +1,10 @@
+vehicle.cg_to_front_m: 1.228
+vehicle.cg_to_rear_m: 1.5618
+vehicle.front_corner_stiffness: 0.1
+vehicle.rear_corner_stiffness: 0.1
+vehicle.mass_kg: 1500.0
+vehicle.yaw_inertia_kgm2: 12.0
+vehicle.width_m: 1.83
+vehicle.front_overhang_m: 1.0
+vehicle.rear_overhang_m: 1.03
+ 

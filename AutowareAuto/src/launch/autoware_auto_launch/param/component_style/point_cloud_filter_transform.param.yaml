@@ -1,0 +1,45 @@
+# TODO Its not yet clear if this flattening approach for specific node names works
+lidar_front.filter_transform_vlp16_front.timeout_ms:       110
+lidar_front.filter_transform_vlp16_front.pcl_size:         55000
+lidar_front.filter_transform_vlp16_front.input_frame_id:  "lidar_front"
+lidar_front.filter_transform_vlp16_front.output_frame_id: "base_link"
+lidar_front.filter_transform_vlp16_front.init_timeout_ms:  5000
+lidar_front.filter_transform_vlp16_front.expected_num_subscribers: 1
+lidar_front.filter_transform_vlp16_front.expected_num_publishers:  1
+lidar_front.filter_transform_vlp16_front.start_angle:            0.0       # radians
+lidar_front.filter_transform_vlp16_front.end_angle:              6.28
+lidar_front.filter_transform_vlp16_front.min_radius:             3.0      # meters
+lidar_front.filter_transform_vlp16_front.max_radius:             150.0
+lidar_front.filter_transform_vlp16_front.static_transformer:
+lidar_front.filter_transform_vlp16_front.static_transformer.quaternion:
+lidar_front.filter_transform_vlp16_front.static_transformer.quaternion.x:                    0.0
+lidar_front.filter_transform_vlp16_front.static_transformer.quaternion.y:                    0.0
+lidar_front.filter_transform_vlp16_front.static_transformer.quaternion.z:                    0.0
+lidar_front.filter_transform_vlp16_front.static_transformer.quaternion.w:                    1.0
+lidar_front.filter_transform_vlp16_front.static_transformer.translation:
+lidar_front.filter_transform_vlp16_front.static_transformer.translation.x:                    1.498
+lidar_front.filter_transform_vlp16_front.static_transformer.translation.y:                    -0.022
+lidar_front.filter_transform_vlp16_front.static_transformer.translation.z:                    1.49
+
+
+lidar_rear.filter_transform_vlp16_rear.timeout_ms:       110
+lidar_rear.filter_transform_vlp16_rear.pcl_size:         55000
+lidar_rear.filter_transform_vlp16_rear.input_frame_id:  "lidar_rear"
+lidar_rear.filter_transform_vlp16_rear.output_frame_id: "base_link"
+lidar_rear.filter_transform_vlp16_rear.init_timeout_ms:  5000
+lidar_rear.filter_transform_vlp16_rear.expected_num_subscribers: 1
+lidar_rear.filter_transform_vlp16_rear.expected_num_publishers:  1
+lidar_rear.filter_transform_vlp16_rear.start_angle:            0.0       # radians
+lidar_rear.filter_transform_vlp16_rear.end_angle:              6.28
+lidar_rear.filter_transform_vlp16_rear.min_radius:             3.0      # meters
+lidar_rear.filter_transform_vlp16_rear.max_radius:             150.0
+lidar_rear.filter_transform_vlp16_rear.static_transformer:
+lidar_rear.filter_transform_vlp16_rear.static_transformer.quaternion:
+lidar_rear.filter_transform_vlp16_rear.static_transformer.quaternion.x:                    0.0
+lidar_rear.filter_transform_vlp16_rear.static_transformer.quaternion.y:                    0.0
+lidar_rear.filter_transform_vlp16_rear.static_transformer.quaternion.z:                    0.0
+lidar_rear.filter_transform_vlp16_rear.static_transformer.quaternion.w:                    1.0
+lidar_rear.filter_transform_vlp16_rear.static_transformer.translation:
+lidar_rear.filter_transform_vlp16_rear.static_transformer.translation.x:                    0.308
+lidar_rear.filter_transform_vlp16_rear.static_transformer.translation.y:                    -0.022
+lidar_rear.filter_transform_vlp16_rear.static_transformer.translation.z:                    1.49

@@ -28,4 +28,5 @@
     <test_depend>launch_testing_ros</test_depend>
 
     <export><build_type>ament_cmake</build_type></export>
+    <build_depend>carma_cmake_common</build_depend>
 </package>

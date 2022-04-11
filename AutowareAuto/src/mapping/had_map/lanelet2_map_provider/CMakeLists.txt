@@ -11,9 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+#
+# Modifications copyright (C) 2021 Leidos
+#
+
 cmake_minimum_required(VERSION 3.5)
 
 project(lanelet2_map_provider)
+find_package(carma_cmake_common REQUIRED)
+carma_check_ros_version(2)
 
 # dependencies
 find_package(ament_cmake_auto REQUIRED)
@@ -43,7 +50,7 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
   ${LANELET2_MAP_PROVIDER_LIB_SRC}
   ${LANELET2_MAP_PROVIDER_LIB_HEADERS}
 )
-autoware_set_compile_options(${PROJECT_NAME})
+autoware_set_compile_options_reduced_warning(${PROJECT_NAME})
 
 target_link_libraries(${PROJECT_NAME}
   ${GeographicLib_LIBRARIES})
@@ -64,7 +71,7 @@ ament_auto_add_library(${LANELET2_MAP_NODES} SHARED
   ${LANELET2_MAP_VISUALIZER_SRC}
   ${LANELET2_MAP_VISUALIZER_HEADERS}
 )
-autoware_set_compile_options(${LANELET2_MAP_NODES})
+autoware_set_compile_options_reduced_warning(${LANELET2_MAP_NODES})
 
 target_link_libraries(${LANELET2_MAP_NODES}
   ${GeographicLib_LIBRARIES})
@@ -98,7 +105,7 @@ if(BUILD_TESTING)
   set(TEST_SOURCES test/test_lanelet2_map_provider.cpp)
   set(TEST_LANELET2_MAP_PROVIDER_EXE test_lanelet2_map_provider)
   ament_add_gtest(${TEST_LANELET2_MAP_PROVIDER_EXE} ${TEST_SOURCES})
-  autoware_set_compile_options(${TEST_LANELET2_MAP_PROVIDER_EXE})
+  autoware_set_compile_options_reduced_warning(${TEST_LANELET2_MAP_PROVIDER_EXE})
   target_link_libraries(${TEST_LANELET2_MAP_PROVIDER_EXE}
     ${PROJECT_NAME}
   )

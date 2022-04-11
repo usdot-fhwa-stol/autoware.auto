@@ -4,6 +4,8 @@ cmake_minimum_required(VERSION 3.5)
 
 ### Export headers
 project(lidar_utils)
+find_package(carma_cmake_common REQUIRED)
+carma_check_ros_version(2)
 
 find_package(ament_cmake_auto REQUIRED)
 find_package(Eigen3 REQUIRED)

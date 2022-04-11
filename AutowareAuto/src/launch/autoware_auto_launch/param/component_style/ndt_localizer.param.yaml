@@ -1,0 +1,39 @@
+##### Define input and outputs:
+# Config of the input point cloud subscription
+observation_sub.history_depth: 10
+# Config of the maps point cloud subscription
+map_sub.history_depth: 1
+# Config of the maps point clouds to register
+pose_pub.history_depth: 10
+# Publish the result to `/tf` topic
+publish_tf: true
+# Maximum allowed difference between the initial guess and the ndt pose estimate
+# Translation threshold in meters
+predict_pose_threshold.translation: 50.0
+# Rotation threshold in radians
+predict_pose_threshold.rotation: 3.15
+
+init_hack.translation.x: -57.6
+init_hack.translation.y: -41.0
+init_hack.translation.z: -2.01
+
+init_hack.quaternion.x: 0.0
+init_hack.quaternion.y: 0.0
+init_hack.quaternion.z: 0.0
+init_hack.quaternion.w: 1.0
+init_hack.enabled: false
+# localizer specific configuration
+
+# ndt scan representation config
+localizer.scan.capacity: 55000
+# ndt optimization problem configuration
+localizer.optimization.outlier_ratio: 0.55 # default value from PCL
+# newton optimizer configuration
+localizer.optimizer.max_iterations: 30
+localizer.optimizer.score_tolerance: 0.0002
+localizer.optimizer.parameter_tolerance: 0.0002
+localizer.optimizer.gradient_tolerance: 0.0002
+localizer.optimizer.line_search.step_max: 0.12
+localizer.optimizer.line_search.step_min: 0.0001
+# Maximum accepted duration between a scan and an initial pose guess
+localizer.guess_time_tolerance_ms: 10000

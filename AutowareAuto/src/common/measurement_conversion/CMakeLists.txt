@@ -17,6 +17,8 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(measurement_conversion)
+find_package(carma_cmake_common REQUIRED)
+carma_check_ros_version(2)
 
 # require that dependencies from package.xml be available
 find_package(ament_cmake_auto REQUIRED)

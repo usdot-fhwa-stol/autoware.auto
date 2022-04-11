@@ -32,4 +32,5 @@
     <build_type>ament_cmake</build_type>
   </export>
 
+    <build_depend>carma_cmake_common</build_depend>
 </package>

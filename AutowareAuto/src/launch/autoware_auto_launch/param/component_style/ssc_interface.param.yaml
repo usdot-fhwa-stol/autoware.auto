@@ -1,0 +1,23 @@
+
+cycle_time_ms: 10
+control_command: "basic"
+
+ssc.front_axle_to_cog: 1.228
+ssc.rear_axle_to_cog: 1.5618
+ssc.max_yaw_rate: 1.5708
+
+state_machine:
+state_machine.gear_shift_velocity_threshold_mps: 0.5
+
+state_machine.acceleration_limits.min: -5.0
+state_machine.acceleration_limits.max: 15.0
+state_machine.acceleration_limits.threshold: 1.0
+
+state_machine.front_steer_limits.min: -0.533
+state_machine.front_steer_limits.max: 0.533
+state_machine.front_steer_limits.threshold: 0.3
+
+state_machine.time_step_ms: 100
+state_machine.timeout_acceleration_mps2: 3.0
+state_machine.state_transition_timeout_ms: 3000
+state_machine.gear_shift_accel_deadzone_mps2: 0.5

@@ -1,0 +1,22 @@
+optimization_weights.steering: 1.0
+optimization_weights.throttle: 1.0
+optimization_weights.goal: 0.5
+
+state_bounds.lower:
+state_bounds.lower.x_m: -300.0
+state_bounds.lower.y_m: -300.0
+state_bounds.lower.velocity_mps: -3.0
+state_bounds.lower.heading_rad: -6.2832
+state_bounds.lower.steering_rad: -0.67
+
+state_bounds.upper.x_m: 300.0
+state_bounds.upper.y_m: 300.0
+state_bounds.upper.velocity_mps: 3.0
+state_bounds.upper.heading_rad: 6.2832
+state_bounds.upper.steering_rad: 0.67
+
+command_bounds.lower.steering_rate_rps: -5.0
+command_bounds.lower.throttle_mps2: -5.0
+
+command_bounds.upper.steering_rate_rps: 5.0
+command_bounds.upper.throttle_mps2: 5.0

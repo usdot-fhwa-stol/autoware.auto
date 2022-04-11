@@ -16,6 +16,8 @@
 
 cmake_minimum_required(VERSION 3.5)
 project(state_estimation_nodes)
+find_package(carma_cmake_common REQUIRED)
+carma_check_ros_version(2)
 
 find_package(ament_cmake_auto REQUIRED)
 find_package(Eigen3 REQUIRED)

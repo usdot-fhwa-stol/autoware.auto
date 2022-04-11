@@ -16,6 +16,8 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(hungarian_assigner)
+find_package(carma_cmake_common REQUIRED)
+carma_check_ros_version(2)
 
 ## dependencies
 find_package(ament_cmake_auto REQUIRED)

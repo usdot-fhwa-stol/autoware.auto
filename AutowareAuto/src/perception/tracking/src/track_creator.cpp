@@ -63,8 +63,9 @@ TrackCreationResult LidarOnlyPolicy::create()
 {
   TrackCreationResult retval;
   for (const auto & cluster : m_lidar_clusters.objects) {
-    retval.tracks.emplace_back(
-      TrackedObject(cluster, m_default_variance, m_noise_variance));
+    TrackedObject track(cluster, m_default_variance, m_noise_variance);
+    track.unfiltered_orientation = cluster.kinematics.orientation;
+    retval.tracks.emplace_back(track);
   }
   return retval;
 }
