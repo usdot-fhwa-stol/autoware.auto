@@ -20,7 +20,6 @@
 #ifndef RAY_GROUND_CLASSIFIER__RAY_AGGREGATOR_HPP_
 #define RAY_GROUND_CLASSIFIER__RAY_AGGREGATOR_HPP_
 
-// Mikes change
 
 #include <algorithm>
 #include <cmath>
