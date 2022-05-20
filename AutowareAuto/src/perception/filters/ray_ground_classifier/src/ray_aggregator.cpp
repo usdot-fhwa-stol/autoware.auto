@@ -150,7 +150,7 @@ bool8_t RayAggregator::insert(const PointXYZIFR & pt)
         print_overflow = false;
       }
       return false;
-      //throw std::runtime_error("RayAggregator: Ray capacity overrun! Use smaller bins");
+      //throw std::runtime_error("RayAggregator: Ray capacity overrun! Use smaller bins"); // NOTE see https://github.com/usdot-fhwa-stol/carma-platform/issues/1776 to understand why this is disabled
     }
     // insert point to ray, do some presorting
     ray.push_back(pt);
