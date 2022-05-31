@@ -19,6 +19,7 @@
 #include <cstdint>
 #include <limits>
 #include <stdexcept>
+#include <iostream>
 
 #include "common/types.hpp"
 #include "lidar_utils/lidar_utils.hpp"
@@ -131,6 +132,7 @@ void RayAggregator::end_of_scan()
 ////////////////////////////////////////////////////////////////////////////////
 bool8_t RayAggregator::insert(const PointXYZIFR & pt)
 {
+  static bool print_overflow = true;
   if (static_cast<uint16_t>(PointXYZIF::END_OF_SCAN_ID) == pt.get_point_pointer()->id) {
     return false;
   } else {
@@ -138,11 +140,17 @@ bool8_t RayAggregator::insert(const PointXYZIFR & pt)
 
     Ray & ray = m_rays[idx];
     if (RayState::RESET == m_ray_state[idx]) {
+      print_overflow = true;
       ray.clear();  // capacity unchanged
       m_ray_state[idx] = RayState::NOT_READY;
     }
     if (ray.size() >= ray.capacity()) {
-      throw std::runtime_error("RayAggregator: Ray capacity overrun! Use smaller bins");
+      if (print_overflow) {
+        std::cerr << "RayAggregator: Ray capacity overrun! Use smaller bins" << std::endl;
+        print_overflow = false;
+      }
+      return false;
+      //throw std::runtime_error("RayAggregator: Ray capacity overrun! Use smaller bins"); // NOTE see https://github.com/usdot-fhwa-stol/carma-platform/issues/1776 to understand why this is disabled
     }
     // insert point to ray, do some presorting
     ray.push_back(pt);
