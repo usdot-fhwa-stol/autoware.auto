@@ -16,4 +16,4 @@ classifier.max_height_m:                        1.5
 aggregator.min_ray_angle_rad: -3.14159
 aggregator.max_ray_angle_rad:  3.14159
 aggregator.ray_width_rad:      0.01
-aggregator.max_ray_points:     512
+aggregator.max_ray_points:     512 # Cannot be increased as 512 is a hardcoded max. Only decreasing is possible
