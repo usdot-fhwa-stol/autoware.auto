@@ -51,6 +51,7 @@ jobs:
           name: Pull Deps
           command: |
             source ${INIT_ENV}
+            chmod 775 /src/AutowareAuto/docker/checkout.bash
             ./src/AutowareAuto/docker/checkout.bash -r ${PWD}
       - run:
           name: Build Driver
