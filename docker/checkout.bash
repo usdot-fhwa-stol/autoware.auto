@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#  Copyright (C) 2018-2022 LEIDOS.
+#  Copyright (C) 2022 LEIDOS.
 # 
 #  Licensed under the Apache License, Version 2.0 (the "License"); you may not
 #  use this file except in compliance with the License. You may obtain a copy of
@@ -13,6 +13,9 @@
 #  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #  License for the specific language governing permissions and limitations under
 #  the License.
+
+# CARMA packages checkout script
+# Optional argument to set the root checkout directory with no ending '/' default is '~'
 
 set -exo pipefail
 
@@ -32,17 +35,14 @@ while [[ $# -gt 0 ]]; do
       esac
 done
 
-cd ${dir}/autoware.auto
-
 if [[ "$BRANCH" = "develop" ]]; then
-      git clone --depth=1 https://github.com/usdot-fhwa-stol/carma-msgs.git --branch ${BRANCH}
-      git clone --depth=1 https://github.com/usdot-fhwa-stol/carma-utils.git --branch ${BRANCH}
-      git clone --depth=1 https://github.com/usdot-fhwa-stol/autoware.auto.git --branch develop
+      sudo git clone https://github.com/usdot-fhwa-stol/carma-msgs.git ${dir}/src/CARMAMsgs --branch $BRANCH
+      sudo git clone https://github.com/usdot-fhwa-stol/carma-utils.git ${dir}/src/CARMAUtils --branch $BRANCH
 else
-      git clone --depth=1 https://github.com/usdot-fhwa-stol/carma-msgs.git --branch develop
-      git clone --depth=1 https://github.com/usdot-fhwa-stol/carma-utils.git --branch develop
-      git clone --depth=1 https://github.com/usdot-fhwa-stol/autoware.auto.git --branch develop
+      sudo git clone https://github.com/usdot-fhwa-stol/carma-msgs.git ${dir}/src/CARMAMsgs --branch develop
+      sudo git clone https://github.com/usdot-fhwa-stol/carma-utils.git ${dir}/src/CARMAUtils --branch develop
 fi
 
-# Required to build pacmod_msgs
-git clone https://github.com/astuff/astuff_sensor_msgs.git ${dir}/src/astuff_sensor_msgs --branch 3.0.1
+sudo apt-get update
+sudo apt-get install ros-foxy-nmea-msgs -y
+sudo apt-get install ros-foxy-gps-tools -y
