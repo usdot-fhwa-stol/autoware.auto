@@ -3,6 +3,8 @@ FROM usdotfhwastoldev/carma-base:develop as base_image
 FROM base_image as build
 
 COPY --chown=carma . /home/carma/autoware.auto
+RUN chmod -R 775 /home/carma/autoware.auto/docker/checkout.bash
+RUN chmod -R 775 /home/carma/autoware.auto/docker/install.sh
 RUN /home/carma/autoware.auto/docker/checkout.bash
 RUN ./home/carma/autoware.auto/docker/install.sh
 
@@ -22,5 +24,5 @@ LABEL org.label-schema.vcs-url="https://github.com/usdot-fhwa-stol/autoware.auto
 LABEL org.label-schema.vcs-ref=${VCS_REF}
 LABEL org.label-schema.build-date=${BUILD_DATE}
 
-COPY --chown=carma --from=build /opt/autoware.auto/ros/install /opt/autoware.ai/ros/install
-COPY --chown=carma --from=build /opt/autoware.auto/ros/install_ros2 /opt/autoware.ai/ros/install_ros2
+COPY --from=build --chown=carma /home/carma/install /opt/carma/install
+COPY --from=build --chown=carma /opt/ros /opt/ros
