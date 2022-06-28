@@ -48,5 +48,4 @@ fi
 sudo apt-get update
 sudo apt-get install ros-foxy-nmea-msgs -y
 sudo apt-get install ros-foxy-gps-tools -y
-pwd && cd /opt/carma/ && ls -a 
-cd /opt/carma/src/autoware.ai/carma-develop/lanelet2/lanelet2_python/
+pwd && cd /opt/carma/src && ls -a 
