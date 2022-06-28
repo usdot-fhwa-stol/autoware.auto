@@ -48,4 +48,4 @@ fi
 sudo apt-get update
 sudo apt-get install ros-foxy-nmea-msgs -y
 sudo apt-get install ros-foxy-gps-tools -y
-pwd && cd /opt/carma/src && ls -a 
+pwd && cd /opt/carma/src/autoware.ai/ && ls -a 
