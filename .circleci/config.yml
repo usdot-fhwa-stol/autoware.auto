@@ -53,8 +53,6 @@ jobs:
             source ${INIT_ENV}
             chmod 775 ./src/AutowareAuto/docker/checkout.bash
             ./src/AutowareAuto/docker/checkout.bash -r ${PWD}
-            pwd
-            rm -rf /opt/carma/src/autoware.ai/carma-develop/lanelet2/lanelet2_python/
       - run:
           name: Build Driver
           command: |
