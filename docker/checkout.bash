@@ -14,8 +14,7 @@
 #  License for the specific language governing permissions and limitations under
 #  the License.
 
-# CARMA packages checkout script
-# Optional argument to set the root checkout directory with no ending '/' default is '~'
+# CARMA packages checkout script# Optional argument to set the root checkout directory with no ending '/' default is '~'
 
 set -exo pipefail
 
@@ -49,3 +48,4 @@ sudo apt-get update
 sudo apt-get install ros-foxy-nmea-msgs -y
 sudo apt-get install ros-foxy-gps-tools -y
 sudo rm -rf /opt/carma/src/autoware.ai/lanelet2/lanelet2_examples/
+sudo rm -rf /opt/carma/AutowareAuto/src/tools/visualization/autoware_rviz_plugins
