@@ -31,7 +31,7 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
-RUN echo deb https://deb.nodesource.com/node_10.x ${CODENAME} main | tee /etc/apt/sources.list.d/nodesource.list
+RUN echo deb https://deb.nodesource.com/node_14.x ${CODENAME} main | tee /etc/apt/sources.list.d/nodesource.list
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 1655A0AB68576280
 
 COPY ros-deps /tmp/
