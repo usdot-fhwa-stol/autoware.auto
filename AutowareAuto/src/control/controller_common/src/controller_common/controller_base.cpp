@@ -21,6 +21,9 @@
 #include <stdexcept>
 #include <string>
 #include <utility>
+#include <iostream>
+
+#include <rclcpp/rclcpp.hpp>
 
 namespace motion
 {
@@ -108,17 +111,26 @@ const Trajectory & ControllerBase::get_reference_trajectory() const noexcept
 ////////////////////////////////////////////////////////////////////////////////
 Command ControllerBase::compute_command(const State & state)
 {
+  std::cerr << "Got inside compute_command" << std::endl;
+
+  std::cerr << "Before processing: "  << std::to_string(rclcpp::Time(state.header.stamp).seconds()) << std::endl;
+
   if (m_reference_trajectory.points.empty()) {
     return compute_stop_command(state);
   }
+  std::cerr << "Got inside compute_command 1" << std::endl;
   if (state.header.frame_id != m_reference_trajectory.header.frame_id) {
     throw std::domain_error{"Vehicle state is not in same frame as reference trajectory"};
   }
+  std::cerr << "Got inside compute_command 2" << std::endl;
   update_reference_indices(state);
+  std::cerr << "Got inside compute_command 3" << std::endl;
   if (!is_state_ok(state)) {
     return compute_stop_command(state);
   }
+  std::cerr << "Got inside compute_command 4" << std::endl;
   auto ret = compute_command_impl(state);
+  std::cerr << "Got inside compute_command 5" << std::endl;
   // Ensure you're properly populating the stamp
   ret.stamp = state.header.stamp;
   return ret;
@@ -171,9 +183,19 @@ const BehaviorConfig & ControllerBase::get_base_config() const noexcept
 ////////////////////////////////////////////////////////////////////////////////
 bool ControllerBase::is_state_ok(const State & state) const noexcept
 {
+  std::cerr << "is_state_ok 1" << std::endl;
   const auto pose_ok = !is_past_trajectory(state);
+  std::cerr << "is_state_ok 2: pose_ok: " << pose_ok << std::endl;
   const auto t = time_utils::from_message(state.header.stamp);
+
+  auto print_time = std::chrono::system_clock::to_time_t(t);
+  std::cerr << "is_state_ok 3: t: " << std::to_string(static_cast<double>(print_time)) << std::endl;
+
   const auto time_ok = t < m_latest_reference;
+
+  print_time = std::chrono::system_clock::to_time_t(m_latest_reference);
+  std::cerr << "is_state_ok 4: time_ok: "  << time_ok << ", m_latest_reference: " << std::to_string(static_cast<double>(print_time)) << ", NOTE: it has precision error " << std::endl;
+
   return pose_ok && time_ok;
 }
 

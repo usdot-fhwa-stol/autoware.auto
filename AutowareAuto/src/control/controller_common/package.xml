@@ -20,6 +20,8 @@
   <depend>motion_model</depend>
   <depend>state_vector</depend>
   <depend>time_utils</depend>
+  <depend>rclcpp</depend>
+
 
   <build_depend>eigen</build_depend>
   <build_depend>motion_testing</build_depend>

@@ -16,6 +16,8 @@
     <build_depend>motion_common</build_depend>
     <build_depend>time_utils</build_depend>
     <build_depend>autoware_auto_common</build_depend>
+    <depend>rclcpp_components</depend>
+    <depend>rclcpp</depend>
 
     <test_depend>ament_index_python</test_depend>
     <test_depend>ament_lint_common</test_depend>
