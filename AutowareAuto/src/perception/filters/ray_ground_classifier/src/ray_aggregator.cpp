@@ -146,12 +146,12 @@ bool8_t RayAggregator::insert(const PointXYZIFR & pt)
     }
     if (ray.size() >= ray.capacity()) {
       if (print_overflow) {
-        std::cerr << "RayAggregator: Ray capacity overrun! Use smaller bins" << std::endl;
+        //std::cerr << "RayAggregator: Ray capacity overrun! Use smaller bins" << std::endl;
         print_overflow = false;
       }
       return false;
       //throw std::runtime_error("RayAggregator: Ray capacity overrun! Use smaller bins"); // NOTE see https://github.com/usdot-fhwa-stol/carma-platform/issues/1776 to understand why this is disabled
-    }
+    
     // insert point to ray, do some presorting
     ray.push_back(pt);
     // TODO(c.ho) get push_heap working to amortize sorting burden
