@@ -18,6 +18,7 @@
 
 #include <pure_pursuit/visibility_control.hpp>
 #include <common/types.hpp>
+#include <iostream>
 
 using autoware::common::types::bool8_t;
 using autoware::common::types::float32_t;
@@ -30,6 +31,31 @@ namespace control
 {
 namespace pure_pursuit
 {
+
+/// \brief A configuration class for the PurePursuit class's Integrator.
+struct PURE_PURSUIT_PUBLIC IntegratorConfig
+{
+  double dt = 0.1;
+  double integrator_max_pp = 0.0;
+  double integrator_min_pp = 0.0;
+  double Ki_pp = 0.0;
+  double integral = 0.0;
+  bool is_integrator_enabled = false;
+  
+  friend std::ostream& operator<<(std::ostream& output, const IntegratorConfig& c)
+  {
+    output << "IntegratorConfig { " << std::endl
+           << "dt: " << c.dt << std::endl
+           << "integrator_max_pp: " << c.integrator_max_pp << std::endl
+           << "integrator_min_pp: " << c.integrator_min_pp << std::endl
+           << "Ki_pp: " << c.Ki_pp << std::endl
+           << "is_integrator_enabled: " << c.is_integrator_enabled << std::endl
+           << "integral: " << c.integral << std::endl
+           << "}" << std::endl;
+    return output;
+  }
+};
+
 /// \brief A configuration class for the PurePursuit class.
 class PURE_PURSUIT_PUBLIC Config
 {
