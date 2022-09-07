@@ -15,6 +15,8 @@
     <depend>autoware_auto_common</depend>
     <depend>motion_model</depend>
     <depend>state_vector</depend>
+    <depend>rclcpp</depend>
+
 
     <build_depend>builtin_interfaces</build_depend>
     <build_depend>motion_common</build_depend>

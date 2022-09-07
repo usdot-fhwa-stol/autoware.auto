@@ -49,6 +49,15 @@ public:
   /// \param[in] cfg Pure pursuit configuration parameters
   explicit PurePursuit(const Config & cfg);
 
+  /// \brief Default constructor
+  /// \param[in] cfg Pure pursuit configuration parameters
+  /// \param[in] i_cfg Pure pursuit Integrator configuration parameters
+  explicit PurePursuit(const Config & cfg, const IntegratorConfig& i_cfg);
+
+  /// \brief Modify Integrator Config and its values
+  /// \param[in] i_cfg Pure pursuit Integrator configuration parameters
+  void setIntegratorConfig(const IntegratorConfig& i_cfg);
+
 protected:
   /// \brief Compute the vehicle command based on the current pose and the given trajectory.
   ///        If the trajectory's size is 0 or the current pose passed through the trajectory,
@@ -119,6 +128,7 @@ private:
   TrajectoryPoint m_target_point;
   VehicleControlCommand m_command;
   Config m_config;
+  IntegratorConfig m_integrator_config;
 
   uint32_t m_iterations;
 };  // class PurePursuit
