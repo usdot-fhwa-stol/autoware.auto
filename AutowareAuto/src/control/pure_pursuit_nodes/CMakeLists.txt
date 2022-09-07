@@ -52,5 +52,5 @@ endif()
 
 ## install stuff
 ament_auto_package(
-  INSTALL_TO_SHARE param launch
+  INSTALL_TO_SHARE param
 )

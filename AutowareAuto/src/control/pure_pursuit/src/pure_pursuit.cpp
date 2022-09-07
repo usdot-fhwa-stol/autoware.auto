@@ -72,8 +72,6 @@ VehicleControlCommand PurePursuit::compute_command_impl(const TrajectoryPointSta
 {
   const auto start = std::chrono::system_clock::now();
 
-  auto print_time = std::chrono::system_clock::to_time_t(start);
-
   TrajectoryPoint current_point = current_pose.state;  // copy 32bytes
   compute_errors(current_point);
 

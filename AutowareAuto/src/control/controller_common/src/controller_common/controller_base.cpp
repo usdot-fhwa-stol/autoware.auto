@@ -21,9 +21,6 @@
 #include <stdexcept>
 #include <string>
 #include <utility>
-#include <iostream>
-
-#include <rclcpp/rclcpp.hpp>
 
 namespace motion
 {
@@ -121,7 +118,7 @@ Command ControllerBase::compute_command(const State & state)
   }
 
   update_reference_indices(state);
-  
+
   if (!is_state_ok(state)) {
     return compute_stop_command(state);
   }
@@ -181,12 +178,7 @@ bool ControllerBase::is_state_ok(const State & state) const noexcept
 {
   const auto pose_ok = !is_past_trajectory(state);
   const auto t = time_utils::from_message(state.header.stamp);
-
-  auto print_time = std::chrono::system_clock::to_time_t(t);
-
   const auto time_ok = t < m_latest_reference;
-
-  print_time = std::chrono::system_clock::to_time_t(m_latest_reference);
 
   return pose_ok && time_ok;
 }
