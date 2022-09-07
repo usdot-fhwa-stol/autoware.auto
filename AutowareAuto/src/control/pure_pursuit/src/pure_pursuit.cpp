@@ -70,38 +70,20 @@ PurePursuit::PurePursuit(const Config & cfg, const IntegratorConfig& i_cfg)
 ////////////////////////////////////////////////////////////////////////////////
 VehicleControlCommand PurePursuit::compute_command_impl(const TrajectoryPointStamped & current_pose)
 {
-  std::cerr << "Got here inside compute_command_impl" << std::endl;
   const auto start = std::chrono::system_clock::now();
 
   auto print_time = std::chrono::system_clock::to_time_t(start);
-  std::cerr << "compute_command_impl: now: " << std::to_string(static_cast<double>(print_time)) << ", NOTE: precision error "<< std::endl;
 
   TrajectoryPoint current_point = current_pose.state;  // copy 32bytes
   compute_errors(current_point);
-
-  std::cerr << "x: " << current_point.x << std::endl;
-  std::cerr << "y: " << current_point.y << std::endl;
-  std::cerr << "vel: " << current_point.longitudinal_velocity_mps << std::endl;
-  std::cerr << "time_from_start: " << rclcpp::Duration(current_point.time_from_start).seconds() << std::endl;
 
   if (m_config.get_is_delay_compensation()) {
     current_point =
       predict(current_point, start - time_utils::from_message(current_pose.header.stamp));
   }
 
-  std::cerr << "After get_is_delay_compensation: " << std::endl;
-  std::cerr << "x: " << current_point.x << std::endl;
-  std::cerr << "y: " << current_point.y << std::endl;
-  std::cerr << "vel: " << current_point.longitudinal_velocity_mps << std::endl;
-  std::cerr << "time_from_start: " << rclcpp::Duration(current_point.time_from_start).seconds() << std::endl;
-
   compute_lookahead_distance(current_point.longitudinal_velocity_mps);
   const auto is_success = compute_target_point(current_point);
-
-  std::cerr << "is_success: " << is_success << std::endl;
-  std::cerr  << "m_target_point.x : " << m_target_point.x << std::endl;
-  std::cerr  << "m_target_point.y : " << m_target_point.y << std::endl;
-  std::cerr  << "m_target_point.longitudinal_velocity_mps: " << m_target_point.longitudinal_velocity_mps << std::endl;
 
   if (is_success) {
     m_command.long_accel_mps2 = compute_command_accel_mps(current_point, false);
@@ -116,8 +98,6 @@ VehicleControlCommand PurePursuit::compute_command_impl(const TrajectoryPointSta
   ++m_iterations;
 
 
-  std::cerr << "m_command.front_wheel_angle_rad: " << m_command.front_wheel_angle_rad << std::endl;
-  std::cerr << "m_command.rear_wheel_angle_rad: " << m_command.rear_wheel_angle_rad << std::endl;
   
   return m_command;
 }
