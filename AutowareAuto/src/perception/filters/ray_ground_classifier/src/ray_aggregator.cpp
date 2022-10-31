@@ -146,7 +146,7 @@ bool8_t RayAggregator::insert(const PointXYZIFR & pt)
     }
     if (ray.size() >= ray.capacity()) {
       if (print_overflow) {
-        std::cerr << "RayAggregator: Ray capacity overrun! Use smaller bins" << std::endl;
+        //std::cerr << "RayAggregator: Ray capacity overrun! Use smaller bins" << std::endl;
         print_overflow = false;
       }
       return false;
