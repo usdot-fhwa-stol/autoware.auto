@@ -1,3 +1,7 @@
+| CicleCI Build Status | Sonar Code Quality | Docker Hub Develop |
+|------|------|------|
+[![CircleCI](https://circleci.com/gh/usdot-fhwa-stol/autoware.auto.svg?style=svg)](https://circleci.com/gh/usdot-fhwa-stol/autoware.auto) | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=usdot-fhwa-stol_autoware.auto&metric=alert_status)](https://sonarcloud.io/dashboard?id=usdot-fhwa-stol_autoware.auto) | [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/usdotfhwastoldev/autoware.auto?label=Autoware.auto)](https://hub.docker.com/repository/docker/usdotfhwastoldev/autoware.auto)
+
 # autoware.auto
 This is a fork of AutowareAuto containing modifications to support usage with the [CARMAPlatform](https://github.com/usdot-fhwa-stol/carma-platform). This repository contains changes to the AutowareAuto source code and configuration that may not be supported by the Autoware Foundation and may not be consistent with the original design intent of Autoware. All modifications in this repository are licensed under the same Apache License 2.0 as Autoware and all modifications of the source code made will be marked as such in accordance with the terms of the Apache License 2.0. For a list of modifications and their descriptions please see [NOTICE.md](NOTICE.md).
 

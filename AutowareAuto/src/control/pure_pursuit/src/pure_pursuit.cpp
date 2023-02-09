@@ -21,6 +21,10 @@
 #include <utility>
 #include "pure_pursuit/pure_pursuit.hpp"
 
+
+#include <iostream>
+#include <rclcpp/rclcpp.hpp>
+
 namespace autoware
 {
 namespace motion
@@ -43,12 +47,31 @@ PurePursuit::PurePursuit(const Config & cfg)
   m_config(cfg),
   m_iterations(0U)
 {
+  m_integrator_config = IntegratorConfig();
+  RCLCPP_INFO_STREAM(rclcpp::get_logger("pure_pursuit_wrapper"), "Loaded PP Config:" << m_integrator_config);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+PurePursuit::PurePursuit(const Config & cfg, const IntegratorConfig& i_cfg)
+: ControllerBase{::motion::control::controller_common::BehaviorConfig{
+            3.0F,
+            std::chrono::milliseconds{100LL},
+            ::motion::control::controller_common::ControlReference::SPATIAL}},
+  m_lookahead_distance(0.0F),
+  m_target_point{},
+  m_command{},
+  m_config(cfg),
+  m_integrator_config(i_cfg),
+  m_iterations(0U)
+{
+  RCLCPP_INFO_STREAM(rclcpp::get_logger("pure_pursuit_wrapper"), "Loaded PP Config:" << m_integrator_config);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 VehicleControlCommand PurePursuit::compute_command_impl(const TrajectoryPointStamped & current_pose)
 {
   const auto start = std::chrono::system_clock::now();
+
   TrajectoryPoint current_point = current_pose.state;  // copy 32bytes
   compute_errors(current_point);
 
@@ -56,6 +79,7 @@ VehicleControlCommand PurePursuit::compute_command_impl(const TrajectoryPointSta
     current_point =
       predict(current_point, start - time_utils::from_message(current_pose.header.stamp));
   }
+
   compute_lookahead_distance(current_point.longitudinal_velocity_mps);
   const auto is_success = compute_target_point(current_point);
 
@@ -71,9 +95,15 @@ VehicleControlCommand PurePursuit::compute_command_impl(const TrajectoryPointSta
   }
   ++m_iterations;
 
+
+  
   return m_command;
 }
-
+////////////////////////////////////////////////////////////////////////////////
+void PurePursuit::setIntegratorConfig(const IntegratorConfig& i_cfg)
+{
+  m_integrator_config = i_cfg;
+}
 ////////////////////////////////////////////////////////////////////////////////
 void PurePursuit::compute_errors(const TrajectoryPoint & current_point)
 {
@@ -311,8 +341,35 @@ float32_t PurePursuit::compute_steering_rad(const TrajectoryPoint & current_poin
   const float32_t numerator = compute_relative_xy_offset(current_point, m_target_point).second;
   constexpr float32_t epsilon = 0.0001F;
   // equivalent to (2 * y) / (distance * distance) = (2 * sin(th)) / distance
-  const float32_t carvature = (denominator > epsilon) ? ((2.0F * numerator) / denominator) : 0.0F;
-  const float32_t steering_angle_rad = atanf(carvature * m_config.get_distance_front_rear_wheel());
+  const float32_t curvature = (denominator > epsilon) ? ((2.0F * numerator) / denominator) : 0.0F;
+  float32_t steering_angle_rad = atanf(curvature * m_config.get_distance_front_rear_wheel());
+
+  if (m_integrator_config.is_integrator_enabled)
+  {
+    // error=kappa*lookahead*lookahead/2;
+    double error = curvature * denominator / 2;
+
+    RCLCPP_DEBUG_STREAM(rclcpp::get_logger("pure_pursuit_wrapper"), "error integrator: " << error);
+      
+    // Integral term
+    m_integrator_config.integral += error * m_integrator_config.dt;
+    
+    RCLCPP_DEBUG_STREAM(rclcpp::get_logger("pure_pursuit_wrapper"), "Integral integrator: " << m_integrator_config.integral);
+
+    if (m_integrator_config.integral > m_integrator_config.integrator_max_pp){
+        m_integrator_config.integral = m_integrator_config.integrator_max_pp;
+    }
+    else if (m_integrator_config.integral < m_integrator_config.integrator_min_pp){
+      m_integrator_config.integral = m_integrator_config.integrator_min_pp;
+    }
+
+    double I_out = m_integrator_config.Ki_pp * m_integrator_config.integral;
+
+    RCLCPP_DEBUG_STREAM(rclcpp::get_logger("pure_pursuit_wrapper"), " I_out pp: " <<  I_out);
+
+    steering_angle_rad = steering_angle_rad + static_cast<float>(I_out);
+  }
+
   return steering_angle_rad;
 }
 ////////////////////////////////////////////////////////////////////////////////

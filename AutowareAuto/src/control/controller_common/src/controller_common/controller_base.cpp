@@ -108,16 +108,21 @@ const Trajectory & ControllerBase::get_reference_trajectory() const noexcept
 ////////////////////////////////////////////////////////////////////////////////
 Command ControllerBase::compute_command(const State & state)
 {
+
   if (m_reference_trajectory.points.empty()) {
     return compute_stop_command(state);
   }
+
   if (state.header.frame_id != m_reference_trajectory.header.frame_id) {
     throw std::domain_error{"Vehicle state is not in same frame as reference trajectory"};
   }
+
   update_reference_indices(state);
+
   if (!is_state_ok(state)) {
     return compute_stop_command(state);
   }
+
   auto ret = compute_command_impl(state);
   // Ensure you're properly populating the stamp
   ret.stamp = state.header.stamp;
@@ -174,6 +179,7 @@ bool ControllerBase::is_state_ok(const State & state) const noexcept
   const auto pose_ok = !is_past_trajectory(state);
   const auto t = time_utils::from_message(state.header.stamp);
   const auto time_ok = t < m_latest_reference;
+
   return pose_ok && time_ok;
 }
 
