@@ -41,7 +41,7 @@ if [[ "$BRANCH" = "develop" ]]; then
 else
       sudo git clone https://github.com/usdot-fhwa-stol/carma-msgs.git ${dir}/src/CARMAMsgs --branch carma-system-4.3.0
       sudo git clone https://github.com/usdot-fhwa-stol/carma-utils.git ${dir}/src/CARMAUtils --branch carma-system-4.3.0
-      sudo git clone https://github.com/usdot-fhwa-stol/autoware.ai.git ${dir}/src/autoware.ai --branch carma-develop
+      sudo git clone https://github.com/usdot-fhwa-stol/autoware.ai.git ${dir}/src/autoware.ai --branch carma-system-4.3.0
 fi
 
 sudo apt-get update
