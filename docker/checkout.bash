@@ -39,9 +39,9 @@ if [[ "$BRANCH" = "develop" ]]; then
       sudo git clone https://github.com/usdot-fhwa-stol/carma-utils.git ${dir}/src/CARMAUtils --branch $BRANCH
       sudo git clone https://github.com/usdot-fhwa-stol/autoware.ai.git ${dir}/src/autoware.ai --branch $BRANCH
 else
-      sudo git clone https://github.com/usdot-fhwa-stol/carma-msgs.git ${dir}/src/CARMAMsgs --branch develop
-      sudo git clone https://github.com/usdot-fhwa-stol/carma-utils.git ${dir}/src/CARMAUtils --branch develop
-      sudo git clone https://github.com/usdot-fhwa-stol/autoware.ai.git ${dir}/src/autoware.ai --branch carma-develop
+      sudo git clone https://github.com/usdot-fhwa-stol/carma-msgs.git ${dir}/src/CARMAMsgs --branch release/grayson_test
+      sudo git clone https://github.com/usdot-fhwa-stol/carma-utils.git ${dir}/src/CARMAUtils --branch release/grayson_test
+      sudo git clone https://github.com/usdot-fhwa-stol/autoware.ai.git ${dir}/src/autoware.ai --branch release/grayson_test
 fi
 
 sudo apt-get update
