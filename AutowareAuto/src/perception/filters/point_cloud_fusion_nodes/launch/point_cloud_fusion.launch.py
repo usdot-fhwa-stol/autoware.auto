@@ -29,12 +29,11 @@ def generate_launch_description():
     point_cloud_fusion_nodes = Node(
         package='point_cloud_fusion_nodes',
         executable='pointcloud_fusion_node_exe',
-        namespace='lidar',
         parameters=[point_cloud_fusion_node_param_file],
         remappings=[
             ("output_topic", "points_raw"),
-            ("input_topic1", "/velodyne_1/lidar/points_raw"),
-            ("input_topic2", "/velodyne_2/lidar/points_raw")
+            ("input_topic1", "velodyne_1/lidar/points_raw"),
+            ("input_topic2", "velodyne_2/lidar/points_raw")
         ]
     )
 
