@@ -57,8 +57,8 @@ void PointCloudFusionNode::init()
     m_cloud_capacity,
     m_input_topics.size());
 
-  using autoware::common::types::PointXYZIF;
-  point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZIF>{
+  using autoware::common::types::PointXYZIRing;
+  point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZIRing>{
     m_cloud_concatenated, m_output_frame_id}.reserve(m_cloud_capacity);
 
   if (m_input_topics.size() > 8 || m_input_topics.size() < 2) {
@@ -104,8 +104,8 @@ PointCloudFusionNode::pointcloud_callback(
     msg8};
 
   // reset pointcloud before using
-  using autoware::common::types::PointXYZIF;
-  point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZIF> modifier{m_cloud_concatenated};
+  using autoware::common::types::PointXYZIRing;
+  point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZIRing> modifier{m_cloud_concatenated};
   modifier.clear();
   modifier.reserve(m_cloud_capacity);
 
