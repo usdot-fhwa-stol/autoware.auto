@@ -127,7 +127,6 @@ struct COMMON_PUBLIC PointXYZIRing
   float32_t z{0};
   float32_t intensity{0};
   uint16_t ring{0};
-  static constexpr uint16_t END_OF_SCAN_ID = 65535u;
   friend bool operator==(
     const PointXYZIRing & p1,
     const PointXYZIRing & p2) noexcept
