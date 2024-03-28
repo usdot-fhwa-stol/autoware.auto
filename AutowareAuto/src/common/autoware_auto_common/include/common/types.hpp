@@ -120,6 +120,29 @@ struct COMMON_PUBLIC PointXYZI
   }
 };
 
+#pragma pack(push,1)
+struct COMMON_PUBLIC PointXYZIRing
+{
+  float32_t x{0};
+  float32_t y{0};
+  float32_t z{0};
+  float32_t intensity{0};
+  uint16_t ring{0};
+  friend bool operator==(
+    const PointXYZIRing & p1,
+    const PointXYZIRing & p2) noexcept
+  {
+    using autoware::common::helper_functions::comparisons::rel_eq;
+    const auto epsilon = std::numeric_limits<float32_t>::epsilon();
+    return rel_eq(p1.x, p2.x, epsilon) &&
+           rel_eq(p1.y, p2.y, epsilon) &&
+           rel_eq(p1.z, p2.z, epsilon) &&
+           rel_eq(p1.intensity, p2.intensity, epsilon) &&
+           (p1.ring == p2.ring);
+  }
+};
+#pragma pack(pop)
+
 using PointBlock = std::vector<PointXYZIF>;
 using PointPtrBlock = std::vector<const PointXYZIF *>;
 /// \brief Stores basic configuration information, does some simple validity checking
