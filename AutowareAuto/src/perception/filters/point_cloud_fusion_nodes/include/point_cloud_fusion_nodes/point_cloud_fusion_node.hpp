@@ -52,7 +52,7 @@ public:
     const rclcpp::NodeOptions & node_options);
 
 private:
-  using PointT = common::types::PointXYZIF;
+  using PointT = common::types::PointXYZIRing;
   using PointCloudMsgT = sensor_msgs::msg::PointCloud2;
   using PointCloudT = sensor_msgs::msg::PointCloud2;
   using SyncPolicyT = message_filters::sync_policies::ApproximateTime<PointCloudMsgT,
