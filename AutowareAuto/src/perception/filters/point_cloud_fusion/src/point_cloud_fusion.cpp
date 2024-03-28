@@ -70,6 +70,7 @@ void PointCloudFusion::concatenate_pointcloud(
     pt.y = (*view_it).y;
     pt.z = (*view_it).z;
     pt.intensity = (*view_it).intensity;
+    pt.ring = (*view_it).ring;
 
     modifier.push_back(pt);
     ++concat_idx;

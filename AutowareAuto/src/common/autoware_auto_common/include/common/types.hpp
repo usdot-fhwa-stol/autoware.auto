@@ -120,6 +120,7 @@ struct COMMON_PUBLIC PointXYZI
   }
 };
 
+#pragma pack(push,1)
 struct COMMON_PUBLIC PointXYZIRing
 {
   float32_t x{0};
@@ -140,6 +141,7 @@ struct COMMON_PUBLIC PointXYZIRing
            (p1.ring == p2.ring);
   }
 };
+#pragma pack(pop)
 
 using PointBlock = std::vector<PointXYZIF>;
 using PointPtrBlock = std::vector<const PointXYZIF *>;
