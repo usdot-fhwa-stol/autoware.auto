@@ -4,4 +4,4 @@
   ros__parameters:
     number_of_sources: 2
     output_frame_id:  "concat_velodyne"
-    cloud_size:       55000
+    cloud_size:       80000
