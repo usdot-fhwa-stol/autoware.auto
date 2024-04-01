@@ -47,17 +47,18 @@ sensor_msgs::msg::PointCloud2 make_pc(
   std::vector<int32_t> seeds,
   builtin_interfaces::msg::Time stamp)
 {
-  using autoware::common::types::PointXYZI;
+  using autoware::common::types::PointXYZIRing;
   sensor_msgs::msg::PointCloud2 msg;
-  point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZI> modifier{msg, "base_link"};
+  point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZIRing> modifier{msg, "base_link"};
   // modifier.reserve(seeds.size());
 
   for (auto seed : seeds) {
-    PointXYZI pt;
+    PointXYZIRing pt;
     pt.x = seed;
     pt.y = seed;
     pt.z = seed;
     pt.intensity = seed;
+    pt.ring = 0;
     modifier.push_back(pt);
   }
 
@@ -77,36 +78,44 @@ void check_pcl_eq(sensor_msgs::msg::PointCloud2 & msg1, sensor_msgs::msg::PointC
   sensor_msgs::PointCloud2ConstIterator<float32_t> y_it_1(msg1, "y");
   sensor_msgs::PointCloud2ConstIterator<float32_t> z_it_1(msg1, "z");
   sensor_msgs::PointCloud2ConstIterator<float32_t> intensity_it_1(msg1, "intensity");
+  sensor_msgs::PointCloud2ConstIterator<uint16_t> ring_it_1(msg1, "ring");
 
   sensor_msgs::PointCloud2ConstIterator<float32_t> x_it_2(msg2, "x");
   sensor_msgs::PointCloud2ConstIterator<float32_t> y_it_2(msg2, "y");
   sensor_msgs::PointCloud2ConstIterator<float32_t> z_it_2(msg2, "z");
   sensor_msgs::PointCloud2ConstIterator<float32_t> intensity_it_2(msg2, "intensity");
+  sensor_msgs::PointCloud2ConstIterator<uint16_t> ring_it_2(msg2, "ring");
+
 
   while (x_it_1 != x_it_1.end() &&
     y_it_1 != y_it_1.end() &&
     z_it_1 != z_it_1.end() &&
     intensity_it_1 != intensity_it_1.end() &&
+    ring_it_1 != ring_it_1.end() &&
     x_it_2 != x_it_2.end() &&
     y_it_2 != y_it_2.end() &&
     z_it_2 != z_it_2.end() &&
-    intensity_it_2 != intensity_it_2.end()
+    intensity_it_2 != intensity_it_2.end() &&
+    ring_it_2 != ring_it_2.end()
   )
   {
     EXPECT_FLOAT_EQ(*x_it_1, *x_it_2);
     EXPECT_FLOAT_EQ(*y_it_1, *y_it_2);
     EXPECT_FLOAT_EQ(*z_it_1, *z_it_2);
     EXPECT_FLOAT_EQ(*intensity_it_1, *intensity_it_2);
+    EXPECT_EQ(*ring_it_1, *ring_it_2);
 
     ++x_it_1;
     ++y_it_1;
     ++z_it_1;
     ++intensity_it_1;
+    ++ring_it_1;
 
     ++x_it_2;
     ++y_it_2;
     ++z_it_2;
     ++intensity_it_2;
+    ++ring_it_2;
   }
 
   // Operator== is not defined for some reason
@@ -114,11 +123,13 @@ void check_pcl_eq(sensor_msgs::msg::PointCloud2 & msg1, sensor_msgs::msg::PointC
   EXPECT_FALSE(y_it_1 != y_it_1.end());
   EXPECT_FALSE(z_it_1 != z_it_1.end());
   EXPECT_FALSE(intensity_it_1 != intensity_it_1.end());
+  EXPECT_FALSE(ring_it_1 != ring_it_1.end());
 
   EXPECT_FALSE(x_it_2 != x_it_2.end());
   EXPECT_FALSE(y_it_2 != y_it_2.end());
   EXPECT_FALSE(z_it_2 != z_it_2.end());
   EXPECT_FALSE(intensity_it_2 != intensity_it_2.end());
+  EXPECT_FALSE(ring_it_2 != ring_it_2.end());
 }
 
 builtin_interfaces::msg::Time to_msg_time(
