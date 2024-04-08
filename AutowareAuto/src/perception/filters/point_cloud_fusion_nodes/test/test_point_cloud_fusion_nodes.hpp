@@ -14,6 +14,11 @@
 //
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
+/**
+ * Modification Copyright (C) Leidos 2024
+ *  - Changed point type from PointXYZI to PointXYZIRing, which contains x, y, z, intensity, and ring index
+ */
+
 #ifndef TEST_POINT_CLOUD_FUSION_NODES_HPP_
 #define TEST_POINT_CLOUD_FUSION_NODES_HPP_
 
