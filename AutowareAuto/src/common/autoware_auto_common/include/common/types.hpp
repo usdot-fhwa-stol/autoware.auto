@@ -16,6 +16,11 @@
 /// \file
 /// \brief This file includes common type definition
 
+/**
+ * Modification Copyright (C) Leidos 2024
+ *  - Added new point type PointXYZIRing that contains x, y, z, intensity, and ring index
+ */
+
 #ifndef COMMON__TYPES_HPP_
 #define COMMON__TYPES_HPP_
 
@@ -120,7 +125,19 @@ struct COMMON_PUBLIC PointXYZI
   }
 };
 
+// Stores the current packing alignment value and instructs the compiler to not add padding to the PointXYZIRing struct
+// This is needed as the package used to process point clouds (point_cloud_msg_wrapper) expects the size of the struct to be 18 bytes
+// Without this command, the compiler will add 2 bytes of padding to the end of the struct
 #pragma pack(push,1)
+
+/**
+ * @brief Point cloud containing x, y, z, intensity, and ring index
+ *
+ * The package used to process point clouds (point_cloud_msg_wrapper) expects the variable names of the struct to match with
+ * the field names in the received ROS message. The velodyne driver used by CARMA platform publishes messages with the fields "x",
+ * "y", "z", "intensity", and "ring". Thus, although the definition of this point type is similar to PointXYZIF, it is required
+ * that the final variable is named "ring".
+*/
 struct COMMON_PUBLIC PointXYZIRing
 {
   float32_t x{0};
@@ -141,6 +158,7 @@ struct COMMON_PUBLIC PointXYZIRing
            (p1.ring == p2.ring);
   }
 };
+// Restores the previously saved packing alignment value
 #pragma pack(pop)
 
 using PointBlock = std::vector<PointXYZIF>;
