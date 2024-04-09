@@ -3,9 +3,11 @@ name: Docker Hub build
 on:
   push:
     branches:
-      - "develop"
+      - develops
+      - master
       - "release/*"
-      - "release/lavida"
+    tags:
+      - "carma-system-*"
 
 jobs:
   dockerhub:
