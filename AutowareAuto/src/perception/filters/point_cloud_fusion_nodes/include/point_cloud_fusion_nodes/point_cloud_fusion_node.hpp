@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,11 +13,6 @@
 // limitations under the License.
 //
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
-
-/**
- * Modification Copyright (C) Leidos 2024
- *  - Changed point type from PointXYZI to PointXYZIRing, which contains x, y, z, intensity, and ring index
- */
 
 #ifndef POINT_CLOUD_FUSION_NODES__POINT_CLOUD_FUSION_NODE_HPP_
 #define POINT_CLOUD_FUSION_NODES__POINT_CLOUD_FUSION_NODE_HPP_
@@ -57,7 +52,7 @@ public:
     const rclcpp::NodeOptions & node_options);
 
 private:
-  using PointT = common::types::PointXYZIRing;
+  using PointT = common::types::PointXYZIF;
   using PointCloudMsgT = sensor_msgs::msg::PointCloud2;
   using PointCloudT = sensor_msgs::msg::PointCloud2;
   using SyncPolicyT = message_filters::sync_policies::ApproximateTime<PointCloudMsgT,

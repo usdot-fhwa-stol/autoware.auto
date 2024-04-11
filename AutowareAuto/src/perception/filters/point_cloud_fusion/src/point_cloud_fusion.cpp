@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,11 +13,6 @@
 // limitations under the License.
 //
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
-
-/**
- * Modification Copyright (C) Leidos 2024
- *  - Changed point type from PointXYZI to PointXYZIRing, which contains x, y, z, intensity, and ring index
- */
 
 #include <common/types.hpp>
 #include <point_cloud_fusion/point_cloud_fusion.hpp>
@@ -46,8 +41,8 @@ uint32_t PointCloudFusion::fuse_pc_msgs(
 {
   uint32_t pc_concat_idx = 0;
 
-  using autoware::common::types::PointXYZIRing;
-  point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZIRing> modifier{cloud_concatenated};
+  using autoware::common::types::PointXYZI;
+  point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZI> modifier{cloud_concatenated};
 
   for (size_t i = 0; i < m_input_topics_size; ++i) {
     concatenate_pointcloud(*msgs[i], pc_concat_idx, modifier);
@@ -59,23 +54,22 @@ uint32_t PointCloudFusion::fuse_pc_msgs(
 void PointCloudFusion::concatenate_pointcloud(
   const sensor_msgs::msg::PointCloud2 & pc_in,
   uint32_t & concat_idx,
-  point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZIRing> & modifier) const
+  point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZI> & modifier) const
 {
   if ((pc_in.width + concat_idx) > m_cloud_capacity) {
     throw Error::TOO_LARGE;
   }
 
-  using autoware::common::types::PointXYZIRing;
-  point_cloud_msg_wrapper::PointCloud2View<PointXYZIRing> view{pc_in};
+  using autoware::common::types::PointXYZI;
+  point_cloud_msg_wrapper::PointCloud2View<PointXYZI> view{pc_in};
 
   auto view_it = view.cbegin();
   while (view_it != view.cend()) {
-    common::types::PointXYZIRing pt;
+    common::types::PointXYZI pt;
     pt.x = (*view_it).x;
     pt.y = (*view_it).y;
     pt.z = (*view_it).z;
     pt.intensity = (*view_it).intensity;
-    pt.ring = (*view_it).ring;
 
     modifier.push_back(pt);
     ++concat_idx;

@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,11 +15,6 @@
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 /// \file
 /// \brief This file includes common type definition
-
-/**
- * Modification Copyright (C) Leidos 2024
- *  - Added new point type PointXYZIRing that contains x, y, z, intensity, and ring index
- */
 
 #ifndef COMMON__TYPES_HPP_
 #define COMMON__TYPES_HPP_
@@ -124,42 +119,6 @@ struct COMMON_PUBLIC PointXYZI
       p1.intensity, p2.intensity, std::numeric_limits<float32_t>::epsilon());
   }
 };
-
-// Stores the current packing alignment value and instructs the compiler to not add padding to the PointXYZIRing struct
-// This is needed as the package used to process point clouds (point_cloud_msg_wrapper) expects the size of the struct to be 18 bytes
-// Without this command, the compiler will add 2 bytes of padding to the end of the struct
-#pragma pack(push,1)
-
-/**
- * @brief Point cloud containing x, y, z, intensity, and ring index
- *
- * The package used to process point clouds (point_cloud_msg_wrapper) expects the variable names of the struct to match with
- * the field names in the received ROS message. The velodyne driver used by CARMA platform publishes messages with the fields "x",
- * "y", "z", "intensity", and "ring". Thus, although the definition of this point type is similar to PointXYZIF, it is required
- * that the final variable is named "ring".
-*/
-struct COMMON_PUBLIC PointXYZIRing
-{
-  float32_t x{0};
-  float32_t y{0};
-  float32_t z{0};
-  float32_t intensity{0};
-  uint16_t ring{0};
-  friend bool operator==(
-    const PointXYZIRing & p1,
-    const PointXYZIRing & p2) noexcept
-  {
-    using autoware::common::helper_functions::comparisons::rel_eq;
-    const auto epsilon = std::numeric_limits<float32_t>::epsilon();
-    return rel_eq(p1.x, p2.x, epsilon) &&
-           rel_eq(p1.y, p2.y, epsilon) &&
-           rel_eq(p1.z, p2.z, epsilon) &&
-           rel_eq(p1.intensity, p2.intensity, epsilon) &&
-           (p1.ring == p2.ring);
-  }
-};
-// Restores the previously saved packing alignment value
-#pragma pack(pop)
 
 using PointBlock = std::vector<PointXYZIF>;
 using PointPtrBlock = std::vector<const PointXYZIF *>;

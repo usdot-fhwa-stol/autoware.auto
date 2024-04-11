@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,11 +13,6 @@
 // limitations under the License.
 //
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
-
-/**
- * Modification Copyright (C) Leidos 2024
- *  - Changed point type from PointXYZI to PointXYZIRing, which contains x, y, z, intensity, and ring index
- */
 
 #ifndef POINT_CLOUD_FUSION__POINT_CLOUD_FUSION_HPP_
 #define POINT_CLOUD_FUSION__POINT_CLOUD_FUSION_HPP_
@@ -37,7 +32,7 @@ namespace filters
 {
 namespace point_cloud_fusion
 {
-using autoware::common::types::PointXYZIRing;
+using autoware::common::types::PointXYZI;
 
 class POINT_CLOUD_FUSION_PUBLIC PointCloudFusion
 {
@@ -72,7 +67,7 @@ private:
   void concatenate_pointcloud(
     const PointCloudMsgT & pc_in,
     uint32_t & concat_idx,
-    point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZIRing> & modifier) const;
+    point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZI> & modifier) const;
 
   uint32_t m_cloud_capacity;
   size_t m_input_topics_size;

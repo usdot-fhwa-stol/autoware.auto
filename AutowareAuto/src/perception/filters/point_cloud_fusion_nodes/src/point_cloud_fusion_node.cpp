@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,11 +13,6 @@
 // limitations under the License.
 //
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
-
-/**
- * Modification Copyright (C) Leidos 2024
- *  - Changed point type from PointXYZI to PointXYZIRing, which contains x, y, z, intensity, and ring index
- */
 
 #include <common/types.hpp>
 #include <point_cloud_fusion_nodes/point_cloud_fusion_node.hpp>
@@ -62,8 +57,8 @@ void PointCloudFusionNode::init()
     m_cloud_capacity,
     m_input_topics.size());
 
-  using autoware::common::types::PointXYZIRing;
-  point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZIRing>{
+  using autoware::common::types::PointXYZI;
+  point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZI>{
     m_cloud_concatenated, m_output_frame_id}.reserve(m_cloud_capacity);
 
   if (m_input_topics.size() > 8 || m_input_topics.size() < 2) {
@@ -109,8 +104,8 @@ PointCloudFusionNode::pointcloud_callback(
     msg8};
 
   // reset pointcloud before using
-  using autoware::common::types::PointXYZIRing;
-  point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZIRing> modifier{m_cloud_concatenated};
+  using autoware::common::types::PointXYZI;
+  point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZI> modifier{m_cloud_concatenated};
   modifier.clear();
   modifier.reserve(m_cloud_capacity);
 
