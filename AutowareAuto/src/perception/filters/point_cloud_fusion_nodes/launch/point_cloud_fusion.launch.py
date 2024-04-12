@@ -33,8 +33,8 @@ def generate_launch_description():
         parameters=[point_cloud_fusion_node_param_file],
         remappings=[
             ("output_topic", "lidar/points_raw"),
-            ("input_topic1", "velodyne_1/lidar/points_raw"),
-            ("input_topic2", "velodyne_2/lidar/points_raw")
+            ("input_topic1", "velodyne_1/lidar/points_xyzi"),
+            ("input_topic2", "velodyne_2/lidar/points_xyzi")
         ]
     )
 

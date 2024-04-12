@@ -23,6 +23,7 @@ def generate_launch_description():
     """Generate launch description with a single component."""
     container = ComposableNodeContainer(
         name='point_type_adapter_container',
+        namespace='',
         package='rclcpp_components',
         executable='component_container',
         composable_node_descriptions=[
@@ -30,8 +31,8 @@ def generate_launch_description():
                 package='point_type_adapter',
                 plugin='autoware::tools::point_type_adapter::PointTypeAdapterNode',
                 name='point_type_adapter_node',
-                remappings=[('points_raw', 'lidar_front/points_raw'),
-                            ('points_xyzi', 'lidar_front/points_xyzi')], )
+                remappings=[('points_raw', 'lidar/points_raw'),
+                            ('points_xyzi', 'lidar/points_xyzi')], )
         ],
         output='screen',
     )
