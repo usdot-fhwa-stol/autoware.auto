@@ -15,6 +15,7 @@
 
 
 import launch
+from carma_ros2_utils.launch.get_current_namespace import GetCurrentNamespace
 from launch_ros.actions import ComposableNodeContainer
 from launch_ros.descriptions import ComposableNode
 
@@ -23,7 +24,7 @@ def generate_launch_description():
     """Generate launch description with a single component."""
     container = ComposableNodeContainer(
         name='point_type_adapter_container',
-        namespace='',
+        namespace=GetCurrentNamespace(),
         package='rclcpp_components',
         executable='component_container',
         composable_node_descriptions=[
