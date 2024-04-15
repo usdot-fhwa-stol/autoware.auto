@@ -18,10 +18,14 @@
 import launch
 from launch_ros.actions import ComposableNodeContainer
 from launch_ros.descriptions import ComposableNode
+from launch.substitutions import EnvironmentVariable
 from carma_ros2_utils.launch.get_current_namespace import GetCurrentNamespace
+from carma_ros2_utils.launch.get_log_level import GetLogLevel
 from ament_index_python import get_package_share_directory
 
 import os
+
+env_log_levels = EnvironmentVariable('CARMA_ROS_LOGGING_CONFIG', default_value='{ "default_level" : "WARN" }')
 
 point_cloud_fusion_node_pkg_prefix = get_package_share_directory('point_cloud_fusion_nodes')
 point_cloud_fusion_node_param_file = os.path.join(point_cloud_fusion_node_pkg_prefix,
@@ -41,6 +45,11 @@ def generate_launch_description():
                 plugin='autoware::perception::filters::point_cloud_fusion_nodes::PointCloudFusionNode',
                 name='point_cloud_fusion_node',
                 parameters=[point_cloud_fusion_node_param_file],
+                extra_arguments=[
+                    {'use_intra_process_comms': True},
+                    {'--log-level' : GetLogLevel('point_cloud_fusion_nodes', env_log_levels) },
+                    {'is_lifecycle_node': True} # Flag to allow lifecycle node loading in lifecycle wrapper
+                ],
                 remappings=[
                     ('output_topic', 'lidar/points_raw'),
                     ('input_topic1', 'velodyne_1/lidar/points_xyzi'),
@@ -51,6 +60,11 @@ def generate_launch_description():
                 package='point_type_adapter',
                 plugin='autoware::tools::point_type_adapter::PointTypeAdapterNode',
                 name='velodyne_1/point_type_adapter_node',
+                extra_arguments=[
+                    {'use_intra_process_comms': True},
+                    {'--log-level' : GetLogLevel('point_type_adapter', env_log_levels) },
+                    {'is_lifecycle_node': True} # Flag to allow lifecycle node loading in lifecycle wrapper
+                ],
                 remappings=[('points_raw', 'velodyne_1/lidar/points_raw'),
                             ('points_xyzi', 'velodyne_1/lidar/points_xyzi')]
             ),
@@ -58,6 +72,11 @@ def generate_launch_description():
                 package='point_type_adapter',
                 plugin='autoware::tools::point_type_adapter::PointTypeAdapterNode',
                 name='velodyne_2/point_type_adapter_node',
+                extra_arguments=[
+                    {'use_intra_process_comms': True},
+                    {'--log-level' : GetLogLevel('point_type_adapter', env_log_levels) },
+                    {'is_lifecycle_node': True} # Flag to allow lifecycle node loading in lifecycle wrapper
+                ],
                 remappings=[('points_raw', 'velodyne_2/lidar/points_raw'),
                             ('points_xyzi', 'velodyne_2/lidar/points_xyzi')],
             )
