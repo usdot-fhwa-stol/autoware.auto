@@ -35,7 +35,7 @@ point_cloud_fusion_node_param_file = os.path.join(point_cloud_fusion_node_pkg_pr
 def generate_launch_description():
 
     point_cloud_fusion_container = ComposableNodeContainer(
-        package='carma_ros2_utils', # rclcpp_components
+        package='carma_ros2_utils',
         name='point_cloud_fusion_container',
         executable='carma_component_container_mt',
         namespace=GetCurrentNamespace(),
