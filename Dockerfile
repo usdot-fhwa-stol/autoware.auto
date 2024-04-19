@@ -1,11 +1,14 @@
-FROM usdotfhwastol/carma-base:carma-system-4.5.0 as base_image
+ARG DOCKER_ORG=usdotfhwastoldev
+ARG DOCKER_TAG=develop
+FROM ${DOCKER_ORG}/carma-base:${DOCKER_TAG} as base_image
 
 FROM base_image as build
+ARG GIT_BRANCH=develop
 
 COPY --chown=carma . /home/carma/autoware.auto
 RUN chmod -R 775 /home/carma/autoware.auto/docker/checkout.bash
 RUN chmod -R 775 /home/carma/autoware.auto/docker/install.sh
-RUN /home/carma/autoware.auto/docker/checkout.bash
+RUN /home/carma/autoware.auto/docker/checkout.bash -b ${GIT_BRANCH}
 RUN ./home/carma/autoware.auto/docker/install.sh
 
 FROM base_image

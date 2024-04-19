@@ -22,13 +22,13 @@ version: 2
 # Run static code analyzer for SourceCloud
 # Upload test results
 # Every run command should start with source ${INIT_ENV} to ensure all default dependancies are available
-
+# TODO : Move this to github actions to take advantage of dynamic base branch selection
 jobs:
   build:
     # Pull docker image from docker hub
     # XTERM used for better catkin_make output
     docker:
-      - image: usdotfhwastol/carma-base:carma-system-4.5.0
+      - image: usdotfhwastoldev/carma-base:develop
         user: carma
         environment:
           TERM: xterm # use xterm to get full display output from build
