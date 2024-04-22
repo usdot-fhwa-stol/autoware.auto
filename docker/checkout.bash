@@ -19,11 +19,13 @@
 set -exo pipefail
 
 dir=~
+BRANCH=develop
 while [[ $# -gt 0 ]]; do
       arg="$1"
       case $arg in
-            -d|--develop)
-                  BRANCH=develop
+            -b|--branch)
+                  BRANCH=$2
+                  shift
                   shift
             ;;
             -r|--root)
@@ -33,17 +35,14 @@ while [[ $# -gt 0 ]]; do
             ;;
       esac
 done
-
-if [[ "$BRANCH" = "develop" ]]; then
-      sudo git clone https://github.com/usdot-fhwa-stol/carma-msgs.git ${dir}/src/CARMAMsgs --branch $BRANCH
-      sudo git clone https://github.com/usdot-fhwa-stol/carma-utils.git ${dir}/src/CARMAUtils --branch $BRANCH
-      sudo git clone https://github.com/usdot-fhwa-stol/autoware.ai.git ${dir}/src/autoware.ai --branch $BRANCH
+sudo git clone https://github.com/usdot-fhwa-stol/carma-msgs.git ${dir}/src/CARMAMsgs --branch "$BRANCH"
+sudo git clone https://github.com/usdot-fhwa-stol/carma-utils.git ${dir}/src/CARMAUtils --branch "$BRANCH"
+if [[ "$BRANCH" == "develop" ]] || [[ "$BRANCH" == "master" ]]; then
+      sudo git clone https://github.com/usdot-fhwa-stol/autoware.ai.git ${dir}/src/autoware.ai --branch carma-"$BRANCH"
 else
-      sudo git clone https://github.com/usdot-fhwa-stol/carma-msgs.git ${dir}/src/CARMAMsgs --branch develop
-      sudo git clone https://github.com/usdot-fhwa-stol/carma-utils.git ${dir}/src/CARMAUtils --branch develop
-      sudo git clone https://github.com/usdot-fhwa-stol/autoware.ai.git ${dir}/src/autoware.ai --branch carma-develop
+      sudo git clone https://github.com/usdot-fhwa-stol/autoware.ai.git ${dir}/src/autoware.ai --branch "$BRANCH"
 fi
-
+#TODO This probably needs to be moved into install.sh
 sudo apt-get update
 sudo apt-get install ros-foxy-nmea-msgs -y
 sudo apt-get install ros-foxy-gps-tools -y
