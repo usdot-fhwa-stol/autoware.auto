@@ -231,25 +231,25 @@ void LateralController::onTimer()
 bool8_t LateralController::checkData() const
 {
   if (!m_mpc.hasVehicleModel()) {
-    RCLCPP_DEBUG(
+    RCLCPP_ERROR(
       get_logger(), "MPC does not have a vehicle model");
     return false;
   }
   if (!m_mpc.hasQPSolver()) {
-    RCLCPP_DEBUG(
+    RCLCPP_ERROR(
       get_logger(), "MPC does not have a QP solver");
     return false;
   }
 
   if (!m_current_pose_ptr || !m_current_state_ptr) {
-    RCLCPP_DEBUG(
+    RCLCPP_ERROR(
       get_logger(), "waiting data. pose = %d, current_state = %d",
       m_current_pose_ptr != nullptr, m_current_state_ptr != nullptr);
     return false;
   }
 
   if (m_mpc.m_ref_traj.size() == 0) {
-    RCLCPP_DEBUG(get_logger(), "trajectory size is zero.");
+    RCLCPP_ERROR(get_logger(), "trajectory size is zero.");
     return false;
   }
 
@@ -261,7 +261,7 @@ void LateralController::onTrajectory(const autoware_auto_msgs::msg::Trajectory::
   m_current_trajectory_ptr = msg;
 
   if (msg->points.size() < 3) {
-    RCLCPP_DEBUG(get_logger(), "received path size is < 3, not enough.");
+    RCLCPP_ERROR(get_logger(), "received path size is < 3, not enough.");
     return;
   }
 

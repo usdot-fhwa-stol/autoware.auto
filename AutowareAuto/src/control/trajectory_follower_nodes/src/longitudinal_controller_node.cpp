@@ -389,6 +389,7 @@ void LongitudinalController::callbackTimerControl()
 
   // self pose is far from trajectory
   if (control_data.is_far_from_trajectory) {
+    RCLCPP_ERROR_THROTTLE(get_logger(), "self pose is far from trajectory.");
     m_control_state = ControlState::EMERGENCY;                           // update control state
     const Motion raw_ctrl_cmd = calcEmergencyCtrlCmd(control_data.dt);  // calculate control command
     m_prev_raw_ctrl_cmd = raw_ctrl_cmd;
@@ -582,7 +583,7 @@ LongitudinalController::Motion LongitudinalController::calcCtrlCmd(
 
     raw_ctrl_cmd.vel = target_motion.vel;
     raw_ctrl_cmd.acc = applyVelocityFeedback(target_motion, control_data.dt, pred_vel_in_target);
-    RCLCPP_DEBUG(
+    RCLCPP_ERROR_THROTTLE(
       get_logger(),
       "[feedback control]  vel: %3.3f, acc: %3.3f, dt: %3.3f, v_curr: %3.3f, v_ref: %3.3f "
       "feedback_ctrl_cmd.ac: %3.3f",
@@ -593,7 +594,7 @@ LongitudinalController::Motion LongitudinalController::calcCtrlCmd(
       control_data.stop_dist, current_vel, current_acc, m_vel_hist, m_delay_compensation_time);
     raw_ctrl_cmd.vel = m_stopped_state_params.vel;
 
-    RCLCPP_DEBUG(
+    RCLCPP_ERROR_THROTTLE(
       get_logger(),
       "[smooth stop]: Smooth stopping. vel: %3.3f, acc: %3.3f",
       raw_ctrl_cmd.vel, raw_ctrl_cmd.acc);
@@ -609,7 +610,7 @@ LongitudinalController::Motion LongitudinalController::calcCtrlCmd(
       m_prev_raw_ctrl_cmd.acc,
       control_data.dt, p.jerk);
 
-    RCLCPP_DEBUG(
+    RCLCPP_ERROR_THROTTLE(
       get_logger(), "[Stopped]. vel: %3.3f, acc: %3.3f",
       raw_ctrl_cmd.vel, raw_ctrl_cmd.acc);
   } else if (current_control_state == ControlState::EMERGENCY) {
