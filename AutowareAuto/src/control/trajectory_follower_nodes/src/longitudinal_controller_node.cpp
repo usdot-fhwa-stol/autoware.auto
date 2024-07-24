@@ -182,7 +182,11 @@ LongitudinalController::LongitudinalController(const rclcpp::NodeOptions & node_
   m_pub_debug = create_publisher<autoware_auto_msgs::msg::Float32MultiArrayDiagnostic>(
     "output/longitudinal/diagnostic", rclcpp::QoS{1});
 
+  rcutils_ret_t ret = rcutils_logging_set_logger_level("trajectory_follower", RCUTILS_LOG_SEVERITY_DEBUG);
+  if (ret != RCUTILS_RET_OK) {
+    RCLCPP_ERROR(get_logger(), "Could not set log level for traj follower lib");
 
+  }
   // Timer
   {
     auto timer_callback = std::bind(&LongitudinalController::callbackTimerControl, this);
@@ -389,7 +393,7 @@ void LongitudinalController::callbackTimerControl()
 
   // self pose is far from trajectory
   if (control_data.is_far_from_trajectory) {
-    RCLCPP_ERROR_THROTTLE(get_logger(), "self pose is far from trajectory.");
+    RCLCPP_ERROR(get_logger(), "self pose is far from trajectory.");
     m_control_state = ControlState::EMERGENCY;                           // update control state
     const Motion raw_ctrl_cmd = calcEmergencyCtrlCmd(control_data.dt);  // calculate control command
     m_prev_raw_ctrl_cmd = raw_ctrl_cmd;
@@ -583,7 +587,7 @@ LongitudinalController::Motion LongitudinalController::calcCtrlCmd(
 
     raw_ctrl_cmd.vel = target_motion.vel;
     raw_ctrl_cmd.acc = applyVelocityFeedback(target_motion, control_data.dt, pred_vel_in_target);
-    RCLCPP_ERROR_THROTTLE(
+    RCLCPP_ERROR(
       get_logger(),
       "[feedback control]  vel: %3.3f, acc: %3.3f, dt: %3.3f, v_curr: %3.3f, v_ref: %3.3f "
       "feedback_ctrl_cmd.ac: %3.3f",
@@ -594,7 +598,7 @@ LongitudinalController::Motion LongitudinalController::calcCtrlCmd(
       control_data.stop_dist, current_vel, current_acc, m_vel_hist, m_delay_compensation_time);
     raw_ctrl_cmd.vel = m_stopped_state_params.vel;
 
-    RCLCPP_ERROR_THROTTLE(
+    RCLCPP_ERROR(
       get_logger(),
       "[smooth stop]: Smooth stopping. vel: %3.3f, acc: %3.3f",
       raw_ctrl_cmd.vel, raw_ctrl_cmd.acc);
@@ -610,7 +614,7 @@ LongitudinalController::Motion LongitudinalController::calcCtrlCmd(
       m_prev_raw_ctrl_cmd.acc,
       control_data.dt, p.jerk);
 
-    RCLCPP_ERROR_THROTTLE(
+    RCLCPP_ERROR(
       get_logger(), "[Stopped]. vel: %3.3f, acc: %3.3f",
       raw_ctrl_cmd.vel, raw_ctrl_cmd.acc);
   } else if (current_control_state == ControlState::EMERGENCY) {
