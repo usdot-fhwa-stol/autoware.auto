@@ -336,10 +336,12 @@ int64_t calcNearestIndex(
     const float64_t dx = self_pose.position.x - static_cast<float64_t>(traj.points.at(i).x);
     const float64_t dy = self_pose.position.y - static_cast<float64_t>(traj.points.at(i).y);
     const float64_t dist_squared = dx * dx + dy * dy;
+    std::cerr<< "dist_squared:  "<<dist_squared<<std::endl;
 
     /* ignore when yaw error is large, for crossing path */
     const float64_t traj_yaw = ::motion::motion_common::to_angle(traj.points.at(i).heading);
     const float64_t err_yaw = autoware::common::helper_functions::wrap_angle(my_yaw - traj_yaw);
+    std::cerr<< "err_yaw:  "<<err_yaw<<std::endl;
     if (std::fabs(err_yaw) > (M_PI / 3.0)) {
       continue;
     }
@@ -385,6 +387,7 @@ bool8_t calcNearestPoseInterp(
       const float64_t dy = p.position.y - t.y[idx];
       return dx * dx + dy * dy;
     };
+
 
   /* get second nearest index = next to nearest_index */
   const size_t next = static_cast<size_t>(std::min(nearest_idx + 1, traj_size - 1));

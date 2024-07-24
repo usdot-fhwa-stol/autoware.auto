@@ -331,18 +331,24 @@ bool8_t LateralController::isStoppedState() const
     *m_current_trajectory_ptr,
     m_current_pose_ptr->pose);
   // If the nearest index is not found, return false
-  if (nearest < 0) {return false;}
+
+  RCLCPP_ERROR(get_logger(), "nearest index %d", nearest);
+  if (nearest < 0)
+  {
+    RCLCPP_ERROR(get_logger(), "nearest index is not found");
+    return false;
+  }
   const float64_t dist = trajectory_follower::MPCUtils::calcStopDistance(
     *m_current_trajectory_ptr,
     nearest);
   if (dist < m_stop_state_keep_stopping_dist) {
-    RCLCPP_DEBUG(
+    RCLCPP_ERROR(
       get_logger(),
       "stop_dist = %f < %f : m_stop_state_keep_stopping_dist. keep stopping.", dist,
       m_stop_state_keep_stopping_dist);
     return true;
   }
-  RCLCPP_DEBUG(get_logger(), "stop_dist = %f release stopping.", dist);
+  RCLCPP_ERROR(get_logger(), "stop_dist = %f release stopping.", dist);
 
   const float64_t current_vel = m_current_state_ptr->state.longitudinal_velocity_mps;
   const float64_t target_vel =
