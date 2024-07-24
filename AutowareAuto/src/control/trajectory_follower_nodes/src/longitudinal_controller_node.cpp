@@ -390,6 +390,8 @@ void LongitudinalController::callbackTimerControl()
 
 
   const auto control_data = getControlData(current_pose);
+  RCLCPP_ERROR(get_logger(), "current_pose.position.x :" , current_pose.position.x);
+  RCLCPP_ERROR(get_logger(), "current_pose.position.y :" , current_pose.position.y);
 
   // self pose is far from trajectory
   if (control_data.is_far_from_trajectory) {
