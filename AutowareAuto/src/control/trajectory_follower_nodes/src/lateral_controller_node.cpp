@@ -299,8 +299,8 @@ void LateralController::updateCurrentPose()
   ps.pose.position.y = transform.transform.translation.y;
   ps.pose.position.z = transform.transform.translation.z;
   ps.pose.orientation = transform.transform.rotation;
-  RCLCPP_ERROR(get_logger(), "ps.pose.position.x :" , ps.pose.position.x);
-  RCLCPP_ERROR(get_logger(), "ps.pose.position.y :" , ps.pose.position.y);
+  RCLCPP_ERROR(get_logger(), "ps.pose.position.x : %f" , ps.pose.position.x);
+  RCLCPP_ERROR(get_logger(), "ps.pose.position.y : %f" , ps.pose.position.y);
   m_current_pose_ptr = std::make_shared<geometry_msgs::msg::PoseStamped>(ps);
 }
 
