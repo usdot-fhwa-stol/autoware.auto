@@ -330,6 +330,7 @@ int64_t calcNearestIndex(
     return -1;
   }
   const float64_t my_yaw = tf2::getYaw(self_pose.orientation);
+  std::cerr<< "my_yaw:  "<<my_yaw << std::endl;
   int64_t nearest_idx = -1;
   float64_t min_dist_squared = std::numeric_limits<float64_t>::max();
   for (size_t i = 0; i < traj.points.size(); ++i) {
@@ -340,9 +341,11 @@ int64_t calcNearestIndex(
 
     /* ignore when yaw error is large, for crossing path */
     const float64_t traj_yaw = ::motion::motion_common::to_angle(traj.points.at(i).heading);
+    std::cerr<< "traj_yaw:  "<<traj_yaw<<std::endl;
     const float64_t err_yaw = autoware::common::helper_functions::wrap_angle(my_yaw - traj_yaw);
     std::cerr<< "err_yaw:  "<<err_yaw<<std::endl;
-    if (std::fabs(err_yaw) > (M_PI / 3.0)) {
+    // if (std::fabs(err_yaw) > (M_PI / 3.0)) {
+    if (std::fabs(err_yaw) > (M_PI / 1.5)) {
       continue;
     }
     if (dist_squared < min_dist_squared) {
