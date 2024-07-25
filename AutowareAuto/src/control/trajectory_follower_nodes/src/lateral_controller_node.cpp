@@ -228,6 +228,8 @@ void LateralController::onTimer()
     ctrl_cmd = getStopControlCommand();
   }
 
+  RCLCPP_ERROR(get_logger(), "MPC solved");
+
   m_ctrl_cmd_prev = ctrl_cmd;
   publishCtrlCmd(ctrl_cmd);
   publishPredictedTraj(predicted_traj);
