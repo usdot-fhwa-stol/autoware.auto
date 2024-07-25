@@ -329,7 +329,7 @@ int64_t calcNearestIndex(
   if (traj.points.empty()) {
     return -1;
   }
-  const float64_t my_yaw = tf2::getYaw(self_pose.orientation);
+  const float64_t my_yaw = 0.0; //tf2::getYaw(self_pose.orientation);
   std::cerr<< "my_yaw:  "<<my_yaw << std::endl;
   int64_t nearest_idx = -1;
   float64_t min_dist_squared = std::numeric_limits<float64_t>::max();
@@ -344,8 +344,7 @@ int64_t calcNearestIndex(
     std::cerr<< "traj_yaw:  "<<traj_yaw<<std::endl;
     const float64_t err_yaw = autoware::common::helper_functions::wrap_angle(my_yaw - traj_yaw);
     std::cerr<< "err_yaw:  "<<err_yaw<<std::endl;
-    // if (std::fabs(err_yaw) > (M_PI / 3.0)) {
-    if (std::fabs(err_yaw) > (M_PI / 1.5)) {
+    if (std::fabs(err_yaw) > (M_PI / 3.0)) {
       continue;
     }
     if (dist_squared < min_dist_squared) {

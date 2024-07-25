@@ -431,8 +431,7 @@ LongitudinalController::ControlData LongitudinalController::getControlData(
   // nearest idx
   const float64_t max_dist = m_state_transition_params.emergency_state_traj_trans_dev;
   const float64_t max_yaw = m_state_transition_params.emergency_state_traj_rot_dev;
-  const auto nearest_idx_opt =
-    motion_common::findNearestIndex(m_trajectory_ptr->points, current_pose, max_dist, max_yaw);
+  const auto nearest_idx_opt = motion_common::findNearestIndex(m_trajectory_ptr->points, current_pose, max_dist, max_yaw);
 
   // return here if nearest index is not found
   if (!nearest_idx_opt) {
@@ -448,7 +447,7 @@ LongitudinalController::ControlData LongitudinalController::getControlData(
 
   // distance to stopline
   control_data.stop_dist =
-    trajectory_follower::longitudinal_utils::calcStopDistance(
+    trajectory_follower::longitudinal_utils::is_far_from_trajectory(
     current_pose.position,
     *m_trajectory_ptr);
 
