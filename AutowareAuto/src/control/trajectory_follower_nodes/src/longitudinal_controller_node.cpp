@@ -447,9 +447,10 @@ LongitudinalController::ControlData LongitudinalController::getControlData(
 
   // distance to stopline
   control_data.stop_dist =
-    trajectory_follower::longitudinal_utils::is_far_from_trajectory(
+    trajectory_follower::longitudinal_utils::calcStopDistance(
     current_pose.position,
     *m_trajectory_ptr);
+
 
   // pitch
   const float64_t raw_pitch = trajectory_follower::longitudinal_utils::getPitchByPose(
