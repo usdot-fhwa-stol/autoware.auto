@@ -209,6 +209,7 @@ void LateralController::onTimer()
     m_current_pose_ptr->pose, ctrl_cmd, predicted_traj, diagnostic);
 
   if (isStoppedState()) {
+    RCLCPP_ERROR(get_logger(), "isStoppedState");
     // Reset input buffer
     for (auto & value : m_mpc.m_input_buffer) {
       value = m_ctrl_cmd_prev.steering_tire_angle;
@@ -369,6 +370,7 @@ void LateralController::publishCtrlCmd(autoware_auto_msgs::msg::AckermannLateral
 {
   ctrl_cmd.stamp = this->now();
   m_pub_ctrl_cmd->publish(ctrl_cmd);
+  RCLCPP_ERROR(get_logger(), "published command = %f radian", ctrl_cmd.steering_tire_angle);
   m_steer_cmd_prev = ctrl_cmd.steering_tire_angle;
 }
 
