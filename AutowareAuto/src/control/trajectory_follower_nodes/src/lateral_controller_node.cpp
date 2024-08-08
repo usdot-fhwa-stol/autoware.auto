@@ -371,7 +371,8 @@ void LateralController::publishCtrlCmd(autoware_auto_msgs::msg::AckermannLateral
 {
   ctrl_cmd.stamp = this->now();
   m_pub_ctrl_cmd->publish(ctrl_cmd);
-  RCLCPP_ERROR(get_logger(), "published command = %f radian", ctrl_cmd.steering_tire_angle);
+  RCLCPP_ERROR(get_logger(), "published command = %f radian", static_cast<double>(ctrl_cmd.steering_tire_angle));
+
   m_steer_cmd_prev = ctrl_cmd.steering_tire_angle;
 }
 
