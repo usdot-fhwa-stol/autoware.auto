@@ -87,6 +87,7 @@ LateralController::LateralController(const rclcpp::NodeOptions & node_options)
   const float64_t cg_to_front_m = declare_parameter("vehicle.cg_to_front_m").get<float64_t>();
   const float64_t cg_to_rear_m = declare_parameter("vehicle.cg_to_rear_m").get<float64_t>();
   const float64_t wheelbase = cg_to_front_m + cg_to_rear_m;
+  RCLCPP_ERROR(get_logger(), "wheelbase: %f", wheelbase);
 
   /* vehicle model setup */
   const std::string vehicle_model_type = declare_parameter("vehicle_model_type").get<std::string>();
