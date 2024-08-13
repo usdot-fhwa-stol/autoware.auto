@@ -87,7 +87,6 @@ LateralController::LateralController(const rclcpp::NodeOptions & node_options)
   const float64_t cg_to_front_m = declare_parameter("vehicle.cg_to_front_m").get<float64_t>();
   const float64_t cg_to_rear_m = declare_parameter("vehicle.cg_to_rear_m").get<float64_t>();
   const float64_t wheelbase = cg_to_front_m + cg_to_rear_m;
-  RCLCPP_ERROR(get_logger(), "wheelbase: %f", wheelbase);
 
   /* vehicle model setup */
   const std::string vehicle_model_type = declare_parameter("vehicle_model_type").get<std::string>();
@@ -210,7 +209,7 @@ void LateralController::onTimer()
     m_current_pose_ptr->pose, ctrl_cmd, predicted_traj, diagnostic);
 
   if (isStoppedState()) {
-    RCLCPP_ERROR(get_logger(), "isStoppedState");
+    RCLCPP_DEBUG(get_logger(), "isStoppedState");
     // Reset input buffer
     for (auto & value : m_mpc.m_input_buffer) {
       value = m_ctrl_cmd_prev.steering_tire_angle;
@@ -230,8 +229,6 @@ void LateralController::onTimer()
     ctrl_cmd = getStopControlCommand();
   }
 
-  RCLCPP_ERROR(get_logger(), "MPC solved");
-
   m_ctrl_cmd_prev = ctrl_cmd;
   publishCtrlCmd(ctrl_cmd);
   publishPredictedTraj(predicted_traj);
@@ -241,25 +238,25 @@ void LateralController::onTimer()
 bool8_t LateralController::checkData() const
 {
   if (!m_mpc.hasVehicleModel()) {
-    RCLCPP_ERROR(
+    RCLCPP_DEBUG(
       get_logger(), "MPC does not have a vehicle model");
     return false;
   }
   if (!m_mpc.hasQPSolver()) {
-    RCLCPP_ERROR(
+    RCLCPP_DEBUG(
       get_logger(), "MPC does not have a QP solver");
     return false;
   }
 
   if (!m_current_pose_ptr || !m_current_state_ptr) {
-    RCLCPP_ERROR(
+    RCLCPP_DEBUG(
       get_logger(), "waiting data. pose = %d, current_state = %d",
       m_current_pose_ptr != nullptr, m_current_state_ptr != nullptr);
     return false;
   }
 
   if (m_mpc.m_ref_traj.size() == 0) {
-    RCLCPP_ERROR(get_logger(), "trajectory size is zero.");
+    RCLCPP_DEBUG(get_logger(), "trajectory size is zero.");
     return false;
   }
 
@@ -271,7 +268,7 @@ void LateralController::onTrajectory(const autoware_auto_msgs::msg::Trajectory::
   m_current_trajectory_ptr = msg;
 
   if (msg->points.size() < 3) {
-    RCLCPP_ERROR(get_logger(), "received path size is < 3, not enough.");
+    RCLCPP_DEBUG(get_logger(), "received path size is < 3, not enough.");
     return;
   }
 
@@ -303,8 +300,6 @@ void LateralController::updateCurrentPose()
   ps.pose.position.y = transform.transform.translation.y;
   ps.pose.position.z = transform.transform.translation.z;
   ps.pose.orientation = transform.transform.rotation;
-  RCLCPP_ERROR(get_logger(), "ps.pose.position.x : %f" , ps.pose.position.x);
-  RCLCPP_ERROR(get_logger(), "ps.pose.position.y : %f" , ps.pose.position.y);
   m_current_pose_ptr = std::make_shared<geometry_msgs::msg::PoseStamped>(ps);
 }
 
@@ -336,7 +331,6 @@ bool8_t LateralController::isStoppedState() const
     m_current_pose_ptr->pose);
   // If the nearest index is not found, return false
 
-  RCLCPP_ERROR(get_logger(), "nearest index %d", nearest);
   if (nearest < 0)
   {
     RCLCPP_ERROR(get_logger(), "nearest index is not found");
@@ -346,13 +340,13 @@ bool8_t LateralController::isStoppedState() const
     *m_current_trajectory_ptr,
     nearest);
   if (dist < m_stop_state_keep_stopping_dist) {
-    RCLCPP_ERROR(
+    RCLCPP_DEBUG(
       get_logger(),
       "stop_dist = %f < %f : m_stop_state_keep_stopping_dist. keep stopping.", dist,
       m_stop_state_keep_stopping_dist);
     return true;
   }
-  RCLCPP_ERROR(get_logger(), "stop_dist = %f release stopping.", dist);
+  RCLCPP_DEBUG(get_logger(), "stop_dist = %f release stopping.", dist);
 
   const float64_t current_vel = m_current_state_ptr->state.longitudinal_velocity_mps;
   const float64_t target_vel =
@@ -371,7 +365,6 @@ void LateralController::publishCtrlCmd(autoware_auto_msgs::msg::AckermannLateral
 {
   ctrl_cmd.stamp = this->now();
   m_pub_ctrl_cmd->publish(ctrl_cmd);
-  RCLCPP_ERROR(get_logger(), "published command = %f radian", static_cast<double>(ctrl_cmd.steering_tire_angle));
 
   m_steer_cmd_prev = ctrl_cmd.steering_tire_angle;
 }
