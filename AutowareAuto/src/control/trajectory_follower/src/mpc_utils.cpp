@@ -111,7 +111,6 @@ bool8_t resampleMPCTrajectoryByDistance(
     !linearInterpolate(
       input_arclength, input.relative_time, output_arclength, output->relative_time))
   {
-    std::cerr << "linearInterpMPCTrajectory error!" << std::endl;
     return false;
   }
 
@@ -145,12 +144,10 @@ bool8_t linearInterpMPCTrajectory(
     !linearInterpolate(
       in_index, in_traj.relative_time, out_index, out_traj->relative_time))
   {
-    std::cerr << "linearInterpMPCTrajectory error!" << std::endl;
     return false;
   }
 
   if (out_traj->empty()) {
-    std::cerr << "[mpc util] linear interpolation error" << std::endl;
     return false;
   }
 
@@ -329,21 +326,17 @@ int64_t calcNearestIndex(
   if (traj.points.empty()) {
     return -1;
   }
-  const float64_t my_yaw = 0.0; //tf2::getYaw(self_pose.orientation);
-  std::cerr<< "my_yaw:  "<<my_yaw << std::endl;
+  const float64_t my_yaw = tf2::getYaw(self_pose.orientation);
   int64_t nearest_idx = -1;
   float64_t min_dist_squared = std::numeric_limits<float64_t>::max();
   for (size_t i = 0; i < traj.points.size(); ++i) {
     const float64_t dx = self_pose.position.x - static_cast<float64_t>(traj.points.at(i).x);
     const float64_t dy = self_pose.position.y - static_cast<float64_t>(traj.points.at(i).y);
     const float64_t dist_squared = dx * dx + dy * dy;
-    std::cerr<< "dist_squared:  "<<dist_squared<<std::endl;
 
     /* ignore when yaw error is large, for crossing path */
     const float64_t traj_yaw = ::motion::motion_common::to_angle(traj.points.at(i).heading);
-    std::cerr<< "traj_yaw:  "<<traj_yaw<<std::endl;
     const float64_t err_yaw = autoware::common::helper_functions::wrap_angle(my_yaw - traj_yaw);
-    std::cerr<< "err_yaw:  "<<err_yaw<<std::endl;
     if (std::fabs(err_yaw) > (M_PI / 3.0)) {
       continue;
     }
