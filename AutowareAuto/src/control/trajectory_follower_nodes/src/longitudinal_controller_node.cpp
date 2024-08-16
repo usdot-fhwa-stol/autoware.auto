@@ -182,11 +182,6 @@ LongitudinalController::LongitudinalController(const rclcpp::NodeOptions & node_
   m_pub_debug = create_publisher<autoware_auto_msgs::msg::Float32MultiArrayDiagnostic>(
     "output/longitudinal/diagnostic", rclcpp::QoS{1});
 
-  rcutils_ret_t ret = rcutils_logging_set_logger_level("trajectory_follower", RCUTILS_LOG_SEVERITY_DEBUG);
-  if (ret != RCUTILS_RET_OK) {
-    RCLCPP_ERROR(get_logger(), "Could not set log level for traj follower lib");
-
-  }
   // Timer
   {
     auto timer_callback = std::bind(&LongitudinalController::callbackTimerControl, this);

@@ -163,12 +163,6 @@ LateralController::LateralController(const rclcpp::NodeOptions & node_options)
   // TODO(Frederik.Beaujean) ctor is too long, should factor out parameter declarations
   declareMPCparameters();
 
-  rcutils_ret_t ret = rcutils_logging_set_logger_level("trajectory_follower", RCUTILS_LOG_SEVERITY_DEBUG);
-  if (ret != RCUTILS_RET_OK) {
-    RCLCPP_ERROR(get_logger(), "Could not set log level for traj follower lib");
-
-  }
-
   /* get parameter updates */
   m_set_param_res =
     this->add_on_set_parameters_callback(std::bind(&LateralController::paramCallback, this, _1));
