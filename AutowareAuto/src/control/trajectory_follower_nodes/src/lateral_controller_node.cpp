@@ -203,6 +203,7 @@ void LateralController::onTimer()
     m_current_pose_ptr->pose, ctrl_cmd, predicted_traj, diagnostic);
 
   if (isStoppedState()) {
+    RCLCPP_DEBUG(get_logger(), "isStoppedState");
     // Reset input buffer
     for (auto & value : m_mpc.m_input_buffer) {
       value = m_ctrl_cmd_prev.steering_tire_angle;
@@ -323,7 +324,12 @@ bool8_t LateralController::isStoppedState() const
     *m_current_trajectory_ptr,
     m_current_pose_ptr->pose);
   // If the nearest index is not found, return false
-  if (nearest < 0) {return false;}
+
+  if (nearest < 0)
+  {
+    RCLCPP_ERROR(get_logger(), "nearest index is not found");
+    return false;
+  }
   const float64_t dist = trajectory_follower::MPCUtils::calcStopDistance(
     *m_current_trajectory_ptr,
     nearest);
@@ -353,6 +359,7 @@ void LateralController::publishCtrlCmd(autoware_auto_msgs::msg::AckermannLateral
 {
   ctrl_cmd.stamp = this->now();
   m_pub_ctrl_cmd->publish(ctrl_cmd);
+
   m_steer_cmd_prev = ctrl_cmd.steering_tire_angle;
 }
 
