@@ -43,19 +43,19 @@ PurePursuitNode::PurePursuitNode(
 {
   pure_pursuit::Config cfg{
     static_cast<float32_t>(declare_parameter(
-      "controller.minimum_lookahead_distance").get<float64_t>()),
+      "controller.minimum_lookahead_distance", rclcpp::PARAMETER_DOUBLE).get<float64_t>()),
     static_cast<float32_t>(declare_parameter(
-      "controller.maximum_lookahead_distance").get<float64_t>()),
+      "controller.maximum_lookahead_distance", rclcpp::PARAMETER_DOUBLE).get<float64_t>()),
     static_cast<float32_t>(
-      declare_parameter("controller.speed_to_lookahead_ratio").get<float64_t>()),
-    declare_parameter("controller.is_interpolate_lookahead_point").get<bool8_t>(),
-    declare_parameter("controller.is_delay_compensation").get<bool8_t>(),
+      declare_parameter("controller.speed_to_lookahead_ratio", rclcpp::PARAMETER_DOUBLE).get<float64_t>()),
+    declare_parameter("controller.is_interpolate_lookahead_point", rclcpp::PARAMETER_BOOL).get<bool8_t>(),
+    declare_parameter("controller.is_delay_compensation", rclcpp::PARAMETER_BOOL).get<bool8_t>(),
     static_cast<float32_t>(declare_parameter(
-      "controller.emergency_stop_distance").get<float64_t>()),
+      "controller.emergency_stop_distance", rclcpp::PARAMETER_DOUBLE).get<float64_t>()),
     static_cast<float32_t>(declare_parameter(
-      "controller.speed_thres_traveling_direction").get<float64_t>()),
+      "controller.speed_thres_traveling_direction", rclcpp::PARAMETER_DOUBLE).get<float64_t>()),
     static_cast<float32_t>(declare_parameter(
-      "controller.dist_front_rear_wheels").get<float64_t>())};
+      "controller.dist_front_rear_wheels", rclcpp::PARAMETER_DOUBLE).get<float64_t>())};
   set_controller(std::make_unique<pure_pursuit::PurePursuit>(cfg));
 }
 ////////////////////////////////////////////////////////////////////////////////
