@@ -30,7 +30,7 @@ if(BUILD_TESTING)
   # Linters
   ament_lint_auto_find_test_dependencies()
   # Unit test
-  ament_add_gtest(test_tf2_autoware_auto_msgs test/test_tf2_autoware_auto_msgs.cpp test/test_tf2_autoware_auto_msgs_extension.cpp)
+  ament_add_gtest(test_tf2_autoware_auto_msgs test/test_tf2_autoware_auto_msgs.cpp)
   autoware_set_compile_options(test_tf2_autoware_auto_msgs)
   target_include_directories(test_tf2_autoware_auto_msgs PRIVATE "include")
   ament_target_dependencies(test_tf2_autoware_auto_msgs
@@ -40,6 +40,7 @@ if(BUILD_TESTING)
     "orocos_kdl"
     "tf2"
     "tf2_ros"
+    "tf2_geometry_msgs"
 )
 endif()
 
