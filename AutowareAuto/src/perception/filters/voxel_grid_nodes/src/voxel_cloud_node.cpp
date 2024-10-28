@@ -70,22 +70,22 @@ VoxelCloudNode::VoxelCloudNode(
 {
   // Build config manually (messages only have default constructors)
   voxel_grid::PointXYZ min_point;
-  min_point.x = static_cast<float32_t>(declare_parameter("config.min_point.x").get<float32_t>());
-  min_point.y = static_cast<float32_t>(declare_parameter("config.min_point.y").get<float32_t>());
-  min_point.z = static_cast<float32_t>(declare_parameter("config.min_point.z").get<float32_t>());
+  min_point.x = static_cast<float32_t>(declare_parameter("config.min_point.x", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
+  min_point.y = static_cast<float32_t>(declare_parameter("config.min_point.y", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
+  min_point.z = static_cast<float32_t>(declare_parameter("config.min_point.z", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
   voxel_grid::PointXYZ max_point;
-  max_point.x = static_cast<float32_t>(declare_parameter("config.max_point.x").get<float32_t>());
-  max_point.y = static_cast<float32_t>(declare_parameter("config.max_point.y").get<float32_t>());
-  max_point.z = static_cast<float32_t>(declare_parameter("config.max_point.z").get<float32_t>());
+  max_point.x = static_cast<float32_t>(declare_parameter("config.max_point.x", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
+  max_point.y = static_cast<float32_t>(declare_parameter("config.max_point.y", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
+  max_point.z = static_cast<float32_t>(declare_parameter("config.max_point.z", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
   voxel_grid::PointXYZ voxel_size;
-  voxel_size.x = static_cast<float32_t>(declare_parameter("config.voxel_size.x").get<float32_t>());
-  voxel_size.y = static_cast<float32_t>(declare_parameter("config.voxel_size.y").get<float32_t>());
-  voxel_size.z = static_cast<float32_t>(declare_parameter("config.voxel_size.z").get<float32_t>());
+  voxel_size.x = static_cast<float32_t>(declare_parameter("config.voxel_size.x", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
+  voxel_size.y = static_cast<float32_t>(declare_parameter("config.voxel_size.y", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
+  voxel_size.z = static_cast<float32_t>(declare_parameter("config.voxel_size.z", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
   const std::size_t capacity =
-    static_cast<std::size_t>(declare_parameter("config.capacity").get<std::size_t>());
+    static_cast<std::size_t>(declare_parameter("config.capacity", rclcpp::PARAMETER_INTEGER).get<std::size_t>());
   const voxel_grid::Config cfg{min_point, max_point, voxel_size, capacity};
   // Init
-  init(cfg, declare_parameter("is_approximate").get<bool8_t>());
+  init(cfg, declare_parameter("is_approximate", rclcpp::PARAMETER_BOOL).get<bool8_t>());
 }
 
 ////////////////////////////////////////////////////////////////////////////////
