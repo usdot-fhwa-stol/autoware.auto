@@ -124,7 +124,7 @@ INSTANTIATE_TEST_CASE_P(
   21U
 }
     // cppcheck-suppress syntaxError
-  ),
+  )
 );
 
 // TODO(c.ho) bad state report test cases...

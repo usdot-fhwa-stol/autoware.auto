@@ -48,37 +48,40 @@ VehicleInterfaceNode::VehicleInterfaceNode(
 {
   // Helper functions
   const auto topic_num_matches_from_param = [this](const auto param) {
-      const auto name_param = declare_parameter(param);
-      return TopicNumMatches{name_param.template get<std::string>()};
+      const auto name_param = declare_parameter(param, rclcpp::PARAMETER_STRING);
+      return TopicNumMatches{get_parameter(param).as_string()};
     };
   const auto time = [this](const auto param_name) -> std::chrono::milliseconds {
-      const auto count_ms = declare_parameter(param_name).template get<int64_t>();
-      return std::chrono::milliseconds{count_ms};
+      const auto count_ms = declare_parameter(param_name, rclcpp::PARAMETER_INTEGER);
+      return std::chrono::milliseconds{get_parameter(param_name).as_int()};
     };
   const auto limits_from_param = [this](const auto prefix) -> Limits<float32_t> {
       const auto prefix_dot = prefix + std::string{"."};
+      declare_parameter(prefix_dot + "min", rclcpp::PARAMETER_DOUBLE);
+      declare_parameter(prefix_dot + "max", rclcpp::PARAMETER_DOUBLE);
+      declare_parameter(prefix_dot + "threshold", rclcpp::PARAMETER_DOUBLE);
       return {
-      static_cast<float32_t>(declare_parameter(prefix_dot + "min").template get<float64_t>()),
-      static_cast<float32_t>(declare_parameter(prefix_dot + "max").template get<float64_t>()),
-      static_cast<float32_t>(declare_parameter(prefix_dot + "threshold").template get<float64_t>())
+      static_cast<float32_t>(get_parameter(prefix_dot + "min").as_double()),
+      static_cast<float32_t>(get_parameter(prefix_dot + "max").as_double()),
+      static_cast<float32_t>(get_parameter(prefix_dot + "threshold").as_double())
       };
     };
   // optionally instantiate a config
   std::experimental::optional<StateMachineConfig> state_machine_config{};
   {
     const auto velocity_threshold =
-      declare_parameter("state_machine.gear_shift_velocity_threshold_mps");
+      declare_parameter("state_machine.gear_shift_velocity_threshold_mps", rclcpp::PARAMETER_DOUBLE);
     if (rclcpp::PARAMETER_NOT_SET != velocity_threshold.get_type()) {
       state_machine_config = StateMachineConfig{
-        static_cast<float32_t>(velocity_threshold.get<float64_t>()),
+        static_cast<float32_t>(velocity_threshold.get<double>()),
         limits_from_param("state_machine.acceleration_limits"),
         limits_from_param("state_machine.front_steer_limits"),
-        std::chrono::milliseconds{declare_parameter("state_machine.time_step_ms").get<int64_t>()},
+        std::chrono::milliseconds{declare_parameter("state_machine.time_step_ms", rclcpp::PARAMETER_INTEGER).get<int64_t>()},
         static_cast<float32_t>(
-          declare_parameter("state_machine.timeout_acceleration_mps2").get<float64_t>()),
+          declare_parameter("state_machine.timeout_acceleration_mps2", rclcpp::PARAMETER_DOUBLE).get<float64_t>()),
         time("state_machine.state_transition_timeout_ms"),
         static_cast<float32_t>(
-          declare_parameter("state_machine.gear_shift_accel_deadzone_mps2").get<float64_t>())
+          declare_parameter("state_machine.gear_shift_accel_deadzone_mps2", rclcpp::PARAMETER_DOUBLE).get<float64_t>())
       };
     }
   }
@@ -86,20 +89,18 @@ VehicleInterfaceNode::VehicleInterfaceNode(
   const auto filter = [this](const auto prefix_middle) -> FilterConfig {
       const auto prefix = std::string{"filter."} + prefix_middle + std::string{"."};
       // lazy optional stuff: if one is missing then give up
-      const auto type = declare_parameter(prefix + "type");
+      const auto type = declare_parameter(prefix + "type", rclcpp::PARAMETER_STRING);
       if (rclcpp::PARAMETER_NOT_SET == type.get_type()) {
         return FilterConfig{"", 0.0F};
       }
-      const auto cutoff =
-        static_cast<Real>(declare_parameter(prefix + "cutoff_frequency_hz").template
-        get<float32_t>());
-      return FilterConfig{type.template get<std::string>(), cutoff};
+      declare_parameter(prefix + "cutoff_frequency_hz", rclcpp::PARAMETER_DOUBLE);
+      return FilterConfig{get_parameter(prefix + "type").as_string(), static_cast<Real>(get_parameter(prefix + "cutoff_frequency_hz").as_double())};
     };
   // Check for enabled features
-  const auto feature_list_string = declare_parameter("features");
+  const auto feature_list_string = declare_parameter("features", rclcpp::PARAMETER_STRING_ARRAY);
 
   if (feature_list_string.get_type() != rclcpp::PARAMETER_NOT_SET) {
-    for (const auto & feature : feature_list_string.template get<std::vector<std::string>>()) {
+    for (const auto & feature : feature_list_string.get<std::vector<std::string>>()) {
       const auto found_feature = m_avail_features.find(feature);
 
       if (found_feature == m_avail_features.end()) {
