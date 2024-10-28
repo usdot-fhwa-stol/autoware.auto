@@ -18,7 +18,7 @@
 #include <ndt_nodes/map_publisher.hpp>
 #include <rclcpp_components/register_node_macro.hpp>
 #include <point_cloud_msg_wrapper/point_cloud_msg_wrapper.hpp>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include <tf2/LinearMath/Quaternion.h>
 
 #include <memory>
@@ -45,35 +45,35 @@ NDTMapPublisherNode::NDTMapPublisherNode(
   const rclcpp::NodeOptions & node_options
 )
 : Node("ndt_map_publisher_node", node_options),
-  m_pcl_file_name(declare_parameter("map_pcd_file").get<std::string>()),
-  m_yaml_file_name(declare_parameter("map_yaml_file").get<std::string>()),
+  m_pcl_file_name(declare_parameter("map_pcd_file", rclcpp::PARAMETER_STRING).get<std::string>()),
+  m_yaml_file_name(declare_parameter("map_yaml_file", rclcpp::PARAMETER_STRING).get<std::string>()),
   m_viz_map(declare_parameter("viz_map", false))
 {
   using PointXYZ = perception::filters::voxel_grid::PointXYZ;
   PointXYZ min_point;
   min_point.x =
-    static_cast<float32_t>(declare_parameter("map_config.min_point.x").get<float32_t>());
+    static_cast<float32_t>(declare_parameter("map_config.min_point.x", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
   min_point.y =
-    static_cast<float32_t>(declare_parameter("map_config.min_point.y").get<float32_t>());
+    static_cast<float32_t>(declare_parameter("map_config.min_point.y", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
   min_point.z =
-    static_cast<float32_t>(declare_parameter("map_config.min_point.z").get<float32_t>());
+    static_cast<float32_t>(declare_parameter("map_config.min_point.z", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
   PointXYZ max_point;
   max_point.x =
-    static_cast<float32_t>(declare_parameter("map_config.max_point.x").get<float32_t>());
+    static_cast<float32_t>(declare_parameter("map_config.max_point.x", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
   max_point.y =
-    static_cast<float32_t>(declare_parameter("map_config.max_point.y").get<float32_t>());
+    static_cast<float32_t>(declare_parameter("map_config.max_point.y", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
   max_point.z =
-    static_cast<float32_t>(declare_parameter("map_config.max_point.z").get<float32_t>());
+    static_cast<float32_t>(declare_parameter("map_config.max_point.z", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
   PointXYZ voxel_size;
   voxel_size.x =
-    static_cast<float32_t>(declare_parameter("map_config.voxel_size.x").get<float32_t>());
+    static_cast<float32_t>(declare_parameter("map_config.voxel_size.x", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
   voxel_size.y =
-    static_cast<float32_t>(declare_parameter("map_config.voxel_size.y").get<float32_t>());
+    static_cast<float32_t>(declare_parameter("map_config.voxel_size.y", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
   voxel_size.z =
-    static_cast<float32_t>(declare_parameter("map_config.voxel_size.z").get<float32_t>());
+    static_cast<float32_t>(declare_parameter("map_config.voxel_size.z", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
   const std::size_t capacity =
-    static_cast<std::size_t>(declare_parameter("map_config.capacity").get<std::size_t>());
-  const std::string map_frame = declare_parameter("map_frame").get<std::string>();
+    static_cast<std::size_t>(declare_parameter("map_config.capacity", rclcpp::PARAMETER_INTEGER).get<std::size_t>());
+  const std::string map_frame = declare_parameter("map_frame", rclcpp::PARAMETER_STRING).get<std::string>();
   const std::string map_topic = "ndt_map";
   const std::string viz_map_topic = "viz_ndt_map";
 
