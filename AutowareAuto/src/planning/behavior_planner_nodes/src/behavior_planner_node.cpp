@@ -40,22 +40,22 @@ void BehaviorPlannerNode::init()
 
   // Setup planner
   const auto cg_to_front_m =
-    static_cast<float32_t>(declare_parameter("vehicle.cg_to_front_m").get<float64_t>());
+    static_cast<float32_t>(declare_parameter("vehicle.cg_to_front_m", rclcpp::PARAMETER_DOUBLE).get<float64_t>());
   const auto cg_to_rear_m =
-    static_cast<float32_t>(declare_parameter("vehicle.cg_to_rear_m").get<float64_t>());
+    static_cast<float32_t>(declare_parameter("vehicle.cg_to_rear_m", rclcpp::PARAMETER_DOUBLE).get<float64_t>());
   const auto front_overhang_m =
-    static_cast<float32_t>(declare_parameter("vehicle.front_overhang_m").get<float64_t>());
+    static_cast<float32_t>(declare_parameter("vehicle.front_overhang_m", rclcpp::PARAMETER_DOUBLE).get<float64_t>());
   const auto rear_overhang_m =
-    static_cast<float32_t>(declare_parameter("vehicle.rear_overhang_m").get<float64_t>());
+    static_cast<float32_t>(declare_parameter("vehicle.rear_overhang_m", rclcpp::PARAMETER_DOUBLE).get<float64_t>());
   const auto cg_to_vehicle_center =
     ( (cg_to_front_m + front_overhang_m) - (rear_overhang_m + cg_to_rear_m) ) * 0.5F;
 
   const behavior_planner::PlannerConfig config{
-    static_cast<float32_t>(declare_parameter("goal_distance_thresh").get<float64_t>()),
-    static_cast<float32_t>(declare_parameter("stop_velocity_thresh").get<float64_t>()),
-    static_cast<float32_t>(declare_parameter("heading_weight").get<float64_t>()),
-    static_cast<float32_t>(declare_parameter("subroute_goal_offset_lane2parking").get<float64_t>()),
-    static_cast<float32_t>(declare_parameter("subroute_goal_offset_parking2lane").get<float64_t>()),
+    static_cast<float32_t>(declare_parameter("goal_distance_thresh", rclcpp::PARAMETER_DOUBLE).get<float64_t>()),
+    static_cast<float32_t>(declare_parameter("stop_velocity_thresh", rclcpp::PARAMETER_DOUBLE).get<float64_t>()),
+    static_cast<float32_t>(declare_parameter("heading_weight", rclcpp::PARAMETER_DOUBLE).get<float64_t>()),
+    static_cast<float32_t>(declare_parameter("subroute_goal_offset_lane2parking", rclcpp::PARAMETER_DOUBLE).get<float64_t>()),
+    static_cast<float32_t>(declare_parameter("subroute_goal_offset_parking2lane", rclcpp::PARAMETER_DOUBLE).get<float64_t>()),
     cg_to_vehicle_center
   };
 
@@ -109,7 +109,7 @@ void BehaviorPlannerNode::init()
     RCLCPP_INFO(get_logger(), "Waiting for service...");
   }
 
-  if (declare_parameter("enable_object_collision_estimator").get<bool>()) {
+  if (declare_parameter("enable_object_collision_estimator", rclcpp::PARAMETER_BOOL).get<bool>()) {
     m_modify_trajectory_client = this->create_client<ModifyTrajectory>("estimate_collision");
     while (!m_modify_trajectory_client->wait_for_service(1s)) {
       if (!rclcpp::ok()) {
@@ -146,9 +146,9 @@ void BehaviorPlannerNode::init()
 }
 
 void BehaviorPlannerNode::goal_response_callback(
-  std::shared_future<PlanTrajectoryGoalHandle::SharedPtr> future)
+  PlanTrajectoryGoalHandle::SharedPtr goal_handle)
 {
-  if (!future.get()) {
+  if (!goal_handle) {
     RCLCPP_ERROR(get_logger(), "Goal was rejected by server");
     return;
   } else {
