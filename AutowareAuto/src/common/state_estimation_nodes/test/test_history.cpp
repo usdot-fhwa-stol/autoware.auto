@@ -134,7 +134,7 @@ TEST(HistoryTest, AddMeasurementEvents) {
   EXPECT_EQ(history.get_last_event().stored_covariance(), reset_covariance);
 
   const MeasurementState latest_observed_state{MeasurementState::Vector{42.0F}};
-  const auto latest_observed_covariance = 42.0F * MeasurementState::Matrix::Identity();
+  const MeasurementState::Matrix latest_observed_covariance = 42.0F * MeasurementState::Matrix::Identity();
 
   const std::chrono::system_clock::duration dt{std::chrono::milliseconds{10}};
 
