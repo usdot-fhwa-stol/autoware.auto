@@ -467,4 +467,4 @@ INSTANTIATE_TEST_CASE_P(
   {{Buttons::RECORDREPLAY_STOP, 1U}}
 }
     // cppcheck-suppress syntaxError
-  ), );
+  ));

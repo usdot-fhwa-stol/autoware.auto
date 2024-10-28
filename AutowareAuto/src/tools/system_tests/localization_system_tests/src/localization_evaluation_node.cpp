@@ -15,8 +15,8 @@
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
 #include <localization_system_tests/localization_evaluation_node.hpp>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
-#include <tf2_eigen/tf2_eigen.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
+#include <tf2_eigen/tf2_eigen.hpp>
 #include <Eigen/Geometry>
 #include <memory>
 #include <string>
@@ -35,33 +35,33 @@ LocalizationEvaluationNode::LocalizationEvaluationNode(
   estimate_offset.setIdentity();
   estimate_offset.translate(
     Eigen::Vector3d{
-      declare_parameter("estimate_offset.translation.x").get<double>(),
-      declare_parameter("estimate_offset.translation.y").get<double>(),
-      declare_parameter("estimate_offset.translation.z").get<double>()
+      declare_parameter("estimate_offset.translation.x", rclcpp::PARAMETER_DOUBLE).get<double>(),
+      declare_parameter("estimate_offset.translation.y", rclcpp::PARAMETER_DOUBLE).get<double>(),
+      declare_parameter("estimate_offset.translation.z", rclcpp::PARAMETER_DOUBLE).get<double>()
     });
   estimate_offset.rotate(
     Eigen::Quaterniond {
-      declare_parameter("estimate_offset.rotation.w").get<double>(),
-      declare_parameter("estimate_offset.rotation.x").get<double>(),
-      declare_parameter("estimate_offset.rotation.y").get<double>(),
-      declare_parameter("estimate_offset.rotation.z").get<double>()
+      declare_parameter("estimate_offset.rotation.w", rclcpp::PARAMETER_DOUBLE).get<double>(),
+      declare_parameter("estimate_offset.rotation.x", rclcpp::PARAMETER_DOUBLE).get<double>(),
+      declare_parameter("estimate_offset.rotation.y", rclcpp::PARAMETER_DOUBLE).get<double>(),
+      declare_parameter("estimate_offset.rotation.z", rclcpp::PARAMETER_DOUBLE).get<double>()
     });
 
   EigTransform gt_offset;
   gt_offset.setIdentity();
   gt_offset.translate(
     Eigen::Vector3d{
-      declare_parameter("ground_truth_offset.translation.x").get<double>(),
-      declare_parameter("ground_truth_offset.translation.y").get<double>(),
-      declare_parameter("ground_truth_offset.translation.z").get<double>()
+      declare_parameter("ground_truth_offset.translation.x", rclcpp::PARAMETER_DOUBLE).get<double>(),
+      declare_parameter("ground_truth_offset.translation.y", rclcpp::PARAMETER_DOUBLE).get<double>(),
+      declare_parameter("ground_truth_offset.translation.z", rclcpp::PARAMETER_DOUBLE).get<double>()
     });
 
   estimate_offset.rotate(
     Eigen::Quaterniond {
-      declare_parameter("ground_truth_offset.rotation.w").get<double>(),
-      declare_parameter("ground_truth_offset.rotation.x").get<double>(),
-      declare_parameter("ground_truth_offset.rotation.y").get<double>(),
-      declare_parameter("ground_truth_offset.rotation.z").get<double>()
+      declare_parameter("ground_truth_offset.rotation.w", rclcpp::PARAMETER_DOUBLE).get<double>(),
+      declare_parameter("ground_truth_offset.rotation.x", rclcpp::PARAMETER_DOUBLE).get<double>(),
+      declare_parameter("ground_truth_offset.rotation.y", rclcpp::PARAMETER_DOUBLE).get<double>(),
+      declare_parameter("ground_truth_offset.rotation.z", rclcpp::PARAMETER_DOUBLE).get<double>()
     });
 
   m_ground_truth_to_estimate_tf = estimate_offset * gt_offset.inverse();
@@ -98,7 +98,7 @@ LocalizationEvaluationNode::~LocalizationEvaluationNode() noexcept
     "Processed " << m_num_computed << " samples." << std::endl <<
     "Average translation error: " << m_average_translation_err << " meters." << std::endl <<
     "Average rotation error: " << m_average_rotation_err << " radians." << std::endl;
-  RCLCPP_INFO(get_logger(), report.str());
+  RCLCPP_INFO(get_logger(), report.str().c_str());
 }
 
 LocalizationEvaluationNode::float64_t

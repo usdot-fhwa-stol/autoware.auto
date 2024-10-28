@@ -17,7 +17,7 @@
 #include <fake_test_node/fake_test_node.hpp>
 #include <gnss_conversion_nodes/gnss_conversion_node.hpp>
 #include <rclcpp/rclcpp.hpp>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 
 #include <gtest/gtest.h>
 
