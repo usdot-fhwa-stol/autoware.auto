@@ -19,7 +19,7 @@
 #include <autoware_auto_msgs/msg/shape.hpp>
 #include <geometry_msgs/msg/point32.hpp>
 #include <tracking/test_utils.hpp>
-#include <tf2_eigen/tf2_eigen.h>
+#include <tf2_eigen/tf2_eigen.hpp>
 #include <tracking/greedy_roi_associator.hpp>
 #include <algorithm>
 #include <limits>
