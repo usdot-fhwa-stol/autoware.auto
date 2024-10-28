@@ -29,6 +29,8 @@
 #include "helper_functions/angle_utils.hpp"
 #include "motion_common/motion_common.hpp"
 #include "tf2/utils.h"
+#include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
+
 
 namespace autoware
 {
