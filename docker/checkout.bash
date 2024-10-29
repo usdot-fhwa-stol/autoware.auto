@@ -43,9 +43,6 @@ else
       sudo git clone https://github.com/usdot-fhwa-stol/autoware.ai.git ${dir}/src/autoware.ai --branch "$BRANCH"
 fi
 #TODO This probably needs to be moved into install.sh
-sudo apt-get update
-sudo apt-get install ros-foxy-nmea-msgs -y
-sudo apt-get install ros-foxy-gps-tools -y
 sudo rm -rf /opt/carma/src/autoware.ai/lanelet2/lanelet2_examples/
 sudo rm -rf /opt/carma/src/autoware.ai/lanelet2/lanelet2_python/
 sudo rm -rf /opt/carma/AutowareAuto/src/tools/visualization/autoware_rviz_plugins
