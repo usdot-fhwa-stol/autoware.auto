@@ -42,6 +42,3 @@ if [[ "$BRANCH" == "develop" ]] || [[ "$BRANCH" == "master" ]]; then
 else
       sudo git clone https://github.com/usdot-fhwa-stol/autoware.ai.git ${dir}/src/autoware.ai --branch "$BRANCH"
 fi
-sudo rm -rf /opt/carma/src/autoware.ai/lanelet2/lanelet2_examples/
-sudo rm -rf /opt/carma/src/autoware.ai/lanelet2/lanelet2_python/
-sudo rm -rf /opt/carma/AutowareAuto/src/tools/visualization/autoware_rviz_plugins
