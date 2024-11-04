@@ -34,14 +34,17 @@ SscInterfaceNode::SscInterfaceNode(const rclcpp::NodeOptions & options)
     options
 }
 {
+  declare_parameter("ssc.front_axle_to_cog", rclcpp::PARAMETER_DOUBLE);
+  declare_parameter("ssc.rear_axle_to_cog", rclcpp::PARAMETER_DOUBLE);
+  declare_parameter("ssc.max_yaw_rate", rclcpp::PARAMETER_DOUBLE);
   set_interface(
     std::make_unique<SscInterface>(
       *this,
-      declare_parameter("ssc.front_axle_to_cog").get<float32_t>(),
-      declare_parameter("ssc.rear_axle_to_cog").get<float32_t>(),
+      get_parameter("ssc.front_axle_to_cog").as_double(),
+      get_parameter("ssc.rear_axle_to_cog").as_double(),
       get_state_machine().get_config().accel_limits().max(),
       get_state_machine().get_config().accel_limits().min(),
-      declare_parameter("ssc.max_yaw_rate").get<float32_t>()
+      get_parameter("ssc.max_yaw_rate").as_double()
   ));
 }
 

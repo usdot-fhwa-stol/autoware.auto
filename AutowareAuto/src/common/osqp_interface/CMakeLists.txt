@@ -71,7 +71,7 @@ if(BUILD_TESTING)
   )
   set(TEST_OSQP_INTERFACE_EXE test_osqp_interface)
   ament_add_gtest(${TEST_OSQP_INTERFACE_EXE} ${TEST_SOURCES})
-  autoware_set_compile_options(${TEST_OSQP_INTERFACE_EXE})
+  autoware_set_compile_options_reduced_warning(${TEST_OSQP_INTERFACE_EXE})
   target_link_libraries(${TEST_OSQP_INTERFACE_EXE} ${PROJECT_NAME})
 endif()
 

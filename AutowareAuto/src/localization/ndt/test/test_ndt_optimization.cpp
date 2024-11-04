@@ -15,7 +15,7 @@
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
 #include "test_ndt_optimization.hpp"
-#include <tf2_sensor_msgs/tf2_sensor_msgs.h>
+#include <tf2_sensor_msgs/tf2_sensor_msgs.hpp>
 #include <geometry_msgs/msg/transform_stamped.hpp>
 #include <limits>
 #include "common/types.hpp"
@@ -218,7 +218,7 @@ INSTANTIATE_TEST_CASE_P(
     OptTestParams{0.0, 0.0, 0.2, 0.0, 0.0, 0.0, false, false},
     OptTestParams{0.1, 0.05, 0.1, 0.0, 0.0, 0.0, false, false}
     // cppcheck-suppress syntaxError
-  ), );
+  ));
 
 INSTANTIATE_TEST_CASE_P(
   NumericalAnalysis, P2DOptimizationNumericalTest,
@@ -227,7 +227,7 @@ INSTANTIATE_TEST_CASE_P(
     OptTestParams{0.5, 0.9, 0.1, 1.0, -3.1, 0.05, true, false},
     OptTestParams{2.5, -1.9, 0.1, -2.1, 0.1, 3.05, true, false}
     // cppcheck-suppress syntaxError
-  ), );
+  ));
 
 
 ////////////////////////////////////// Test function implementations

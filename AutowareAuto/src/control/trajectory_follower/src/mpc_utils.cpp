@@ -359,7 +359,7 @@ bool8_t calcNearestPoseInterp(
   const int64_t nearest_idx = calcNearestIndex(traj, self_pose);
   if (nearest_idx == -1) {
     RCLCPP_WARN_SKIPFIRST_THROTTLE(
-      logger, clock, 3.0, "[calcNearestPoseInterp] fail to get nearest. traj.size = %ul",
+      logger, clock, 3.0, "[calcNearestPoseInterp] fail to get nearest. traj.size = %lu",
       traj.size());
     return false;
   }

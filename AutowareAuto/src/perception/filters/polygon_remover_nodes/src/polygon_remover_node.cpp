@@ -52,9 +52,10 @@ PolygonRemoverNode::PolygonRemoverNode(const rclcpp::NodeOptions & options)
       std::bind(
         &PolygonRemoverNode::callback_cloud,
         this,
-        std::placeholders::_1))},
-  will_visualize_{declare_parameter("will_visualize").get<bool8_t>()}
+        std::placeholders::_1))}
 {
+  declare_parameter("will_visualize", rclcpp::PARAMETER_BYTE_ARRAY);
+  get_parameter("will_visualize", will_visualize_);
   auto make_point = [](float x, float y, float z) {
       geometry_msgs::msg::Point32 point_32;
       point_32.set__x(x);
@@ -63,7 +64,8 @@ PolygonRemoverNode::PolygonRemoverNode(const rclcpp::NodeOptions & options)
       return point_32;
     };
 
-  std::string working_mode_str{declare_parameter("working_mode").get<std::string>()};
+  declare_parameter("working_mode", rclcpp::PARAMETER_STRING);
+  std::string working_mode_str = get_parameter("working_mode").as_string(); 
 
   std::map<std::string, WorkingMode> map_string_to_working_mode_{
     {"Static", WorkingMode::kStatic},
@@ -87,8 +89,8 @@ PolygonRemoverNode::PolygonRemoverNode(const rclcpp::NodeOptions & options)
   switch (map_string_to_working_mode_.at(working_mode_str)) {
     case WorkingMode::kStatic: {
         // Set polygon from static input
-        std::vector<double> polygon_vertices{
-          declare_parameter("polygon_vertices").get<std::vector<double>>()};
+	declare_parameter("polygon_vertices", rclcpp::PARAMETER_DOUBLE_ARRAY);
+        std::vector<double> polygon_vertices = get_parameter("polygon_vertices").as_double_array();
 
         if (polygon_vertices.size() % 2 != 0) {
           throw std::length_error(

@@ -16,6 +16,7 @@
 #define TRAJECTORY_FOLLOWER__PID_HPP_
 
 #include <vector>
+#include <stdexcept>
 
 #include "common/types.hpp"
 #include "trajectory_follower/visibility_control.hpp"

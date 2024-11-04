@@ -114,7 +114,7 @@ if(BUILD_TESTING)
   )
   set(TEST_LONGITUDINAL_CONTROLLER_EXE test_longitudinal_controller)
   ament_add_gtest(${TEST_LONGITUDINAL_CONTROLLER_EXE} ${TEST_LON_SOURCES})
-  autoware_set_compile_options(${TEST_LONGITUDINAL_CONTROLLER_EXE})
+  autoware_set_compile_options_reduced_warning(${TEST_LONGITUDINAL_CONTROLLER_EXE})
   target_link_libraries(${TEST_LONGITUDINAL_CONTROLLER_EXE} ${LONGITUDINAL_CONTROLLER_LIB})
 endif()
 

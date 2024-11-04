@@ -14,7 +14,7 @@
 //
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
-#include <tf2_sensor_msgs/tf2_sensor_msgs.h>
+#include <tf2_sensor_msgs/tf2_sensor_msgs.hpp>
 #include <geometry_msgs/msg/transform_stamped.hpp>
 #include <ndt/ndt_localizer.hpp>
 #include <optimization/newtons_method_optimizer.hpp>
@@ -143,7 +143,7 @@ INSTANTIATE_TEST_CASE_P(
     PoseParams{0.0, 0.1, 0.1, 0.0, 3.14159265359 / 72.0, 0.0},
     PoseParams{0.0, -0.2, 0.0, 0.0, 3.14159265359 / 72.0, 3.14159265359 / 72.0}
     // cppcheck-suppress syntaxError
-  ), );
+  ));
 
 
 TEST_F(P2DLocalizerParameterTest, DelayedScan) {

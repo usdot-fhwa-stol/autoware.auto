@@ -67,7 +67,7 @@ if(BUILD_TESTING)
   ament_add_gtest(${TEST_OUTLIER_FILTER_EXE} ${TEST_SOURCES})
   autoware_set_compile_options(${TEST_OUTLIER_FILTER_EXE})
   target_link_libraries(${TEST_OUTLIER_FILTER_EXE} ${PROJECT_NAME})
-  ament_target_dependencies(${TEST_OUTLIER_FILTER_EXE} "lidar_utils")
+  ament_target_dependencies(${TEST_OUTLIER_FILTER_EXE} "lidar_utils" "pcl_conversions")
 endif()
 
 # ament package generation and installing

@@ -23,7 +23,7 @@
 
 #include "common/types.hpp"
 #include "eigen3/Eigen/Core"
-#include "osqp/osqp.h"
+#include "osqp.h"
 #include "osqp_interface/visibility_control.hpp"
 #include "osqp_interface/csc_matrix_conv.hpp"
 

@@ -9,7 +9,7 @@ COPY --chown=carma . /home/carma/autoware.auto
 RUN chmod -R 775 /home/carma/autoware.auto/docker/checkout.bash
 RUN chmod -R 775 /home/carma/autoware.auto/docker/install.sh
 RUN /home/carma/autoware.auto/docker/checkout.bash -b ${GIT_BRANCH}
-RUN ./home/carma/autoware.auto/docker/install.sh
+RUN /home/carma/autoware.auto/docker/install.sh
 
 FROM base_image
 

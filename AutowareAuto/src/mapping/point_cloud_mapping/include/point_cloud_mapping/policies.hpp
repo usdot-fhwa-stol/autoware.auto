@@ -21,7 +21,7 @@
 #include <localization_common/optimized_registration_summary.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
 #include <point_cloud_mapping/point_cloud_map.hpp>
-#include <tf2_sensor_msgs/tf2_sensor_msgs.h>
+#include <tf2_sensor_msgs/tf2_sensor_msgs.hpp>
 #include <memory>
 #include <string>
 #include <utility>

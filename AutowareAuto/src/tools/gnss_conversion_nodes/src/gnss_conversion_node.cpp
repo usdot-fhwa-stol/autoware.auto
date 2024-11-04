@@ -22,7 +22,7 @@
 #include <sensor_msgs/msg/nav_sat_fix.hpp>
 
 #include <tf2/buffer_core.h>
-#include <tf2_eigen/tf2_eigen.h>
+#include <tf2_eigen/tf2_eigen.hpp>
 
 #include <Eigen/Core>
 
@@ -157,10 +157,10 @@ void GnssConversionNode::nav_sat_fix_callback(
       get_logger(),
       m_steady_clock,
       kDefaultLoggingInterval,
-      "Skipping publishing of a GNSS pose message.\n"
+      ("Skipping publishing of a GNSS pose message.\n"
       "Could not look up transformation between " +
       out_msg.header.frame_id + " and " +
-      m_frame_id + " with the exception: " + exception.what());
+      m_frame_id + " with the exception: " + std::string(exception.what())).c_str());
     return;
   }
   if (!m_override_variances_diagonal.empty()) {

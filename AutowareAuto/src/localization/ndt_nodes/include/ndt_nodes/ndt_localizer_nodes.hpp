@@ -84,9 +84,9 @@ public:
     const PoseInitializerT & pose_initializer)
   : ParentT(node_name, name_space, pose_initializer),
     m_predict_translation_threshold{
-      this->declare_parameter("predict_pose_threshold.translation").template get<double>()},
+      this->declare_parameter("predict_pose_threshold.translation", rclcpp::PARAMETER_DOUBLE).template get<double>()},
     m_predict_rotation_threshold{
-      this->declare_parameter("predict_pose_threshold.rotation").template get<double>()}
+      this->declare_parameter("predict_pose_threshold.rotation", rclcpp::PARAMETER_DOUBLE).template get<double>()}
   {
     init();
   }
@@ -98,9 +98,9 @@ public:
     const PoseInitializerT & pose_initializer)
   : ParentT(node_name, node_options, pose_initializer),
     m_predict_translation_threshold{
-      this->declare_parameter("predict_pose_threshold.translation").template get<double>()},
+      this->declare_parameter("predict_pose_threshold.translation", rclcpp::PARAMETER_DOUBLE).template get<double>()},
     m_predict_rotation_threshold{
-      this->declare_parameter("predict_pose_threshold.rotation").template get<double>()}
+      this->declare_parameter("predict_pose_threshold.rotation", rclcpp::PARAMETER_DOUBLE).template get<double>()}
   {
     init();
   }
@@ -185,31 +185,31 @@ private:
   {
     // Fetch localizer configuration
     ndt::P2DNDTLocalizerConfig localizer_config{
-      static_cast<uint32_t>(this->declare_parameter("localizer.scan.capacity").
+      static_cast<uint32_t>(this->declare_parameter("localizer.scan.capacity", rclcpp::PARAMETER_INTEGER).
       template get<uint32_t>()),
       std::chrono::milliseconds(
         static_cast<uint64_t>(
-          this->declare_parameter("localizer.guess_time_tolerance_ms").template get<uint64_t>()))
+          this->declare_parameter("localizer.guess_time_tolerance_ms", rclcpp::PARAMETER_INTEGER).template get<uint64_t>()))
     };
 
     const auto outlier_ratio{this->declare_parameter(
-        "localizer.optimization.outlier_ratio").template get<float64_t>()};
+        "localizer.optimization.outlier_ratio", rclcpp::PARAMETER_DOUBLE).template get<float64_t>()};
 
     common::optimization::OptimizationOptions optimizer_options{
       static_cast<uint64_t>(
-        this->declare_parameter("localizer.optimizer.max_iterations").template get<uint64_t>()),
-      this->declare_parameter("localizer.optimizer.score_tolerance").template get<float64_t>(),
+        this->declare_parameter("localizer.optimizer.max_iterations", rclcpp::PARAMETER_INTEGER).template get<uint64_t>()),
+      this->declare_parameter("localizer.optimizer.score_tolerance", rclcpp::PARAMETER_DOUBLE).template get<float64_t>(),
       this->declare_parameter(
-        "localizer.optimizer.parameter_tolerance").template get<float64_t>(),
-      this->declare_parameter("localizer.optimizer.gradient_tolerance").template get<float64_t>()
+        "localizer.optimizer.parameter_tolerance", rclcpp::PARAMETER_DOUBLE).template get<float64_t>(),
+      this->declare_parameter("localizer.optimizer.gradient_tolerance", rclcpp::PARAMETER_DOUBLE).template get<float64_t>()
     };
 
     // Construct and set the localizer.
     const float32_t step_max{static_cast<float32_t>(this->declare_parameter(
-        "localizer.optimizer.line_search.step_max").
+        "localizer.optimizer.line_search.step_max", rclcpp::PARAMETER_DOUBLE).
       template get<float64_t>())};
     const float32_t step_min{static_cast<float32_t>(this->declare_parameter(
-        "localizer.optimizer.line_search.step_min").
+        "localizer.optimizer.line_search.step_min", rclcpp::PARAMETER_DOUBLE).
       template get<float64_t>())};
     // TODO(igor): make the line search configurable.
     auto localizer_ptr = std::make_unique<Localizer>(

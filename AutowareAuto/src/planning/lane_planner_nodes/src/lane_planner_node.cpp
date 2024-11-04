@@ -29,24 +29,24 @@ LanePlannerNode::LanePlannerNode(const rclcpp::NodeOptions & node_options)
 : TrajectoryPlannerNodeBase{"lane_planner", "plan_lane_trajectory", node_options}
 {
   const VehicleConfig vehicle_param{
-    static_cast<Real>(declare_parameter("vehicle.cg_to_front_m").get<float32_t>()),
-    static_cast<Real>(declare_parameter("vehicle.cg_to_rear_m").get<float32_t>()),
-    static_cast<Real>(declare_parameter("vehicle.front_corner_stiffness").get<float32_t>()),
-    static_cast<Real>(declare_parameter("vehicle.rear_corner_stiffness").get<float32_t>()),
-    static_cast<Real>(declare_parameter("vehicle.mass_kg").get<float32_t>()),
-    static_cast<Real>(declare_parameter("vehicle.yaw_inertia_kgm2").get<float32_t>()),
-    static_cast<Real>(declare_parameter("vehicle.width_m").get<float32_t>()),
-    static_cast<Real>(declare_parameter("vehicle.front_overhang_m").get<float32_t>()),
-    static_cast<Real>(declare_parameter("vehicle.rear_overhang_m").get<float32_t>())
+    static_cast<Real>(declare_parameter("vehicle.cg_to_front_m", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
+    static_cast<Real>(declare_parameter("vehicle.cg_to_rear_m", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
+    static_cast<Real>(declare_parameter("vehicle.front_corner_stiffness", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
+    static_cast<Real>(declare_parameter("vehicle.rear_corner_stiffness", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
+    static_cast<Real>(declare_parameter("vehicle.mass_kg", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
+    static_cast<Real>(declare_parameter("vehicle.yaw_inertia_kgm2", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
+    static_cast<Real>(declare_parameter("vehicle.width_m", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
+    static_cast<Real>(declare_parameter("vehicle.front_overhang_m", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
+    static_cast<Real>(declare_parameter("vehicle.rear_overhang_m", rclcpp::PARAMETER_DOUBLE).get<float32_t>())
   };
   const TrajectorySmootherConfig config{
     static_cast<float32_t>(
-      declare_parameter("gaussian_smoother.standard_deviation").get<float64_t>()),
-    static_cast<uint32_t>(declare_parameter("gaussian_smoother.kernel_size").get<uint64_t>())
+      declare_parameter("gaussian_smoother.standard_deviation", rclcpp::PARAMETER_DOUBLE).get<float64_t>()),
+    static_cast<uint32_t>(declare_parameter("gaussian_smoother.kernel_size", rclcpp::PARAMETER_INTEGER).get<uint64_t>())
   };
   const lane_planner::LanePlannerConfig planner_config{
     static_cast<float32_t>(
-      declare_parameter("lane_planner.trajectory_resolution").get<float64_t>())
+      declare_parameter("lane_planner.trajectory_resolution", rclcpp::PARAMETER_DOUBLE).get<float64_t>())
   };
 
   m_planner = std::make_unique<lane_planner::LanePlanner>(vehicle_param, config, planner_config);

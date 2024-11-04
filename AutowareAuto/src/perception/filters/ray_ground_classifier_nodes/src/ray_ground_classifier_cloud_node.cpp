@@ -45,35 +45,35 @@ RayGroundClassifierCloudNode::RayGroundClassifierCloudNode(
   const rclcpp::NodeOptions & node_options)
 : Node("ray_ground_classifier", node_options),
   m_classifier(ray_ground_classifier::Config{
-          static_cast<float32_t>(declare_parameter("classifier.sensor_height_m").get<float32_t>()),
+          static_cast<float32_t>(declare_parameter("classifier.sensor_height_m", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
           static_cast<float32_t>(declare_parameter(
-            "classifier.max_local_slope_deg").get<float32_t>()),
+            "classifier.max_local_slope_deg", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
           static_cast<float32_t>(declare_parameter(
-            "classifier.max_global_slope_deg").get<float32_t>()),
+            "classifier.max_global_slope_deg", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
           static_cast<float32_t>(declare_parameter(
-            "classifier.nonground_retro_thresh_deg").get<float32_t>()),
+            "classifier.nonground_retro_thresh_deg", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
           static_cast<float32_t>(declare_parameter(
-            "classifier.min_height_thresh_m").get<float32_t>()),
+            "classifier.min_height_thresh_m", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
           static_cast<float32_t>(declare_parameter(
-            "classifier.max_global_height_thresh_m").get<float32_t>()),
+            "classifier.max_global_height_thresh_m", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
           static_cast<float32_t>(declare_parameter(
-            "classifier.max_last_local_ground_thresh_m").get<float32_t>()),
+            "classifier.max_last_local_ground_thresh_m", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
           static_cast<float32_t>(declare_parameter(
-            "classifier.max_provisional_ground_distance_m").get<float32_t>())
+            "classifier.max_provisional_ground_distance_m", rclcpp::PARAMETER_DOUBLE).get<float32_t>())
         }),
   m_aggregator(ray_ground_classifier::RayAggregator::Config{
           static_cast<float32_t>(declare_parameter(
-            "aggregator.min_ray_angle_rad").get<float32_t>()),
+            "aggregator.min_ray_angle_rad", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
           static_cast<float32_t>(declare_parameter(
-            "aggregator.max_ray_angle_rad").get<float32_t>()),
-          static_cast<float32_t>(declare_parameter("aggregator.ray_width_rad").get<float32_t>()),
+            "aggregator.max_ray_angle_rad", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
+          static_cast<float32_t>(declare_parameter("aggregator.ray_width_rad", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
           static_cast<std::size_t>(
-            declare_parameter("aggregator.max_ray_points").get<std::size_t>())
+            declare_parameter("aggregator.max_ray_points", rclcpp::PARAMETER_INTEGER).get<std::size_t>())
         }),
-  m_pcl_size(static_cast<uint32_t>(declare_parameter("pcl_size").get<uint32_t>())),
-  m_frame_id(declare_parameter("frame_id").get<std::string>().c_str()),
+  m_pcl_size(static_cast<uint32_t>(declare_parameter("pcl_size", rclcpp::PARAMETER_INTEGER).get<uint32_t>())),
+  m_frame_id(declare_parameter("frame_id", rclcpp::PARAMETER_STRING).get<std::string>().c_str()),
   m_has_failed(false),
-  m_timeout(std::chrono::milliseconds{declare_parameter("cloud_timeout_ms").get<uint16_t>()}),
+  m_timeout(std::chrono::milliseconds{declare_parameter("cloud_timeout_ms", rclcpp::PARAMETER_INTEGER).get<uint16_t>()}),
   m_raw_sub_ptr(create_subscription<PointCloud2>(
       "points_in",
       rclcpp::QoS(10), std::bind(&RayGroundClassifierCloudNode::callback, this, _1))),

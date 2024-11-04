@@ -23,6 +23,7 @@
 #include "helper_functions/angle_utils.hpp"
 #include "motion_common/trajectory_common.hpp"
 #include "tf2/LinearMath/Quaternion.h"
+#include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
 
 
 using autoware::common::types::float64_t;

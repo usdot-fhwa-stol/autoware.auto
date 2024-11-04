@@ -23,7 +23,7 @@
 #include "lanelet2_core/primitives/GPSPoint.h"
 #include "lanelet2_io/Io.h"
 #include "lanelet2_projection/UTM.h"
-#include "tf2_geometry_msgs/tf2_geometry_msgs.h"
+#include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
 
 using autoware::common::types::float64_t;
 

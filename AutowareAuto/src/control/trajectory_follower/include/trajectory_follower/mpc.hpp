@@ -18,6 +18,7 @@
 #include <deque>
 #include <memory>
 #include <string>
+#include <stdexcept>
 #include <vector>
 
 #include "tf2/utils.h"
