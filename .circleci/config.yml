@@ -51,7 +51,7 @@ jobs:
           name: Pull Deps
           command: |
             source ${INIT_ENV}
-            ./src/AutowareAuto/docker/checkout.bash -r ${PWD}
+            ./src/AutowareAuto/docker/checkout.bash -r ${PWD} -b develop-humble
       - run:
           name: Build Driver
           command: |
