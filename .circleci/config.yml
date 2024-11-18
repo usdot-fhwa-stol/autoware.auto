@@ -33,7 +33,7 @@ jobs:
         environment:
           TERM: xterm # use xterm to get full display output from build
           INIT_ENV: /home/carma/.base-image/init-env.sh
-          ROS_2_ENV: /opt/ros/foxy/setup.bash
+          ROS_2_ENV: /opt/ros/humble/setup.bash
     working_directory: "/opt/carma/"
     resource_class: large
     # Execution steps
