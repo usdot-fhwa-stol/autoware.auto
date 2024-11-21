@@ -35,7 +35,6 @@
 #include <string>
 #include <limits>
 #include "tf2_autoware_auto_msgs.hpp"
-#include "tf2_geometry_msgs_extension.hpp"
 
 namespace tf2
 {
