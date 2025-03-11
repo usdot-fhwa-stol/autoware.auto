@@ -1,5 +1,8 @@
+#NOTE: Docker image is not really used in carma-platform
+# This is just to catch build issues in the autoware.auto repository
+# The actual installation of the autoware.auto packages should be done in autoware.ai
 ARG DOCKER_ORG=usdotfhwastoldev
-ARG DOCKER_TAG=develop
+ARG DOCKER_TAG=develop-humble
 FROM ${DOCKER_ORG}/carma-base:${DOCKER_TAG} as base_image
 
 FROM base_image as build
@@ -8,6 +11,11 @@ ARG GIT_BRANCH=develop
 COPY --chown=carma . /home/carma/autoware.auto
 RUN chmod -R 775 /home/carma/autoware.auto/docker/checkout.bash
 RUN chmod -R 775 /home/carma/autoware.auto/docker/install.sh
+
+# NOTE: CARMA doesn't use the debian version of lanelet2, but they are required for autoware.auto
+RUN sudo apt update && sudo apt install ros-humble-lanelet2-core \
+ros-humble-lanelet2-io ros-humble-lanelet2-projection ros-humble-lanelet2-routing -y
+
 RUN /home/carma/autoware.auto/docker/checkout.bash -b ${GIT_BRANCH}
 RUN /home/carma/autoware.auto/docker/install.sh
 
