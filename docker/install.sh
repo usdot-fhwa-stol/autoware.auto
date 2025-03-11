@@ -23,9 +23,7 @@ if [[ ! -z "$ROS2_PACKAGES" ]]; then
 else
     echo "Sourcing base image for full build..."
     source /opt/ros/humble/setup.bash
-    source /home/carma/catkin/setup.bash
 fi
-
 
 # Build
 # NOTE: The following packages are excluded from the build process because
@@ -39,9 +37,6 @@ if [[ ! -z "$ROS2_PACKAGES" ]]; then
     lanelet2_global_planner_nodes parking_planner parking_planner_nodes
 else
     # Install dependencies
-    sudo apt-get update
-    rosdep update
-    rosdep install --from-paths src --ignore-src -r -y
     colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release --packages-ignore \
     had_map_utils autoware_auto_launch autoware_demos lanelet2_map_provider off_map_obstacles_filter \
     off_map_obstacles_filter_nodes behavior_planner lane_planner lanelet2_global_planner \
