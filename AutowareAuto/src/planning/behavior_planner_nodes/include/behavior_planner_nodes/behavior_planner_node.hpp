@@ -123,7 +123,7 @@ private:
   void modify_trajectory_response(rclcpp::Client<ModifyTrajectory>::SharedFuture future);
   void clear_trajectory_cache();
 
-  void goal_response_callback(std::shared_future<PlanTrajectoryGoalHandle::SharedPtr> future);
+  void goal_response_callback(PlanTrajectoryGoalHandle::SharedPtr goal_handle);
   void feedback_callback(
     PlanTrajectoryGoalHandle::SharedPtr goal_handle,
     const std::shared_ptr<const PlanTrajectoryAction::Feedback> feedback);

@@ -35,13 +35,13 @@ JoystickVehicleInterfaceNode::JoystickVehicleInterfaceNode(
 {
   // topics
   const auto control_command =
-    declare_parameter("control_command").get<std::string>();
+    declare_parameter("control_command", rclcpp::PARAMETER_STRING).get<std::string>();
   const bool recordreplay_command_enabled =
-    declare_parameter("recordreplay_command_enabled").get<bool8_t>();
+    declare_parameter("recordreplay_command_enabled", rclcpp::PARAMETER_BOOL).get<bool8_t>();
 
   // maps
   const auto check_set = [this](auto & map, auto key, const std::string & param_name) {
-      const auto param = declare_parameter(param_name);
+      const auto param = declare_parameter(param_name, rclcpp::PARAMETER_DOUBLE);
       if (param.get_type() != rclcpp::ParameterType::PARAMETER_NOT_SET) {
         using MapT = std::remove_reference_t<decltype(map)>;
         using ValT = typename MapT::mapped_type;

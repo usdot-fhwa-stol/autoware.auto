@@ -63,33 +63,33 @@ PointCloud2FilterTransformNode::PointCloud2FilterTransformNode(
   const rclcpp::NodeOptions & node_options)
 : Node("point_cloud_filter_transform_node", node_options),
   m_angle_filter{
-    static_cast<float32_t>(declare_parameter("start_angle").get<float64_t>()),
-    static_cast<float32_t>(declare_parameter("end_angle").get<float64_t>())},
+    static_cast<float32_t>(declare_parameter("start_angle", rclcpp::PARAMETER_DOUBLE).get<float64_t>()),
+    static_cast<float32_t>(declare_parameter("end_angle", rclcpp::PARAMETER_DOUBLE).get<float64_t>())},
   m_distance_filter{
-    static_cast<float32_t>(declare_parameter("min_radius").get<float64_t>()),
-    static_cast<float32_t>(declare_parameter("max_radius").get<float64_t>())},
-  m_input_frame_id{declare_parameter("input_frame_id").get<std::string>()},
-  m_output_frame_id{declare_parameter("output_frame_id").get<std::string>()},
-  m_init_timeout{std::chrono::milliseconds{declare_parameter("init_timeout_ms").get<int32_t>()}},
-  m_timeout{std::chrono::milliseconds{declare_parameter("timeout_ms").get<int32_t>()}},
+    static_cast<float32_t>(declare_parameter("min_radius", rclcpp::PARAMETER_DOUBLE).get<float64_t>()),
+    static_cast<float32_t>(declare_parameter("max_radius", rclcpp::PARAMETER_DOUBLE).get<float64_t>())},
+  m_input_frame_id{declare_parameter("input_frame_id", rclcpp::PARAMETER_STRING).get<std::string>()},
+  m_output_frame_id{declare_parameter("output_frame_id", rclcpp::PARAMETER_STRING).get<std::string>()},
+  m_init_timeout{std::chrono::milliseconds{declare_parameter("init_timeout_ms", rclcpp::PARAMETER_INTEGER).get<int32_t>()}},
+  m_timeout{std::chrono::milliseconds{declare_parameter("timeout_ms", rclcpp::PARAMETER_INTEGER).get<int32_t>()}},
   m_sub_ptr{create_subscription<PointCloud2>(
       "points_in", rclcpp::QoS{10},
       std::bind(
         &PointCloud2FilterTransformNode::process_filtered_transformed_message, this, _1))},
   m_pub_ptr{create_publisher<PointCloud2>("points_filtered", rclcpp::QoS{10})},
   m_expected_num_publishers{
-    static_cast<size_t>(declare_parameter("expected_num_publishers").get<int32_t>())},
+    static_cast<size_t>(declare_parameter("expected_num_publishers", rclcpp::PARAMETER_INTEGER).get<int32_t>())},
   m_expected_num_subscribers{
-    static_cast<size_t>(declare_parameter("expected_num_subscribers").get<int32_t>())},
-  m_pcl_size{static_cast<std::uint32_t>(declare_parameter("pcl_size").get<uint32_t>())}
+    static_cast<size_t>(declare_parameter("expected_num_subscribers", rclcpp::PARAMETER_INTEGER).get<int32_t>())},
+  m_pcl_size{static_cast<std::uint32_t>(declare_parameter("pcl_size", rclcpp::PARAMETER_INTEGER).get<uint32_t>())}
 {  /// Declare transform parameters with the namespace
-  this->declare_parameter("static_transformer.quaternion.x");
-  this->declare_parameter("static_transformer.quaternion.y");
-  this->declare_parameter("static_transformer.quaternion.z");
-  this->declare_parameter("static_transformer.quaternion.w");
-  this->declare_parameter("static_transformer.translation.x");
-  this->declare_parameter("static_transformer.translation.y");
-  this->declare_parameter("static_transformer.translation.z");
+  this->declare_parameter("static_transformer.quaternion.x", rclcpp::PARAMETER_DOUBLE);
+  this->declare_parameter("static_transformer.quaternion.y", rclcpp::PARAMETER_DOUBLE);
+  this->declare_parameter("static_transformer.quaternion.z", rclcpp::PARAMETER_DOUBLE);
+  this->declare_parameter("static_transformer.quaternion.w", rclcpp::PARAMETER_DOUBLE);
+  this->declare_parameter("static_transformer.translation.x", rclcpp::PARAMETER_DOUBLE);
+  this->declare_parameter("static_transformer.translation.y", rclcpp::PARAMETER_DOUBLE);
+  this->declare_parameter("static_transformer.translation.z", rclcpp::PARAMETER_DOUBLE);
 
   /// Declare objects to hold transform parameters
   rclcpp::Parameter quat_x_param;

@@ -61,17 +61,20 @@ static constexpr std::array<const char *, 3> kPossibleOverrideFieldNames{
 CovarianceInsertionNode::CovarianceInsertionNode(const rclcpp::NodeOptions & options)
 :  Node("covariance_insertion_nodes", options)
 {
-  const auto history_size{declare_parameter(kHistorySizeTag, kDefaultHistorySize)};
+  declare_parameter(kHistorySizeTag, kDefaultHistorySize);
+  const auto history_size = get_parameter(kHistorySizeTag).as_int();
   if (history_size <= 0) {throw std::domain_error("History size must be positive.");}
   m_history_size = static_cast<std::size_t>(history_size);
   m_input_topic = kInputTopic;
   m_output_topic = m_input_topic + kOutputTopicSuffix;
   m_core = std::make_unique<covariance_insertion::CovarianceInsertion>();
 
-  const auto input_msg_type_name{declare_parameter(kInputMsgTypeTag).get<std::string>()};
+  declare_parameter(kInputMsgTypeTag, rclcpp::PARAMETER_STRING);
+  const auto input_msg_type_name = get_parameter(kInputMsgTypeTag).as_string();
   for (const auto & field : kPossibleOverrideFieldNames) {
     const auto full_field{std::string{kOverrideCovariancesPrefix} + '.' + field};
-    const auto covariance{declare_parameter(full_field, std::vector<common::types::float64_t>{})};
+    declare_parameter(full_field, std::vector<common::types::float64_t>{});
+    const auto covariance = get_parameter(full_field).as_double_array();
     if (!covariance.empty()) {
       m_core->insert_covariance(field, covariance);
     }

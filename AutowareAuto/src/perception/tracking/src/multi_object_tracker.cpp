@@ -18,7 +18,7 @@
 
 #include <autoware_auto_tf2/tf2_autoware_auto_msgs.hpp>
 #include <geometry_msgs/msg/quaternion.hpp>
-#include <tf2_eigen/tf2_eigen.h>
+#include <tf2_eigen/tf2_eigen.hpp>
 #include <time_utils/time_utils.hpp>
 
 #include <algorithm>

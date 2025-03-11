@@ -18,7 +18,7 @@
 #define TEST_POINT_CLOUD_FUSION_NODES_HPP_
 
 #include <gtest/gtest.h>
-#include <tf2_sensor_msgs/tf2_sensor_msgs.h>
+#include <tf2_sensor_msgs/tf2_sensor_msgs.hpp>
 #include <point_cloud_fusion_nodes/point_cloud_fusion_node.hpp>
 #include <point_cloud_msg_wrapper/point_cloud_msg_wrapper.hpp>
 #include <sensor_msgs/point_cloud2_iterator.hpp>

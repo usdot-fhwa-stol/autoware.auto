@@ -14,7 +14,7 @@
  * the License.
  */
 /// \file
-/// \brief This file includes extensions for the common transform 
+/// \brief This file includes extensions for the common transform
 ///        functionality for autoware_auto_msgs
 ///        This file is created seperately from tf2_autoware_auto_msgs.hpp to preserve seperation
 ///        of carma-platform changes from autoware.auto
@@ -24,7 +24,7 @@
 
 #include <tf2/convert.h>
 #include <tf2/time.h>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include <geometry_msgs/msg/transform_stamped.hpp>
 #include <autoware_auto_msgs/msg/detected_objects.hpp>
 #include <autoware_auto_msgs/msg/detected_object.hpp>
@@ -35,7 +35,6 @@
 #include <string>
 #include <limits>
 #include "tf2_autoware_auto_msgs.hpp"
-#include "tf2_geometry_msgs_extension.hpp"
 
 namespace tf2
 {
@@ -61,11 +60,11 @@ void doTransform(
   // Transform polygon
   doTransform(t_in.polygon, t_out.polygon, transform);
 
-  // Correct height field based on transformed polygon. 
+  // Correct height field based on transformed polygon.
   // Z is always gravity-aligned according to the message spec
   float min_z = std::numeric_limits<float>::max();
   float max_z = std::numeric_limits<float>::lowest();
-  
+
   for (auto p : t_out.polygon.points) {
     if (p.z < min_z) {
       min_z = p.z;
@@ -86,7 +85,7 @@ void doTransform(
  * This function is a specialization of the doTransform template defined in tf2/convert.h.
  * NOTE: The twist is not transformed as it seems to be reported in the frame of the object itself and so it not changed.
  *       If this is an incorrect interpretation (its not very well documented) then it needs to be added.
- * 
+ *
  * \param t_in The DetectedObjectKinematics message to transform.
  * \param t_out The transformed DetectedObjectKinematics message.
  * \param transform The timestamped transform to apply, as a TransformStamped message.
@@ -101,7 +100,7 @@ void doTransform(
   // Transform geometric fields
   doTransform(t_in.centroid_position, t_out.centroid_position, transform);
   doTransform(t_in.orientation, t_out.orientation, transform);
-  
+
   // Transform position covariance if available
   if (t_in.has_position_covariance) {
     // To transform the covariance we will build a new PoseWithCovariance message
@@ -109,7 +108,7 @@ void doTransform(
     geometry_msgs::msg::PoseWithCovariance cov_pose_in;
     geometry_msgs::msg::PoseWithCovariance cov_pose_out;
 
-    // The DetectedObjectKinematics covariance is 9 element position. 
+    // The DetectedObjectKinematics covariance is 9 element position.
     // This needs to be mapped onto the 36 element PoseWithCovariance covariance.
     auto xx = t_in.position_covariance[0];
     auto xy = t_in.position_covariance[1];
@@ -122,19 +121,19 @@ void doTransform(
     auto zz = t_in.position_covariance[8];
 
     // This matrix represents the covariance of the object before transformation
-    std::array<double, 36> input_covariance = { 
+    std::array<double, 36> input_covariance = {
       xx, xy, xz,  0, 0, 0,
       yx, yy, yz,  0, 0, 0,
       zx, zy, zz,  0, 0, 0,
       0,  0,  0,  1,  0, 0, // Since no covariance for the orientation is provided we will assume an identity relationship (1s on the diagonal)
-      0,  0,  0,  0,  1, 0, 
+      0,  0,  0,  0,  1, 0,
       0,  0,  0,  0,  0, 1
     };
 
     cov_pose_in.covariance = input_covariance;
 
     doTransform(cov_pose_in, cov_pose_out, transform);
-    
+
     // Copy the transformed covariance into the output message
 
     t_out.position_covariance[0] = cov_pose_in.covariance[0];
@@ -212,7 +211,7 @@ void doTransform(
   for (size_t i=0; i < t_in.objects.size(); ++i) {
     doTransform(t_in.objects[i], t_out.objects[i], transform);
   }
-  
+
   t_out.header.frame_id = transform.header.frame_id;
 }
 

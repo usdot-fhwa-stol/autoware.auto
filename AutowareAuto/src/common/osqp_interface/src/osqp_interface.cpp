@@ -20,7 +20,7 @@
 #include <tuple>
 #include <vector>
 
-#include "osqp/osqp.h"
+#include "osqp.h"
 #include "osqp_interface/csc_matrix_conv.hpp"
 #include "osqp_interface/osqp_interface.hpp"
 

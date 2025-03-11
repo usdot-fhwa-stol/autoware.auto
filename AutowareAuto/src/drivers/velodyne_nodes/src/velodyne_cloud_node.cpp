@@ -41,17 +41,16 @@ VelodyneCloudNode<T>::VelodyneCloudNode(
 : rclcpp::Node(node_name, options),
   m_io_cxt(),
   m_udp_driver(m_io_cxt),
-  m_translator(Config{static_cast<float32_t>(this->declare_parameter("rpm").template get<int>())}),
-  m_ip(this->declare_parameter("ip").template get<std::string>().c_str()),
-  m_port(static_cast<uint16_t>(this->declare_parameter("port").template get<uint16_t>())),
+  m_translator(Config{static_cast<float32_t>(this->declare_parameter("rpm", rclcpp::PARAMETER_INTEGER).get<int>())}),
+  m_ip(this->declare_parameter("ip", rclcpp::PARAMETER_STRING).get<std::string>().c_str()),
+  m_port(static_cast<uint16_t>(this->declare_parameter("port", rclcpp::PARAMETER_INTEGER).get<uint16_t>())),
   m_pc2_pub_ptr(create_publisher<sensor_msgs::msg::PointCloud2>(
-      declare_parameter("topic").template
-      get<std::string>(), rclcpp::QoS{10})),
+      declare_parameter("topic", rclcpp::PARAMETER_STRING).get<std::string>(), rclcpp::QoS{10})),
   m_remainder_start_idx(0U),
   m_point_cloud_idx(0),
-  m_frame_id(this->declare_parameter("frame_id").template get<std::string>().c_str()),
+  m_frame_id(this->declare_parameter("frame_id", rclcpp::PARAMETER_STRING).get<std::string>().c_str()),
   m_cloud_size(static_cast<std::uint32_t>(
-      this->declare_parameter("cloud_size").template get<std::uint32_t>()))
+      this->declare_parameter("cloud_size", rclcpp::PARAMETER_INTEGER).get<std::uint32_t>()))
 {
   m_point_block.reserve(VelodyneTranslatorT::POINT_BLOCK_CAPACITY);
   // If your preallocated cloud size is too small, the node really won't operate well at all

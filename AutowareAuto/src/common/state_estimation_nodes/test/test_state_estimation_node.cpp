@@ -21,7 +21,7 @@
 #include <gtest/gtest.h>
 #include <state_estimation_nodes/state_estimation_node.hpp>
 
-#include <tf2_eigen/tf2_eigen.h>
+#include <tf2_eigen/tf2_eigen.hpp>
 
 #include <memory>
 #include <string>
@@ -144,7 +144,7 @@ using StateEstimationNodeTest =
 INSTANTIATE_TEST_CASE_P(
   StateEstimationNodeTests,
   StateEstimationNodeTest,
-  ::testing::Values(kPublish, kNoPublish), /*This comment needed to shut off a warning*/);
+  ::testing::Values(kPublish, kNoPublish));
 
 /// @test Test that if we publish one message, it generates a state estimate which is sent out.
 TEST_P(StateEstimationNodeTest, PublishAndReceivePoseMessage) {

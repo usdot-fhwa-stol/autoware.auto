@@ -33,19 +33,19 @@ ClusterProjectionNode::ClusterProjectionNode(const rclcpp::NodeOptions & options
       "/projected_clusters", rclcpp::QoS{30})},
   m_camera_model{{
         static_cast<std::size_t>(declare_parameter(
-          "camera_intrinsics.width").get<int64_t>()),
+          "camera_intrinsics.width", rclcpp::PARAMETER_INTEGER).get<int64_t>()),
         static_cast<std::size_t>(declare_parameter(
-          "camera_intrinsics.height").get<int64_t>()),
+          "camera_intrinsics.height", rclcpp::PARAMETER_INTEGER).get<int64_t>()),
         static_cast<float32_t>(declare_parameter(
-          "camera_intrinsics.fx").get<float32_t>()),
+          "camera_intrinsics.fx", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
         static_cast<float32_t>(declare_parameter(
-          "camera_intrinsics.fy").get<float32_t>()),
+          "camera_intrinsics.fy", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
         static_cast<float32_t>(declare_parameter(
-          "camera_intrinsics.ox").get<float32_t>()),
+          "camera_intrinsics.ox", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
         static_cast<float32_t>(declare_parameter(
-          "camera_intrinsics.oy").get<float32_t>()),
+          "camera_intrinsics.oy", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
         static_cast<float32_t>(declare_parameter(
-          "camera_intrinsics.skew").get<float32_t>())
+          "camera_intrinsics.skew", rclcpp::PARAMETER_DOUBLE).get<float32_t>())
       }},
   m_buffer{},
   m_tf_listener{m_buffer},
@@ -80,8 +80,8 @@ void ClusterProjectionNode::cluster_callback(
       projections.rois.emplace_back(projection_roi);
     } catch (const std::exception & e) {
       RCLCPP_WARN(
-        get_logger(), "Couldn't get the transform with error: " +
-        std::string{e.what()});
+        get_logger(), ("Couldn't get the transform with error: " +
+        std::string{e.what()}).c_str());
     }
   }
   m_projection_pub->publish(projections);

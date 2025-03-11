@@ -22,7 +22,7 @@
 #include <tracking_nodes/multi_object_tracker_node.hpp>
 
 #include <rclcpp_components/register_node_macro.hpp>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include <time_utils/time_utils.hpp>
 
 #include <cstddef>
@@ -68,25 +68,25 @@ MultiObjectTracker init_tracker(
 {
   const float32_t max_distance =
     static_cast<float32_t>(node.declare_parameter(
-      "object_association.max_distance").get<float64_t>());
+      "object_association.max_distance", rclcpp::PARAMETER_DOUBLE).get<float64_t>());
   const float32_t max_area_ratio =
     static_cast<float32_t>(node.declare_parameter(
-      "object_association.max_area_ratio").get<float64_t>());
+      "object_association.max_area_ratio", rclcpp::PARAMETER_DOUBLE).get<float64_t>());
   const bool consider_edge_for_big_detections = node.declare_parameter(
-    "object_association.consider_edge_for_big_detection").get<bool>();
+    "object_association.consider_edge_for_big_detection", rclcpp::PARAMETER_BOOL).get<bool>();
 
   auto creation_policy = perception::tracking::TrackCreationPolicy::LidarClusterOnly;
   const auto default_variance = node.declare_parameter(
-    "ekf_default_variance").get<float64_t>();
+    "ekf_default_variance", rclcpp::PARAMETER_DOUBLE).get<float64_t>();
   const auto noise_variance = node.declare_parameter(
-    "ekf_noise_variance").get<float64_t>();
+    "ekf_noise_variance", rclcpp::PARAMETER_DOUBLE).get<float64_t>();
   const std::chrono::nanoseconds pruning_time_threshold =
     std::chrono::milliseconds(
     node.declare_parameter(
-      "pruning_time_threshold_ms").get<int64_t>());
+      "pruning_time_threshold_ms", rclcpp::PARAMETER_INTEGER).get<int64_t>());
   const std::size_t pruning_ticks_threshold =
     static_cast<std::size_t>(node.declare_parameter(
-      "pruning_ticks_threshold").get<int64_t>());
+      "pruning_ticks_threshold", rclcpp::PARAMETER_INTEGER).get<int64_t>());
   const std::string frame = node.declare_parameter("track_frame_id", "odom");
 
   TrackCreatorConfig creator_config{};
@@ -97,30 +97,30 @@ MultiObjectTracker init_tracker(
     creation_policy = perception::tracking::TrackCreationPolicy::LidarClusterIfVision;
     vision_config.intrinsics = {
       static_cast<std::size_t>(node.declare_parameter(
-        "vision_association.intrinsics.width").get<int64_t>()),
+        "vision_association.intrinsics.width", rclcpp::PARAMETER_INTEGER).get<int64_t>()),
       static_cast<std::size_t>(node.declare_parameter(
-        "vision_association.intrinsics.height").get<int64_t>()),
+        "vision_association.intrinsics.height", rclcpp::PARAMETER_INTEGER).get<int64_t>()),
       static_cast<float32_t>(node.declare_parameter(
-        "vision_association.intrinsics.fx").get<float32_t>()),
+        "vision_association.intrinsics.fx", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
       static_cast<float32_t>(node.declare_parameter(
-        "vision_association.intrinsics.fy").get<float32_t>()),
+        "vision_association.intrinsics.fy", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
       static_cast<float32_t>(node.declare_parameter(
-        "vision_association.intrinsics.ox").get<float32_t>()),
+        "vision_association.intrinsics.ox", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
       static_cast<float32_t>(node.declare_parameter(
-        "vision_association.intrinsics.oy").get<float32_t>()),
+        "vision_association.intrinsics.oy", rclcpp::PARAMETER_DOUBLE).get<float32_t>()),
       static_cast<float32_t>(node.declare_parameter(
-        "vision_association.intrinsics.skew").get<float32_t>())
+        "vision_association.intrinsics.skew", rclcpp::PARAMETER_DOUBLE).get<float32_t>())
     };
 
 
     vision_config.iou_threshold = static_cast<float32_t>(node.declare_parameter(
-        "vision_association.iou_threshold").get<float32_t>());
+        "vision_association.iou_threshold", rclcpp::PARAMETER_DOUBLE).get<float32_t>());
 
     VisionPolicyConfig vision_policy_cfg;
     vision_policy_cfg.associator_cfg = vision_config;
     vision_policy_cfg.max_vision_lidar_timestamp_diff = std::chrono::milliseconds(
       node.declare_parameter(
-        "vision_association.timestamp_diff_ms").get<int64_t>());
+        "vision_association.timestamp_diff_ms", rclcpp::PARAMETER_INTEGER).get<int64_t>());
     creator_config.vision_policy_config.emplace(vision_policy_cfg);
   }
 

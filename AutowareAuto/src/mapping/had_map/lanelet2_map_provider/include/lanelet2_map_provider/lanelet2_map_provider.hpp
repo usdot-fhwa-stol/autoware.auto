@@ -19,7 +19,7 @@
 #ifndef LANELET2_MAP_PROVIDER__LANELET2_MAP_PROVIDER_HPP_
 #define LANELET2_MAP_PROVIDER__LANELET2_MAP_PROVIDER_HPP_
 
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include <common/types.hpp>
 #include <lanelet2_core/LaneletMap.h>
 #include <lanelet2_map_provider/visibility_control.hpp>

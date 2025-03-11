@@ -37,10 +37,10 @@ RecordReplayPlannerNode::RecordReplayPlannerNode(const rclcpp::NodeOptions & nod
   const auto ego_topic = "vehicle_state";
   const auto trajectory_topic = "planned_trajectory";
   const auto trajectory_viz_topic = "planned_trajectory_viz";
-  const auto heading_weight = declare_parameter("heading_weight").get<float64_t>();
-  const auto min_record_distance = declare_parameter("min_record_distance").get<float64_t>();
-  m_goal_distance_threshold_m = declare_parameter("goal_distance_threshold_m").get<float32_t>();
-  m_goal_angle_threshold_rad = declare_parameter("goal_angle_threshold_rad").get<float32_t>();
+  const auto heading_weight = declare_parameter("heading_weight", rclcpp::PARAMETER_DOUBLE).get<float64_t>();
+  const auto min_record_distance = declare_parameter("min_record_distance", rclcpp::PARAMETER_DOUBLE).get<float64_t>();
+  m_goal_distance_threshold_m = declare_parameter("goal_distance_threshold_m", rclcpp::PARAMETER_DOUBLE).get<float32_t>();
+  m_goal_angle_threshold_rad = declare_parameter("goal_angle_threshold_rad", rclcpp::PARAMETER_DOUBLE).get<float32_t>();
 
   using rclcpp::QoS;
   using namespace std::chrono_literals;
@@ -87,7 +87,7 @@ RecordReplayPlannerNode::RecordReplayPlannerNode(const rclcpp::NodeOptions & nod
     create_publisher<MarkerArray>(trajectory_viz_topic, QoS{10});
 
   // Set up services
-  if (declare_parameter("enable_object_collision_estimator").get<bool>()) {
+  if (declare_parameter("enable_object_collision_estimator", rclcpp::PARAMETER_BOOL).get<bool>()) {
     m_modify_trajectory_client = this->create_client<ModifyTrajectory>("estimate_collision");
     while (!m_modify_trajectory_client->wait_for_service(3s)) {
       if (!rclcpp::ok()) {
