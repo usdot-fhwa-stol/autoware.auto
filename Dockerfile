@@ -1,8 +1,8 @@
 #NOTE: Docker image is not really used in carma-platform
 # This is just to catch build issues in the autoware.auto repository
 # The actual installation of the autoware.auto packages should be done in autoware.ai
-ARG DOCKER_ORG=usdotfhwastoldev
-ARG DOCKER_TAG=develop-humble
+ARG DOCKER_ORG=usdotfhwastolcandidate
+ARG DOCKER_TAG=timtsp-humble
 FROM ${DOCKER_ORG}/carma-base:${DOCKER_TAG} as base_image
 
 FROM base_image as build
