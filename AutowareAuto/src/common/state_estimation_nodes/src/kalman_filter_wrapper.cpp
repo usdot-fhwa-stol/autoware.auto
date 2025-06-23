@@ -24,8 +24,8 @@
 #include <nav_msgs/msg/odometry.hpp>
 #include <rclcpp/time.hpp>
 #include <tf2/LinearMath/Quaternion.h>
-#include <tf2_eigen/tf2_eigen.h>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf2_eigen/tf2_eigen.hpp>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 
 #include <Eigen/Core>
 #include <Eigen/Geometry>

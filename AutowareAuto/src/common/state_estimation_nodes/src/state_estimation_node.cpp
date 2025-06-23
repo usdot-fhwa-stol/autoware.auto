@@ -25,8 +25,8 @@
 #include <state_estimation/kalman_filter/kalman_filter.hpp>
 #include <state_estimation/noise_model/wiener_noise.hpp>
 
-#include <tf2_eigen/tf2_eigen.h>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf2_eigen/tf2_eigen.hpp>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 
 #include <functional>
 #include <limits>
@@ -109,8 +109,8 @@ StateEstimationNode::StateEstimationNode(
 : rclcpp::Node{"state_estimation_node", node_options},
   m_tf_listener(m_tf_buffer, std::shared_ptr<rclcpp::Node>(this, [](auto) {}), false)
 {
-  m_frame_id = declare_parameter("frame_id").get<std::string>();
-  m_child_frame_id = declare_parameter("child_frame_id").get<std::string>();
+  m_frame_id = declare_parameter("frame_id", rclcpp::PARAMETER_STRING).get<std::string>();
+  m_child_frame_id = declare_parameter("child_frame_id", rclcpp::PARAMETER_STRING).get<std::string>();
   m_publish_frequency = declare_parameter("output_frequency", kInvalidFrequency);
   m_publish_data_driven = declare_parameter("data_driven", false);
   const auto time_between_publish_requests{

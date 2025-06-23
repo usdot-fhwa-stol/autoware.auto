@@ -37,7 +37,7 @@ function(autoware_set_compile_options_reduced_warning target)
       -fvisibility=hidden)
     # C++-only options
     target_compile_options(${target}
-      PRIVATE $<$<COMPILE_LANGUAGE:CXX>: -Woverloaded-virtual> -Wno-useless-cast)
+      PRIVATE $<$<COMPILE_LANGUAGE:CXX>: -Woverloaded-virtual> -Wno-error=useless-cast -Wno-error=maybe-uninitialized)
   endif()
 
   if(CMAKE_COMPILER_IS_GNUCXX)

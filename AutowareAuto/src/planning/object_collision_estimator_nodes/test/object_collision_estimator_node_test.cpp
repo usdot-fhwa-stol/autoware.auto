@@ -15,7 +15,7 @@
 #include <autoware_auto_tf2/tf2_autoware_auto_msgs.hpp>
 #include <tf2_ros/static_transform_broadcaster.h>
 #include <tf2_ros/buffer.h>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include <tf2/LinearMath/Quaternion.h>
 #include <motion_testing/motion_testing.hpp>
 #include <rclcpp/rclcpp.hpp>

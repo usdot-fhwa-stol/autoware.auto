@@ -26,6 +26,7 @@
     <depend>voxel_grid</depend>
     <depend>voxel_grid_nodes</depend>
     <depend>point_cloud_msg_wrapper</depend>
+    <depend>tf2_ros</depend>
 
     <test_depend>ament_cmake_gtest</test_depend>
     <test_depend>ament_lint_auto</test_depend>

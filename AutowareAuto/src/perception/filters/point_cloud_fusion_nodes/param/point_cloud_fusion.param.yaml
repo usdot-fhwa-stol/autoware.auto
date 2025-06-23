@@ -1,0 +1,3 @@
+number_of_sources: 2
+output_frame_id:  "concat_velodyne"
+cloud_size:       80000

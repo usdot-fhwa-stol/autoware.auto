@@ -106,7 +106,7 @@ INSTANTIATE_TEST_CASE_P(
   {}
 }
     // cppcheck-suppress syntaxError
-  ), );
+  ));
 
 TEST(PolygonPointTest, Basic) {
   GTEST_SKIP();  // TODO(yunus.caliskan): enable after #1231
