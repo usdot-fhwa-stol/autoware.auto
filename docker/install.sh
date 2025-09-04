@@ -28,7 +28,12 @@ fi
 
 # Build
 if [[ ! -z "$ROS2_PACKAGES" ]]; then
-    colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release --packages-above $ROS2_PACKAGES --packages-ignore parking_planner parking_planner_nodes
+    colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release \
+    --packages-above $ROS2_PACKAGES \
+    --packages--packages-ignore \
+    --packages-ignore $(cat docker/autoware-auto-packages-ignore.txt | tr '\n' ' ')
 else
-    colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release --packages-ignore parking_planner parking_planner_nodes
+    colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release \
+    --packages-up-to $(cat docker/autoware-auto-packages.txt | tr '\n' ' ')\
+    --packages-ignore $(cat docker/autoware-auto-packages-ignore.txt | tr '\n' ' ')
 fi
