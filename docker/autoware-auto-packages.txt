@@ -12,7 +12,6 @@ euclidean_cluster
 euclidean_cluster_nodes
 lidar_utils
 localization_common
-localization_nodes
 motion_common
 motion_model
 motion_testing
