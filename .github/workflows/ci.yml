@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - develop
-      - feature/add_gha
       - master
       - "release/*"
   pull_request:
@@ -87,3 +86,4 @@ jobs:
         with:
           sonar-token: ${{ secrets.SONAR_TOKEN }}
           working-dir: "/opt/carma/src/autoware.auto"
+
