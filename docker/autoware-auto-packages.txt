@@ -29,3 +29,8 @@ trajectory_follower
 velodyne_driver
 voxel_grid
 voxel_grid_nodes
+tracking
+tracking_nodes
+trajectory_follower_nodes
+fake_test_node
+tracking_test_framework
