@@ -4,7 +4,6 @@ behavior_planner
 behavior_planner_nodes
 controller_common_nodes
 had_map_utils
-hungarian_assigner
 lane_planner
 lane_planner_nodes
 lanelet2_global_planner
@@ -15,10 +14,8 @@ lexus_rx_450h_description
 lidar_integration
 localization_nodes
 lgsvl_interface
-measurement_conversion
 mpc_controller
 mpc_controller_nodes
-mpark_variant_vendor
 ndt_nodes
 object_collision_estimator
 object_collision_estimator_nodes

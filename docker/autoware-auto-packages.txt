@@ -34,3 +34,6 @@ tracking_nodes
 trajectory_follower_nodes
 fake_test_node
 tracking_test_framework
+measurement_conversion
+hungarian_assigner
+mpark_variant_vendor
