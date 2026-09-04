@@ -21,7 +21,7 @@ find_package(carma_cmake_common REQUIRED)
 carma_check_ros_version(2)
 
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
+  set(CMAKE_CXX_STANDARD 17)
 endif()
 
 # require that dependencies from package.xml be available
