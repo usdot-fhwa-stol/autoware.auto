@@ -1,18 +1,16 @@
-/*
- * Copyright (C) 2022 LEIDOS.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
+// Copyright 2022 Leidos
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 /// \file
 /// \brief This file includes extensions for the common transform
 ///        functionality for autoware_auto_msgs
@@ -24,6 +22,8 @@
 
 #include <tf2/convert.h>
 #include <tf2/time.h>
+#include <string>
+#include <limits>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include <geometry_msgs/msg/transform_stamped.hpp>
 #include <autoware_auto_msgs/msg/detected_objects.hpp>
@@ -32,8 +32,6 @@
 #include <autoware_auto_msgs/msg/shape.hpp>
 #include <kdl/frames.hpp>
 #include <common/types.hpp>
-#include <string>
-#include <limits>
 #include "tf2_autoware_auto_msgs.hpp"
 
 namespace tf2
@@ -55,7 +53,7 @@ void doTransform(
   const autoware_auto_msgs::msg::Shape & t_in, autoware_auto_msgs::msg::Shape & t_out,
   const geometry_msgs::msg::TransformStamped & transform)
 {
-  t_out = t_in; // Copy un-transformable fields
+  t_out = t_in;  // Copy un-transformable fields
 
   // Transform polygon
   doTransform(t_in.polygon, t_out.polygon, transform);
@@ -93,10 +91,11 @@ void doTransform(
 template<>
 inline
 void doTransform(
-  const autoware_auto_msgs::msg::DetectedObjectKinematics & t_in, autoware_auto_msgs::msg::DetectedObjectKinematics & t_out,
+  const autoware_auto_msgs::msg::DetectedObjectKinematics & t_in,
+  autoware_auto_msgs::msg::DetectedObjectKinematics & t_out,
   const geometry_msgs::msg::TransformStamped & transform)
 {
-  t_out = t_in; // Copy un-transformable fields
+  t_out = t_in;  // Copy un-transformable fields
   // Transform geometric fields
   doTransform(t_in.centroid_position, t_out.centroid_position, transform);
   doTransform(t_in.orientation, t_out.orientation, transform);
@@ -122,12 +121,14 @@ void doTransform(
 
     // This matrix represents the covariance of the object before transformation
     std::array<double, 36> input_covariance = {
-      xx, xy, xz,  0, 0, 0,
-      yx, yy, yz,  0, 0, 0,
-      zx, zy, zz,  0, 0, 0,
-      0,  0,  0,  1,  0, 0, // Since no covariance for the orientation is provided we will assume an identity relationship (1s on the diagonal)
-      0,  0,  0,  0,  1, 0,
-      0,  0,  0,  0,  0, 1
+      xx, xy, xz, 0, 0, 0,
+      yx, yy, yz, 0, 0, 0,
+      zx, zy, zz, 0, 0, 0,
+      // Since no covariance for the orientation is provided we will
+      // assume an identity relationship (1s on the diagonal)
+      0, 0, 0, 1, 0, 0,
+      0, 0, 0, 0, 1, 0,
+      0, 0, 0, 0, 0, 1
     };
 
     cov_pose_in.covariance = input_covariance;
@@ -161,7 +162,8 @@ void doTransform(
 template<>
 inline
 void doTransform(
-  const autoware_auto_msgs::msg::DetectedObject & t_in, autoware_auto_msgs::msg::DetectedObject & t_out,
+  const autoware_auto_msgs::msg::DetectedObject & t_in,
+  autoware_auto_msgs::msg::DetectedObject & t_out,
   const geometry_msgs::msg::TransformStamped & transform)
 {
   t_out = t_in;
@@ -192,7 +194,10 @@ tf2::TimePoint getTimestamp(const autoware_auto_msgs::msg::DetectedObjects & t)
  */
 template<>
 inline
-std::string getFrameId(const autoware_auto_msgs::msg::DetectedObjects & t) {return t.header.frame_id;}
+std::string getFrameId(const autoware_auto_msgs::msg::DetectedObjects & t)
+{
+  return t.header.frame_id;
+}
 
 /** \brief Apply a geometry_msgs TransformStamped to an autoware_auto_msgs DetectedObjects type.
  * This function is a specialization of the doTransform template defined in tf2/convert.h.
@@ -203,12 +208,13 @@ std::string getFrameId(const autoware_auto_msgs::msg::DetectedObjects & t) {retu
 template<>
 inline
 void doTransform(
-  const autoware_auto_msgs::msg::DetectedObjects & t_in, autoware_auto_msgs::msg::DetectedObjects & t_out,
+  const autoware_auto_msgs::msg::DetectedObjects & t_in,
+  autoware_auto_msgs::msg::DetectedObjects & t_out,
   const geometry_msgs::msg::TransformStamped & transform)
 {
   t_out = t_in;
 
-  for (size_t i=0; i < t_in.objects.size(); ++i) {
+  for (size_t i = 0; i < t_in.objects.size(); ++i) {
     doTransform(t_in.objects[i], t_out.objects[i], transform);
   }
 

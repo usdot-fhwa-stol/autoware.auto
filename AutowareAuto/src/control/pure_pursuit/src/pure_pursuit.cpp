@@ -14,15 +14,13 @@
 //
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
-#include <motion_common/motion_common.hpp>
-#include <time_utils/time_utils.hpp>
 #include <algorithm>
 #include <limits>
 #include <utility>
-#include "pure_pursuit/pure_pursuit.hpp"
-
-
 #include <iostream>
+#include <motion_common/motion_common.hpp>
+#include <time_utils/time_utils.hpp>
+#include "pure_pursuit/pure_pursuit.hpp"
 #include <rclcpp/rclcpp.hpp>
 
 namespace autoware
@@ -48,11 +46,13 @@ PurePursuit::PurePursuit(const Config & cfg)
   m_iterations(0U)
 {
   m_integrator_config = IntegratorConfig();
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("pure_pursuit_wrapper"), "Loaded PP Config:" << m_integrator_config);
+  RCLCPP_INFO_STREAM(
+    rclcpp::get_logger(
+      "pure_pursuit_wrapper"), "Loaded PP Config:" << m_integrator_config);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-PurePursuit::PurePursuit(const Config & cfg, const IntegratorConfig& i_cfg)
+PurePursuit::PurePursuit(const Config & cfg, const IntegratorConfig & i_cfg)
 : ControllerBase{::motion::control::controller_common::BehaviorConfig{
             3.0F,
             std::chrono::milliseconds{100LL},
@@ -64,7 +64,9 @@ PurePursuit::PurePursuit(const Config & cfg, const IntegratorConfig& i_cfg)
   m_integrator_config(i_cfg),
   m_iterations(0U)
 {
-  RCLCPP_INFO_STREAM(rclcpp::get_logger("pure_pursuit_wrapper"), "Loaded PP Config:" << m_integrator_config);
+  RCLCPP_INFO_STREAM(
+    rclcpp::get_logger(
+      "pure_pursuit_wrapper"), "Loaded PP Config:" << m_integrator_config);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -96,11 +98,10 @@ VehicleControlCommand PurePursuit::compute_command_impl(const TrajectoryPointSta
   ++m_iterations;
 
 
-  
   return m_command;
 }
 ////////////////////////////////////////////////////////////////////////////////
-void PurePursuit::setIntegratorConfig(const IntegratorConfig& i_cfg)
+void PurePursuit::setIntegratorConfig(const IntegratorConfig & i_cfg)
 {
   m_integrator_config = i_cfg;
 }
@@ -344,28 +345,28 @@ float32_t PurePursuit::compute_steering_rad(const TrajectoryPoint & current_poin
   const float32_t curvature = (denominator > epsilon) ? ((2.0F * numerator) / denominator) : 0.0F;
   float32_t steering_angle_rad = atanf(curvature * m_config.get_distance_front_rear_wheel());
 
-  if (m_integrator_config.is_integrator_enabled)
-  {
+  if (m_integrator_config.is_integrator_enabled) {
     // error=kappa*lookahead*lookahead/2;
     double error = curvature * denominator / 2;
 
     RCLCPP_DEBUG_STREAM(rclcpp::get_logger("pure_pursuit_wrapper"), "error integrator: " << error);
-      
+
     // Integral term
     m_integrator_config.integral += error * m_integrator_config.dt;
-    
-    RCLCPP_DEBUG_STREAM(rclcpp::get_logger("pure_pursuit_wrapper"), "Integral integrator: " << m_integrator_config.integral);
 
-    if (m_integrator_config.integral > m_integrator_config.integrator_max_pp){
-        m_integrator_config.integral = m_integrator_config.integrator_max_pp;
-    }
-    else if (m_integrator_config.integral < m_integrator_config.integrator_min_pp){
+    RCLCPP_DEBUG_STREAM(
+      rclcpp::get_logger(
+        "pure_pursuit_wrapper"), "Integral integrator: " << m_integrator_config.integral);
+
+    if (m_integrator_config.integral > m_integrator_config.integrator_max_pp) {
+      m_integrator_config.integral = m_integrator_config.integrator_max_pp;
+    } else if (m_integrator_config.integral < m_integrator_config.integrator_min_pp) {
       m_integrator_config.integral = m_integrator_config.integrator_min_pp;
     }
 
     double I_out = m_integrator_config.Ki_pp * m_integrator_config.integral;
 
-    RCLCPP_DEBUG_STREAM(rclcpp::get_logger("pure_pursuit_wrapper"), " I_out pp: " <<  I_out);
+    RCLCPP_DEBUG_STREAM(rclcpp::get_logger("pure_pursuit_wrapper"), " I_out pp: " << I_out);
 
     steering_angle_rad = steering_angle_rad + static_cast<float>(I_out);
   }
