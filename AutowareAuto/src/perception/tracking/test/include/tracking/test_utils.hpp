@@ -17,11 +17,11 @@
 #ifndef TRACKING__TEST_UTILS_HPP_
 #define TRACKING__TEST_UTILS_HPP_
 
+#include <vector>
 #include <tracking/projection.hpp>
 #include <autoware_auto_msgs/msg/classified_roi_array.hpp>
 #include <autoware_auto_msgs/msg/shape.hpp>
 #include <geometry_msgs/msg/point32.hpp>
-#include <vector>
 
 std::vector<geometry_msgs::msg::Point32> expand_shape_to_vector(
   const autoware_auto_msgs::msg::Shape & shape);

@@ -14,17 +14,16 @@
 #ifndef TRACKING__DETECTED_OBJECT_ASSOCIATOR_HPP_
 #define TRACKING__DETECTED_OBJECT_ASSOCIATOR_HPP_
 
+#include <experimental/optional>
+#include <map>
+#include <vector>
 #include <tracking/visibility_control.hpp>
-
 #include <autoware_auto_msgs/msg/detected_objects.hpp>
 #include <common/types.hpp>
 #include <hungarian_assigner/hungarian_assigner.hpp>
 #include <tracking/tracked_object.hpp>
 #include <tracking/tracker_types.hpp>
 
-#include <experimental/optional>
-#include <map>
-#include <vector>
 
 namespace autoware
 {
