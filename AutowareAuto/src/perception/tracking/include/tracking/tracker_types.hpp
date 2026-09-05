@@ -18,11 +18,11 @@
 #define TRACKING__TRACKER_TYPES_HPP_
 
 #include <Eigen/Core>
-#include <tracking/visibility_control.hpp>
-
 #include <limits>
 #include <unordered_set>
 #include <vector>
+#include <tracking/visibility_control.hpp>
+
 
 namespace autoware
 {

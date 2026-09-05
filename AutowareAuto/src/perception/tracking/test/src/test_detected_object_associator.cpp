@@ -15,10 +15,9 @@
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
 #include <gtest/gtest.h>
-
+#include <vector>
 #include <tracking/detected_object_associator.hpp>
 
-#include <vector>
 
 using TrackedObjects = autoware_auto_msgs::msg::TrackedObjects;
 using TrackedObject = autoware_auto_msgs::msg::TrackedObject;

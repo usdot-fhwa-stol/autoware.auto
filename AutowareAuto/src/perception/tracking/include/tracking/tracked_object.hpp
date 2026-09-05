@@ -21,6 +21,9 @@
 #ifndef TRACKING__TRACKED_OBJECT_HPP_
 #define TRACKING__TRACKED_OBJECT_HPP_
 
+#include <chrono>
+#include <cstddef>
+#include <vector>
 #include <autoware_auto_msgs/msg/detected_object.hpp>
 #include <autoware_auto_msgs/msg/detected_objects.hpp>
 #include <autoware_auto_msgs/msg/shape.hpp>
@@ -33,9 +36,6 @@
 #include <tracking/classification_tracker.hpp>
 #include <tracking/visibility_control.hpp>
 
-#include <chrono>
-#include <cstddef>
-#include <vector>
 
 namespace autoware
 {
@@ -123,7 +123,8 @@ private:
   common::types::float64_t m_default_variance = -1.0;
   /// Track class classifier.
   ClassificationTracker m_classifier;
-  public:
+
+public:
   /// Unfiltered orientation used to track objects
   geometry_msgs::msg::Quaternion unfiltered_orientation;
 };
