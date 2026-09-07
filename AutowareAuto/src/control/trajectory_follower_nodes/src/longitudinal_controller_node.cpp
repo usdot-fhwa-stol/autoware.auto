@@ -73,15 +73,12 @@ LongitudinalController::LongitudinalController(const rclcpp::NodeOptions & node_
     p.drive_state_offset_stop_dist = declare_parameter(
       "drive_state_offset_stop_dist", rclcpp::PARAMETER_DOUBLE).get<float64_t>();  // [m]
     // stopping
-    p.stopping_state_stop_dist =
-      // [m]
+    p.stopping_state_stop_dist =  // [m]
       declare_parameter("stopping_state_stop_dist", rclcpp::PARAMETER_DOUBLE).get<float64_t>();
     // stop
-    p.stopped_state_entry_vel =
-      // [m/s]
+    p.stopped_state_entry_vel =  // [m/s]
       declare_parameter("stopped_state_entry_vel", rclcpp::PARAMETER_DOUBLE).get<float64_t>();
-    p.stopped_state_entry_acc =
-      // [m/s²]
+    p.stopped_state_entry_acc =  // [m/s²]
       declare_parameter("stopped_state_entry_acc", rclcpp::PARAMETER_DOUBLE).get<float64_t>();
     // emergency
     p.emergency_state_overshoot_stop_dist = declare_parameter(
@@ -175,18 +172,18 @@ LongitudinalController::LongitudinalController(const rclcpp::NodeOptions & node_
     auto & p = m_stopped_state_params;
     p.vel = declare_parameter("stopped_vel", rclcpp::PARAMETER_DOUBLE).get<float64_t>();   // [m/s]
     p.acc = declare_parameter("stopped_acc", rclcpp::PARAMETER_DOUBLE).get<float64_t>();  // [m/s^2]
-    // [m/s^3]
-    p.jerk = declare_parameter("stopped_jerk", rclcpp::PARAMETER_DOUBLE).get<float64_t>();
+    p.jerk =  // [m/s^3]
+      declare_parameter("stopped_jerk", rclcpp::PARAMETER_DOUBLE).get<float64_t>();
   }
 
   // parameters for emergency state
   {
     auto & p = m_emergency_state_params;
     p.vel = declare_parameter("emergency_vel", rclcpp::PARAMETER_DOUBLE).get<float64_t>();  // [m/s]
-    // [m/s^2]
-    p.acc = declare_parameter("emergency_acc", rclcpp::PARAMETER_DOUBLE).get<float64_t>();
-    // [m/s^3]
-    p.jerk = declare_parameter("emergency_jerk", rclcpp::PARAMETER_DOUBLE).get<float64_t>();
+    p.acc =  // [m/s^2]
+      declare_parameter("emergency_acc", rclcpp::PARAMETER_DOUBLE).get<float64_t>();
+    p.jerk =  // [m/s^3]
+      declare_parameter("emergency_jerk", rclcpp::PARAMETER_DOUBLE).get<float64_t>();
   }
 
   // parameters for acceleration limit
@@ -205,10 +202,10 @@ LongitudinalController::LongitudinalController(const rclcpp::NodeOptions & node_
       "lpf_pitch_gain",
       rclcpp::PARAMETER_DOUBLE).get<float64_t>()};
   m_lpf_pitch = std::make_shared<trajectory_follower::LowpassFilter1d>(0.0, lpf_pitch_gain);
-  // [rad]
-  m_max_pitch_rad = declare_parameter("max_pitch_rad", rclcpp::PARAMETER_DOUBLE).get<float64_t>();
-  // [rad]
-  m_min_pitch_rad = declare_parameter("min_pitch_rad", rclcpp::PARAMETER_DOUBLE).get<float64_t>();
+  m_max_pitch_rad =  // [rad]
+    declare_parameter("max_pitch_rad", rclcpp::PARAMETER_DOUBLE).get<float64_t>();
+  m_min_pitch_rad =  // [rad]
+    declare_parameter("min_pitch_rad", rclcpp::PARAMETER_DOUBLE).get<float64_t>();
 
   // subscriber, publisher
   m_sub_current_state = create_subscription<autoware_auto_msgs::msg::VehicleKinematicState>(
