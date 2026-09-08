@@ -17,19 +17,19 @@
 #ifndef TRACKING__PROJECTION_HPP_
 #define TRACKING__PROJECTION_HPP_
 
+#include <Eigen/Geometry>
+#include <experimental/optional>
+#include <list>
+#include <algorithm>
+#include <vector>
 #include <autoware_auto_msgs/msg/shape.hpp>
 #include <common/types.hpp>
 #include <geometry_msgs/msg/polygon.hpp>
 #include <geometry_msgs/msg/transform.hpp>
 #include <geometry/convex_hull.hpp>
 #include <geometry/common_2d.hpp>
-#include <Eigen/Geometry>
 #include <geometry/interval.hpp>
-#include <experimental/optional>
 #include <tracking/visibility_control.hpp>
-#include <list>
-#include <algorithm>
-#include <vector>
 
 namespace autoware
 {

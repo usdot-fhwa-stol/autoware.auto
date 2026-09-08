@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <vector>
 #include "trajectory_follower/lowpass_filter.hpp"
 
-#include <vector>
 
 namespace autoware
 {

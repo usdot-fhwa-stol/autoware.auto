@@ -1,27 +1,25 @@
-/*
- * Copyright (C) 2022 LEIDOS.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
+// Copyright 2022 Leidos
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 
 #include <gtest/gtest.h>
 #include <tf2_ros/buffer.h>
 #include <tf2_ros/transform_listener.h>
+#include <memory>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include <autoware_auto_tf2/tf2_autoware_auto_msgs_extension.hpp>
 #include <rclcpp/clock.hpp>
-#include <memory>
 
 // Forward declare filled_transform
 geometry_msgs::msg::TransformStamped filled_transfom();
@@ -56,7 +54,7 @@ TEST(Tf2AutowareAuto, DoTransformShape)
 TEST(Tf2AutowareAuto, DoTransformDetectedObjectKinematics)
 {
   const auto trans = filled_transfom();
-  autoware_auto_msgs::msg::DetectedObjectKinematics  dok;
+  autoware_auto_msgs::msg::DetectedObjectKinematics dok;
   dok.orientation.w = 0;
   dok.orientation.x = 0;
   dok.orientation.y = 0;
@@ -98,7 +96,6 @@ TEST(Tf2AutowareAuto, DoTransformDetectedObjectKinematics)
   EXPECT_EQ(dok_out.orientation_availability, dok.orientation_availability);
   EXPECT_EQ(dok_out.has_twist, dok.has_twist);
   EXPECT_EQ(dok_out.has_twist_covariance, dok.has_twist_covariance);
-
 }
 
 TEST(Tf2AutowareAuto, TransformDetectedObject)
@@ -164,7 +161,6 @@ TEST(Tf2AutowareAuto, TransformDetectedObject)
 
   // Object fields
   EXPECT_EQ(obj_out.existence_probability, obj.existence_probability);
-
 }
 
 TEST(Tf2AutowareAuto, TransformDetectedObjects)

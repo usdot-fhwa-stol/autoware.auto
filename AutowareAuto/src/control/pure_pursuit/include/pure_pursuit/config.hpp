@@ -16,9 +16,9 @@
 #ifndef PURE_PURSUIT__CONFIG_HPP_
 #define PURE_PURSUIT__CONFIG_HPP_
 
+#include <iostream>
 #include <pure_pursuit/visibility_control.hpp>
 #include <common/types.hpp>
-#include <iostream>
 
 using autoware::common::types::bool8_t;
 using autoware::common::types::float32_t;
@@ -41,8 +41,8 @@ struct PURE_PURSUIT_PUBLIC IntegratorConfig
   double Ki_pp = 0.0;
   double integral = 0.0;
   bool is_integrator_enabled = false;
-  
-  friend std::ostream& operator<<(std::ostream& output, const IntegratorConfig& c)
+
+  friend std::ostream & operator<<(std::ostream & output, const IntegratorConfig & c)
   {
     output << "IntegratorConfig { " << std::endl
            << "dt: " << c.dt << std::endl

@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "trajectory_follower/qp_solver/qp_solver_osqp.hpp"
-
 #include <string>
 #include <vector>
+#include "trajectory_follower/qp_solver/qp_solver_osqp.hpp"
+
 
 namespace autoware
 {
