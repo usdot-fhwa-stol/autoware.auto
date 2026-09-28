@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "trajectory_follower/mpc_utils.hpp"
-
 #include <algorithm>
 #include <limits>
 #include <string>
 #include <vector>
+#include "trajectory_follower/mpc_utils.hpp"
+
 
 namespace autoware
 {

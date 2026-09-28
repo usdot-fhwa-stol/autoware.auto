@@ -22,6 +22,8 @@ from launch.substitutions import EnvironmentVariable
 from carma_ros2_utils.launch.get_current_namespace import GetCurrentNamespace
 from carma_ros2_utils.launch.get_log_level import GetLogLevel
 from ament_index_python import get_package_share_directory
+from launch.substitutions import LaunchConfiguration
+from launch.actions import DeclareLaunchArgument
 
 import os
 
@@ -33,6 +35,14 @@ point_cloud_fusion_node_param_file = os.path.join(point_cloud_fusion_node_pkg_pr
 
 
 def generate_launch_description():
+    # Declare the global_params_override_file launch argument
+    # Parameters in this file will override any parameters loaded in their respective packages
+    global_params_override_file = LaunchConfiguration('global_params_override_file')
+    declare_global_params_override_file_arg = DeclareLaunchArgument(
+        name = 'global_params_override_file',
+        default_value = ["/opt/carma/vehicle/config/GlobalParamsOverride.yaml"],
+        description = "Path to global file containing the parameters overwrite"
+    )
 
     point_cloud_fusion_container = ComposableNodeContainer(
         package='carma_ros2_utils',
@@ -44,7 +54,7 @@ def generate_launch_description():
                 package='point_cloud_fusion_nodes',
                 plugin='autoware::perception::filters::point_cloud_fusion_nodes::PointCloudFusionNode',
                 name='point_cloud_fusion_node',
-                parameters=[point_cloud_fusion_node_param_file],
+                parameters=[point_cloud_fusion_node_param_file, global_params_override_file],
                 extra_arguments=[
                     {'use_intra_process_comms': True},
                     {'--log-level' : GetLogLevel('point_cloud_fusion_nodes', env_log_levels) },
@@ -60,6 +70,7 @@ def generate_launch_description():
                 package='point_type_adapter',
                 plugin='autoware::tools::point_type_adapter::PointTypeAdapterNode',
                 name='velodyne_1_point_type_adapter_node',
+                parameters=[global_params_override_file],
                 extra_arguments=[
                     {'use_intra_process_comms': True},
                     {'--log-level' : GetLogLevel('point_type_adapter', env_log_levels) },
@@ -71,6 +82,7 @@ def generate_launch_description():
                 package='point_type_adapter',
                 plugin='autoware::tools::point_type_adapter::PointTypeAdapterNode',
                 name='velodyne_2_point_type_adapter_node',
+                parameters=[global_params_override_file],
                 extra_arguments=[
                     {'use_intra_process_comms': True},
                     {'--log-level' : GetLogLevel('point_type_adapter', env_log_levels) },
@@ -81,4 +93,6 @@ def generate_launch_description():
         ]
     )
 
-    return launch.LaunchDescription([point_cloud_fusion_container])
+    return launch.LaunchDescription([
+        declare_global_params_override_file_arg,
+        point_cloud_fusion_container])

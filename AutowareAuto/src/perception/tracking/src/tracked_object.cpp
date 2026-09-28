@@ -14,15 +14,13 @@
 //
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
+#include <Eigen/Core>
+#include <algorithm>
+#include <stdexcept>
 #include "tracking/tracked_object.hpp"
-
 #include <measurement_conversion/measurement_conversion.hpp>
 #include <measurement_conversion/measurement_typedefs.hpp>
 
-#include <Eigen/Core>
-
-#include <algorithm>
-#include <stdexcept>
 
 namespace autoware
 {

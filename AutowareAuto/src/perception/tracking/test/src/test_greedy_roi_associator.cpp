@@ -14,11 +14,11 @@
 //
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
-#include "tracking/test_utils.hpp"
 #include <gtest/gtest.h>
+#include <vector>
+#include "tracking/test_utils.hpp"
 #include <tracking/greedy_roi_associator.hpp>
 #include <tracking/projection.hpp>
-#include <vector>
 
 using autoware::perception::tracking::TrackedObject;
 using autoware::perception::tracking::TrackedObjects;

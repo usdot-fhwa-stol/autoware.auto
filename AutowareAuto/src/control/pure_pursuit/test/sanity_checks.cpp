@@ -15,13 +15,11 @@
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
 #include <gtest/gtest.h>
+#include <algorithm>
 #include <motion_testing/motion_testing.hpp>
 #include <osrf_testing_tools_cpp/memory_tools/memory_tools.hpp>
 #include <time_utils/time_utils.hpp>
 #include <common/types.hpp>
-
-#include <algorithm>
-
 #include "pure_pursuit/pure_pursuit.hpp"
 
 using motion::motion_testing::constant_velocity_trajectory;
@@ -99,7 +97,7 @@ INSTANTIATE_TEST_CASE_P(
     StraightTestParam{3.0F, 4.0F, false},
     StraightTestParam{-5.0F, 12.0F, false}
     // cppcheck-suppress syntaxError
-  ));
+));
 
 // oriented_straight: exercise some basic transform stuff
 //      ^
@@ -141,7 +139,7 @@ INSTANTIATE_TEST_CASE_P(
     StraightTestParam{0.0F, 0.0F, true},
     StraightTestParam{3.0F, 4.0F, true},
     StraightTestParam{-5.0F, 12.0F, true}
-  ));
+));
 
 // Orthogonal orientation: easy to compute offset for
 // Double slashes on the right to avoid -Wcomment warnings
@@ -178,7 +176,7 @@ INSTANTIATE_TEST_CASE_P(
   ::testing::Values(
     StraightTestParam{0.0F, 5.0F, false},
     StraightTestParam{0.0F, 5.0F, true}
-  ));
+));
 
 
 // A track which curves like (ellipsoid):

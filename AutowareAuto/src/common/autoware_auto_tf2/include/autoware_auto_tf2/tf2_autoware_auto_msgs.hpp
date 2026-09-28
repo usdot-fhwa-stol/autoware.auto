@@ -19,6 +19,7 @@
 
 #include <tf2/convert.h>
 #include <tf2/time.h>
+#include <string>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include <autoware_auto_msgs/msg/bounding_box_array.hpp>
 #include <autoware_auto_msgs/msg/bounding_box.hpp>
@@ -28,7 +29,6 @@
 #include <geometry_msgs/msg/point32.hpp>
 #include <kdl/frames.hpp>
 #include <common/types.hpp>
-#include <string>
 
 
 using autoware::common::types::float32_t;

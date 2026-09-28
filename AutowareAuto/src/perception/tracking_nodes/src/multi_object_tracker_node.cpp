@@ -17,13 +17,7 @@
 /**
  * Modification Copyright (C) Leidos 2022
  *  - Removed && result.maybe_roi_stamps check from detected objects callback as it was never being set
- */ 
-
-#include <tracking_nodes/multi_object_tracker_node.hpp>
-
-#include <rclcpp_components/register_node_macro.hpp>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
-#include <time_utils/time_utils.hpp>
+ */
 
 #include <cstddef>
 #include <cstdint>
@@ -31,6 +25,10 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <tracking_nodes/multi_object_tracker_node.hpp>
+#include <rclcpp_components/register_node_macro.hpp>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
+#include <time_utils/time_utils.hpp>
 
 
 namespace autoware

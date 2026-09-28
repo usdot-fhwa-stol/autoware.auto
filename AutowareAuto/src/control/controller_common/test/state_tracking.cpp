@@ -11,14 +11,13 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+#include <chrono>
+#include <utility>
 #include <apex_test_tools/apex_test_tools.hpp>
-
 #include <controller_common/controller_base.hpp>
 #include <motion_testing/motion_testing.hpp>
 #include <time_utils/time_utils.hpp>
 
-#include <chrono>
-#include <utility>
 
 using motion::control::controller_common::State;
 using motion::control::controller_common::Command;
