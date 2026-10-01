@@ -13,11 +13,9 @@
 // limitations under the License.
 
 
-#include <trajectory_follower_nodes/lateral_controller_node.hpp>
-
 #include <memory>
 #include <vector>
-
+#include <trajectory_follower_nodes/lateral_controller_node.hpp>
 #include "ament_index_cpp/get_package_share_directory.hpp"
 #include "autoware_auto_msgs/msg/trajectory.hpp"
 #include "autoware_auto_msgs/msg/ackermann_lateral_command.hpp"

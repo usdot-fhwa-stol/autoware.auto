@@ -14,12 +14,12 @@
 #ifndef CONTROLLER_COMMON__CONTROLLER_BASE_HPP_
 #define CONTROLLER_COMMON__CONTROLLER_BASE_HPP_
 
+#include <chrono>
+#include <string>
 #include <controller_common/visibility_control.hpp>
 #include <motion_common/motion_common.hpp>
 #include <motion_model/differential_drive_motion_model.hpp>
 
-#include <chrono>
-#include <string>
 
 #define CONTROLLER_COMMON_COPY_MOVE_ASSIGNABLE(Class) \
   Class(const Class &) = default; \

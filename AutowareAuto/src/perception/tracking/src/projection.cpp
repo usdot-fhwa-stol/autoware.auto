@@ -14,11 +14,11 @@
 
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
+#include <algorithm>
+#include <vector>
 #include <tracking/projection.hpp>
 #include <geometry/intersection.hpp>
 #include <geometry/common_2d.hpp>
-#include <algorithm>
-#include <vector>
 
 namespace autoware
 {
