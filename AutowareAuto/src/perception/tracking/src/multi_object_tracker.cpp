@@ -14,16 +14,15 @@
 //
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
+#include <algorithm>
+#include <cmath>
+#include <memory>
 #include <tracking/multi_object_tracker.hpp>
-
 #include <autoware_auto_tf2/tf2_autoware_auto_msgs.hpp>
 #include <geometry_msgs/msg/quaternion.hpp>
 #include <tf2_eigen/tf2_eigen.hpp>
 #include <time_utils/time_utils.hpp>
 
-#include <algorithm>
-#include <cmath>
-#include <memory>
 
 using autoware::common::types::float64_t;
 
@@ -235,9 +234,12 @@ MultiObjectTracker::DetectedObjectsMsg MultiObjectTracker::transform(
     const Eigen::Vector3d centroid_tracking = tf__tracking__detection * centroid_detection;
     detection.kinematics.centroid_position = tf2::toMsg(centroid_tracking);
 
-    // TODO taken from autoware.auto commit 670f0fae65c34280418bb6adf51fd7cca21b0baf 
-    // This if block can be removed when the whole autoware.auto fork is updated to the latest version
-    if (detection.kinematics.orientation_availability != autoware_auto_msgs::msg::DetectedObjectKinematics::UNAVAILABLE) {
+    // TODO(carma): taken from autoware.auto commit 670f0fae65c34280418bb6adf51fd7cca21b0baf
+    // This if block can be removed when the whole autoware.auto fork is updated to the
+    // latest version
+    if (detection.kinematics.orientation_availability !=
+      autoware_auto_msgs::msg::DetectedObjectKinematics::UNAVAILABLE)
+    {
       geometry_msgs::msg::QuaternionStamped q_out;
       // Use quaternion stamped because there is no doTransform for quaternion even though
       // stamp of QuaternionStamped is not being used for anything

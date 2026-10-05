@@ -17,12 +17,12 @@
 #ifndef PURE_PURSUIT__PURE_PURSUIT_HPP_
 #define PURE_PURSUIT__PURE_PURSUIT_HPP_
 
+#include <utility>
 #include <autoware_auto_msgs/msg/trajectory.hpp>
 #include <autoware_auto_msgs/msg/trajectory_point.hpp>
 #include <autoware_auto_msgs/msg/vehicle_kinematic_state.hpp>
 #include <autoware_auto_msgs/msg/vehicle_control_command.hpp>
 #include <controller_common/controller_base.hpp>
-#include <utility>
 #include "pure_pursuit/config.hpp"
 
 namespace autoware
@@ -52,11 +52,11 @@ public:
   /// \brief Default constructor
   /// \param[in] cfg Pure pursuit configuration parameters
   /// \param[in] i_cfg Pure pursuit Integrator configuration parameters
-  explicit PurePursuit(const Config & cfg, const IntegratorConfig& i_cfg);
+  explicit PurePursuit(const Config & cfg, const IntegratorConfig & i_cfg);
 
   /// \brief Modify Integrator Config and its values
   /// \param[in] i_cfg Pure pursuit Integrator configuration parameters
-  void setIntegratorConfig(const IntegratorConfig& i_cfg);
+  void setIntegratorConfig(const IntegratorConfig & i_cfg);
 
 protected:
   /// \brief Compute the vehicle command based on the current pose and the given trajectory.

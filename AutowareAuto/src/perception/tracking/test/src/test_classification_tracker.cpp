@@ -15,13 +15,12 @@
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
 
+#include <gtest/gtest.h>
+#include <chrono>
+#include <vector>
 #include <autoware_auto_msgs/msg/detected_object.hpp>
 #include <tracking/classification_tracker.hpp>
 
-#include <gtest/gtest.h>
-
-#include <chrono>
-#include <vector>
 
 using autoware::perception::tracking::ClassificationTracker;
 using autoware_auto_msgs::msg::DetectedObject;

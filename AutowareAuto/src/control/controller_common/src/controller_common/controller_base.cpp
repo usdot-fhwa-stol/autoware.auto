@@ -12,15 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "controller_common/controller_base.hpp"
-
-#include <time_utils/time_utils.hpp>
-
 #include <algorithm>
 #include <memory>
 #include <stdexcept>
 #include <string>
 #include <utility>
+#include "controller_common/controller_base.hpp"
+#include <time_utils/time_utils.hpp>
+
 
 namespace motion
 {
@@ -108,7 +107,6 @@ const Trajectory & ControllerBase::get_reference_trajectory() const noexcept
 ////////////////////////////////////////////////////////////////////////////////
 Command ControllerBase::compute_command(const State & state)
 {
-
   if (m_reference_trajectory.points.empty()) {
     return compute_stop_command(state);
   }

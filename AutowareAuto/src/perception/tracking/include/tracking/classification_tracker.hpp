@@ -17,6 +17,8 @@
 #ifndef TRACKING__CLASSIFICATION_TRACKER_HPP_
 #define TRACKING__CLASSIFICATION_TRACKER_HPP_
 
+#include <iostream>
+#include <limits>
 #include <autoware_auto_msgs/msg/detected_object.hpp>
 #include <autoware_auto_msgs/msg/object_classification.hpp>
 #include <helper_functions/float_comparisons.hpp>
@@ -26,8 +28,6 @@
 #include <tracking/track_class_variable.hpp>
 #include <tracking/visibility_control.hpp>
 
-#include <iostream>
-#include <limits>
 
 namespace autoware
 {

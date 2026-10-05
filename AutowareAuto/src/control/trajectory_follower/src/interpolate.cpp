@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "trajectory_follower/interpolate.hpp"
-
 #include <algorithm>
 #include <limits>
 #include <vector>
+#include "trajectory_follower/interpolate.hpp"
+
 
 /*
  * linear interpolation

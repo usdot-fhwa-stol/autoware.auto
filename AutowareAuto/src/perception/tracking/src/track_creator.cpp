@@ -14,14 +14,14 @@
 //
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
-#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
-#include <time_utils/time_utils.hpp>
-#include <tracking/track_creator.hpp>
-
 #include <functional>
 #include <memory>
 #include <set>
 #include <vector>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
+#include <time_utils/time_utils.hpp>
+#include <tracking/track_creator.hpp>
+
 
 namespace autoware
 {
@@ -112,11 +112,11 @@ void LidarClusterIfVisionPolicy::create_using_cache(
   const VisionCache & vision_cache,
   TrackCreationResult & creator_ret)
 {
-  // For foxy time has to be initialized explicitly with sec, nanosec constructor to use the
-  // correct clock source when querying message_filters::cache.
+  // message_filters::Cache stores stamps as rclcpp::Time built from the message header, which
+  // uses RCL_ROS_TIME. The clock source has to match or the comparison in getInterval() throws.
   // Refer: https://github.com/ros2/message_filters/issues/32
   const rclcpp::Time t{m_lidar_clusters.header.stamp.sec,
-    m_lidar_clusters.header.stamp.nanosec};
+    m_lidar_clusters.header.stamp.nanosec, RCL_ROS_TIME};
   const auto before = t - m_cfg.max_vision_lidar_timestamp_diff;
   const auto after = t + m_cfg.max_vision_lidar_timestamp_diff;
   const auto vision_msg_matches = vision_cache.getInterval(before, after);

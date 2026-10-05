@@ -14,15 +14,14 @@
 //
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
+#include <algorithm>
+#include <limits>
+#include <vector>
 #include <tracking/detected_object_associator.hpp>
-
 #include <common/types.hpp>
 #include <geometry/common_2d.hpp>
 #include <helper_functions/mahalanobis_distance.hpp>
 
-#include <algorithm>
-#include <limits>
-#include <vector>
 
 namespace autoware
 {

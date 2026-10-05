@@ -50,9 +50,9 @@ def generate_test_description():
 class TestProcessOutput(unittest.TestCase):
 
     def test_exit_code(self, proc_output, proc_info, lateral_controller_node):
-        # Check that process exits with code -15 code: termination request, sent to the program
+        # Check that process exits on SIGINT (-2) or SIGTERM (-15): launch sends SIGINT first
         launch_testing.asserts.assertExitCodes(
             proc_info,
-            [-15],
+            [-15, -2],
             process=lateral_controller_node
         )

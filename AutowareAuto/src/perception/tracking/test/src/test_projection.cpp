@@ -15,15 +15,15 @@
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
 #include <gtest/gtest.h>
+#include <algorithm>
+#include <limits>
+#include <vector>
 #include <tracking/projection.hpp>
 #include <autoware_auto_msgs/msg/shape.hpp>
 #include <geometry_msgs/msg/point32.hpp>
 #include <tracking/test_utils.hpp>
 #include <tf2_eigen/tf2_eigen.hpp>
 #include <tracking/greedy_roi_associator.hpp>
-#include <algorithm>
-#include <limits>
-#include <vector>
 
 using Shape = autoware_auto_msgs::msg::Shape;
 using Polygon = Shape::_polygon_type;

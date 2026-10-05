@@ -14,12 +14,12 @@
 
 // Co-developed by Tier IV, Inc. and Apex.AI, Inc.
 
+#include <gtest/gtest.h>
+#include <vector>
 #include <autoware_auto_msgs/msg/shape.hpp>
 #include <geometry/common_2d.hpp>
 #include <geometry_msgs/msg/point32.hpp>
-#include <gtest/gtest.h>
 #include <tracking/test_utils.hpp>
-#include <vector>
 
 using autoware::common::geometry::point_adapter::x_;
 using autoware::common::geometry::point_adapter::y_;
